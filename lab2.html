@@ -1,26 +1,128 @@
-<!DOCTYPE html>
+```html
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Probability & Statistics Lab Codes</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Probability & Statistics Lab — Codes with Explanations</title>
+
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; line-height: 1.6; }
-    h1 { color: #2c3e50; }
-    h2 { color: #34495e; margin-top: 30px; }
-    pre { background: #eef; padding: 12px; border-left: 4px solid #3498db; overflow-x: auto; }
-    p { margin: 10px 0; }
-    .section { margin-bottom: 50px; }
+:root{
+  --card:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.18);
+  --blue:#38bdf8;
+  --violet:#a78bfa;
+  --pink:#f472b6;
+  --text:#e5e7eb;
+}
+
+*{box-sizing:border-box;}
+html,body{height:100%;margin:0;padding:0;}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:#020617;
+  color:var(--text);
+}
+
+/* ===== BACKGROUND (unchanged) ===== */
+canvas#statsBG{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+
+.bg-overlay{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(56,189,248,.12), transparent 55%),
+    radial-gradient(circle at 80% 75%, rgba(167,139,250,.10), transparent 55%);
+  z-index:-1;
+}
+
+/* ===== CONTENT ===== */
+section{
+  max-width:1100px;
+  margin:auto;
+  padding:80px 30px;
+}
+
+h1{
+  font-size:28px;
+  margin:0 0 8px 0;
+  color:#fff;
+}
+.header-sub { color:#bcd3ee; margin:0 0 18px 0; }
+
+h2{
+  font-size:36px;
+  text-align:center;
+  background:linear-gradient(90deg,var(--blue),var(--violet),var(--pink));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:36px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:28px;
+  margin-bottom:28px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+}
+
+.card h3{
+  font-size:20px;
+  margin:0 0 10px 0;
+  color:#f1f7ff;
+}
+
+p,li{
+  font-size:15px;
+  line-height:1.7;
+  color:#dbeafe;
+}
+
+pre {
+  background:#07102a;
+  color:#cfe0ff;
+  padding:14px;
+  border-radius:8px;
+  overflow:auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+  font-size:0.95rem;
+  line-height:1.45;
+  border:1px solid rgba(255,255,255,0.04);
+  margin:12px 0;
+}
+
+/* small caption style */
+.caption { color:#bcd3ee; font-size:0.92rem; margin-top:6px; }
+
+/* Responsive */
+@media(max-width:820px){
+  section{padding:40px 18px;}
+  h2{font-size:30px;}
+  .card{padding:18px;}
+}
   </style>
 </head>
 <body>
+  <canvas id="statsBG" aria-hidden="true"></canvas>
+  <div class="bg-overlay" aria-hidden="true"></div>
 
-  <h1>Probability & Statistics Lab Codes with Explanations</h1>
+  <section>
+    <header style="text-align:left; margin-bottom:18px;">
+      <h1>Probability &amp; Statistics Lab — Codes with Explanations</h1>
+      <p class="header-sub">Five example lab codes with short explanations and optional variations. Copy the Python snippets into a .py file and run after installing required packages.</p>
+    </header>
 
-  <!-- Normal Distribution -->
-  <div class="section">
-    <h2>1. Normal Distribution – Acres Burned</h2>
-    <pre>
-import numpy as np
+    <article class="card" id="normal">
+      <h3>1. Normal Distribution — Acres Burned</h3>
+      <pre><code>import numpy as np
 from scipy.stats import norm
 
 mu = 4300   # mean
@@ -33,22 +135,14 @@ p1 = norm.cdf(x2, mu, sigma)
 p2 = norm.cdf(x1, mu, sigma)
 
 probability = p1 - p2
-print(f"Probability: {probability:.4f}")
-    </pre>
-    <p><strong>Explanation:</strong> 
-      - This code calculates the probability that acres burned fall between 2500 and 4200.  
-      - <code>norm.cdf</code> gives the cumulative probability up to a point.  
-      - Subtracting gives the probability between two bounds.  
-      - Result ≈ 0.4358 (43.58%).  
-    </p>
-    <p><strong>Extra Variation:</strong> You could use <code>norm.sf()</code> (survival function) for upper tail probabilities.</p>
-  </div>
+print(f"Probability: {probability:.4f}")</code></pre>
+      <p class="caption"><strong>Explanation:</strong> This computes P(2500 ≤ X ≤ 4200) for X ~ N(4300, 750²). <code>norm.cdf</code> returns cumulative probability up to a point; subtracting two CDF values gives the probability between bounds. Typical result ≈ 0.4358 (43.58%).</p>
+      <p class="caption"><strong>Extra variation:</strong> use <code>norm.sf</code> for upper-tail probabilities or compute z-scores manually with <code>(x-mu)/sigma</code>.</p>
+    </article>
 
-  <!-- Discrete Distribution -->
-  <div class="section">
-    <h2>2. Discrete Distribution – Find k, Mean, Variance</h2>
-    <pre>
-import numpy as np
+    <article class="card" id="discrete">
+      <h3>2. Discrete Distribution — Find k, Mean, Variance</h3>
+      <pre><code>import numpy as np
 
 x_values = np.array([-2, -1, 0, 1, 2])
 p_values = np.array([1/8, 2/8, None, 2/8, 1/8])
@@ -67,23 +161,14 @@ p_range = p_values[1] + p_values[2] + p_values[3] + p_values[4]
 print(f"k: {k:.3f}")
 print(f"Mean: {mean:.3f}")
 print(f"Variance: {variance:.3f}")
-print(f"P(-1 < x ≤ 2): {p_range:.3f}")
-    </pre>
-    <p><strong>Explanation:</strong> 
-      - Ensures probabilities sum to 1 by solving for <code>k</code>.  
-      - Mean = expected value of X.  
-      - Variance = spread of distribution.  
-      - Range probability adds up probabilities for -1 < x ≤ 2.  
-      - Results: k=0.25, Mean=2, Variance=1.5, Probability=0.625.  
-    </p>
-    <p><strong>Extra Variation:</strong> Use <code>np.dot(x_values, p_values)</code> for mean directly.</p>
-  </div>
+print(f"P(-1 < x ≤ 2): {p_range:.3f}")</code></pre>
+      <p class="caption"><strong>Explanation:</strong> Solve for missing probability so total = 1, then compute expected value and variance using definitions. The range probability sums the relevant probabilities. Example results: k = 0.25, mean = 0, variance = 1.5, P(-1 &lt; X ≤ 2) = 0.625.</p>
+      <p class="caption"><strong>Extra variation:</strong> use <code>np.dot(x_values, p_values)</code> for mean and <code>np.var(..., ddof=0)</code> or sample variance with <code>ddof=1</code> as needed.</p>
+    </article>
 
-  <!-- Poisson Distribution -->
-  <div class="section">
-    <h2>3. Poisson Distribution – Failures</h2>
-    <pre>
-from scipy.stats import poisson
+    <article class="card" id="poisson">
+      <h3>3. Poisson Distribution — Failures</h3>
+      <pre><code>from scipy.stats import poisson
 
 lambda_1h = 0.02  # average failures per hour
 
@@ -94,21 +179,13 @@ p_no_fail_8h = poisson.pmf(0, lambda_1h * 8)
 p_at_least_1_24h = 1 - poisson.pmf(0, lambda_1h * 24)
 
 print(f"No failure (8h): {p_no_fail_8h:.4f}")
-print(f"At least one failure (24h): {p_at_least_1_24h:.4f}")
-    </pre>
-    <p><strong>Explanation:</strong> 
-      - Poisson models rare events.  
-      - <code>pmf(0)</code> gives probability of zero events.  
-      - Subtract from 1 to get probability of at least one event.  
-    </p>
-    <p><strong>Extra Variation:</strong> Use <code>poisson.cdf(k, λ)</code> for cumulative probabilities.</p>
-  </div>
+print(f"At least one failure (24h): {p_at_least_1_24h:.4f}")</code></pre>
+      <p class="caption"><strong>Explanation:</strong> Poisson models rare events with mean λ. <code>pmf(0, λ)</code> gives probability of zero events; subtract from 1 to get probability of at least one event. Use <code>poisson.cdf</code> for cumulative queries.</p>
+    </article>
 
-  <!-- Binomial Distribution -->
-  <div class="section">
-    <h2>4. Binomial Distribution – Coin Toss Fit</h2>
-    <pre>
-import numpy as np
+    <article class="card" id="binomial">
+      <h3>4. Binomial Distribution — Coin Toss Fit</h3>
+      <pre><code>import numpy as np
 from scipy.stats import binom
 
 x = np.arange(0, 9)
@@ -123,22 +200,14 @@ expected_freq = pmf * total_throws
 
 print("x\tObserved\tExpected")
 for x_, o, e in zip(x, observed_freq, expected_freq):
-    print(f"{x_}\t{o}\t{e:.2f}")
-    </pre>
-    <p><strong>Explanation:</strong> 
-      - Fits binomial distribution to coin toss data.  
-      - <code>binom.pmf</code> gives probability of each outcome.  
-      - Expected frequencies = probability × total trials.  
-      - Compares observed vs expected.  
-    </p>
-    <p><strong>Extra Variation:</strong> Use <code>binom.rvs(n, p, size=1000)</code> to simulate coin tosses.</p>
-  </div>
+    print(f"{x_}\t{o}\t{e:.2f}")</code></pre>
+      <p class="caption"><strong>Explanation:</strong> Fit a Binomial(n=8, p=0.5) model to observed counts. <code>binom.pmf</code> returns probabilities for each k; multiply by total trials to get expected counts and compare to observed.</p>
+      <p class="caption"><strong>Extra variation:</strong> simulate data with <code>binom.rvs(n, p, size=1000)</code> and compare empirical frequencies.</p>
+    </article>
 
-  <!-- Hypothesis Testing -->
-  <div class="section">
-    <h2>5. Hypothesis Testing – Lung Capacity</h2>
-    <pre>
-from scipy.stats import ttest_ind
+    <article class="card" id="hypothesis">
+      <h3>5. Hypothesis Testing — Lung Capacity (Two-sample t-test)</h3>
+      <pre><code>from scipy.stats import ttest_ind
 
 male_lungcap = df[df['Gender'] == 'male']['LungCap']
 female_lungcap = df[df['Gender'] == 'female']['LungCap']
@@ -151,16 +220,59 @@ print(f"P-value: {p_value:.4f}")
 if p_value < 0.05:
     print("Reject H₀: Significant difference.")
 else:
-    print("Fail to reject H₀: No significant difference.")
-    </pre>
-    <p><strong>Explanation:</strong> 
-      - Performs two-sample t-test.  
-      - Null hypothesis: no difference in means.  
-      - If p-value < 0.05, reject null → significant difference.  
-      - Result: males and females differ significantly in lung capacity.  
-    </p>
-    <p><strong>Extra Variation:</strong> Use <code>ttest_rel</code> for paired samples, or <code>anova</code> for multiple groups.</p>
-  </div>
+    print("Fail to reject H₀: No significant difference.")</code></pre>
+      <p class="caption"><strong>Explanation:</strong> Two-sample t-test (Welch's t-test when <code>equal_var=False</code>) compares group means. Null hypothesis: means equal. If p &lt; 0.05, reject H₀ and conclude a significant difference. For paired data use <code>ttest_rel</code>; for >2 groups use ANOVA.</p>
+    </article>
 
+    <article class="card" id="requirements">
+      <h3>Requirements &amp; Quick Notes</h3>
+      <ul>
+        <li>Install required packages: <code>pip install numpy pandas scipy</code> (and <code>matplotlib</code> or <code>seaborn</code> if you plan to plot).</li>
+        <li>Replace example arrays or load your CSVs (e.g., <code>marks.csv</code>, <code>diamonds.csv</code>) to analyze real data.</li>
+        <li>For reproducible results, set a random seed when simulating: <code>np.random.seed(42)</code>.</li>
+      </ul>
+    </article>
+  </section>
+
+  <script>
+  // Decorative background drawing (non-blocking).
+  (function() {
+    try {
+      const canvas = document.getElementById('statsBG');
+      if (!canvas || !canvas.getContext) return;
+      const ctx = canvas.getContext('2d');
+      function resize() {
+        canvas.width = window.innerWidth || document.documentElement.clientWidth;
+        canvas.height = window.innerHeight || document.documentElement.clientHeight;
+      }
+      window.addEventListener('resize', resize, { passive: true });
+      resize();
+      let rafId = null;
+      function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        const w = canvas.width, h = canvas.height;
+        const grd = ctx.createRadialGradient(w*0.2, h*0.2, 0, w*0.2, h*0.2, Math.max(w,h)*0.8);
+        grd.addColorStop(0, 'rgba(56,189,248,0.06)');
+        grd.addColorStop(1, 'rgba(56,189,248,0)');
+        ctx.fillStyle = grd;
+        ctx.fillRect(0,0,w,h);
+        const grd2 = ctx.createRadialGradient(w*0.8, h*0.75, 0, w*0.8, h*0.75, Math.max(w,h)*0.8);
+        grd2.addColorStop(0, 'rgba(167,139,250,0.05)');
+        grd2.addColorStop(1, 'rgba(167,139,250,0)');
+        ctx.fillStyle = grd2;
+        ctx.fillRect(0,0,w,h);
+        rafId = requestAnimationFrame(draw);
+      }
+      draw();
+      window.addEventListener('beforeunload', function() {
+        if (rafId) cancelAnimationFrame(rafId);
+      });
+    } catch (e) {
+      // decorative only
+      console.warn('Background draw skipped:', e);
+    }
+  })();
+  </script>
 </body>
 </html>
+```
