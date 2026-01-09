@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lab 1 — Exploratory Data Analysis in Python</title>
+  <style>
+    /* Base reset */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100%; }
+    body {
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #e6eef8;
+      background: linear-gradient(180deg,#07102a 0%, #0b1020 60%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height: 1.6;
+      padding-bottom: 40px;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(8,12,24,0.7);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { display:flex; flex-direction:column; }
+    .brand h1 { margin: 0; font-size: 1.05rem; color: #ffffff; letter-spacing: 0.2px; }
+    .brand p { margin: 4px 0 0; color: #bcd3ee; font-size: 0.88rem; }
+
+    .top-nav { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .top-nav a {
+      color:#cfe3ff; text-decoration:none; padding:6px 10px; border-radius:8px;
+      font-size:0.9rem;
+    }
+    .top-nav a:hover { background: rgba(255,255,255,0.04); color:#fff; }
+
+    /* Container */
+    .container { max-width: 1100px; margin: 28px auto; padding: 0 16px; }
+
+    /* Card */
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    }
+    .card h2 { margin-top: 0; color: #f1f7ff; }
+    .card p { color: #dbeafc; margin: 8px 0; }
+
+    .grid-two { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 880px) { .grid-two { grid-template-columns: 1fr; } }
+
+    .subcard {
+      background: rgba(255,255,255,0.015);
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px dashed rgba(255,255,255,0.03);
+    }
+
+    pre {
+      background: #07102a;
+      color: #cfe0ff;
+      padding: 12px;
+      border-radius: 8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      border: 1px solid rgba(255,255,255,0.04);
+      margin: 12px 0;
+    }
+
+    img.plot {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display:block;
+      margin: 10px 0;
+      border: 1px solid rgba(255,255,255,0.04);
+      background: #fff;
+      padding: 6px;
+    }
+
+    .caption { color:#bcd3ee; font-size:0.95rem; margin-top:6px; }
+
+    .result-note {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(82,113,255,0.08);
+      color: #eaf2ff;
+      font-size: 0.95rem;
+    }
+
+    .site-footer {
+      text-align:center;
+      color:#9fb0c8;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.03);
+      font-size:0.95rem;
+    }
+
+    /* Utility */
+    ul { margin: 8px 0 0 18px; color:#dbeafc; }
+    li { margin:6px 0; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <h1>Lab 1 — Exploratory Data Analysis</h1>
+      <p>Exploring data with Python</p>
+    </div>
+    <nav class="top-nav" aria-label="Main navigation">
+      <a href="#overview">Overview</a>
+      <a href="#libraries">Libraries</a>
+      <a href="#histograms">Histograms</a>
+      <a href="#boxplots">Boxplots</a>
+      <a href="#stats">Statistics</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section id="overview" class="card">
+      <h2>Overview</h2>
+      <p>
+        This lab demonstrates data inspection, preprocessing, visualization, skewness analysis, measures of central tendency and dispersion,
+        and outlier detection using histograms and boxplots in Python.
+      </p>
+      <ul>
+        <li>Goal: Identify distribution patterns, detect outliers, measure variability, and summarize data.</li>
+        <li>Techniques: pandas, numpy, matplotlib, seaborn, scipy.</li>
+      </ul>
+    </section>
+
+    <section id="libraries" class="card">
+      <h2>Libraries and starter checks</h2>
+      <div class="grid-two">
+        <div>
+          <h3>Core libraries</h3>
+          <ul>
+            <li><strong>Python 3.x</strong></li>
+            <li><strong>pandas</strong> — data loading, cleaning, manipulation</li>
+            <li><strong>numpy</strong> — numerical operations and arrays</li>
+            <li><strong>matplotlib</strong> — plotting</li>
+            <li><strong>seaborn</strong> — statistical plots</li>
+            <li><strong>scipy</strong> — skewness and stats</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Starter inspection</h3>
+          <pre><code>
+import pandas as pd
+
+df = pd.read_csv("marks.csv")
+print(df.head())
+print(df.info())
+print(df.isnull().sum())
+print(df.describe())
+          </code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="histograms" class="card">
+      <h2>Histograms</h2>
+      <p>Histograms visualize frequency distributions of continuous variables. Below are two examples: used cars selling price and diamond prices.</p>
+
+      <div class="subcard" aria-labelledby="used-cars">
+        <h3 id="used-cars">Used cars — Selling Price</h3>
+        <img class="plot" src="used_cars_hist.png" alt="Histogram of selling price of used cars (bins=20, KDE enabled)" />
+        <p class="caption">Histogram of Selling Price of Used Cars (bins=20, KDE enabled)</p>
+        <pre><code>
+# Example code to reproduce this plot
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("used_cars.csv")  # expects Selling_Price column (in lakhs)
+plt.figure(figsize=(8,5))
+sns.histplot(df["Selling_Price"], bins=20, kde=True, color="#5271FF")
+plt.title("Histogram of Selling Price of Used Cars")
+plt.xlabel("Selling Price (in lakhs)")
+plt.ylabel("Frequency")
+plt.tight_layout()
+plt.show()
+        </code></pre>
+        <div class="result-note">Typical result: highest frequency appears in the lower price range (e.g., ~0–5 lakhs) depending on your dataset.</div>
+      </div>
+
+      <div class="subcard" aria-labelledby="diamonds">
+        <h3 id="diamonds">Diamonds — Price distribution</h3>
+        <img class="plot" src="diamonds_hist.png" alt="Distribution of diamond prices (pink bars, black edges)" />
+        <p class="caption">Distribution of Diamond Prices (pink bars, black edges, bins=30)</p>
+        <pre><code>
+# Example code to reproduce this plot
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("diamonds.csv")  # expects price column
+plt.figure(figsize=(9,5))
+plt.hist(df["price"], bins=30, edgecolor="black", color="pink")
+plt.xlabel("Price")
+plt.ylabel("Frequency")
+plt.title("Distribution of Diamond Prices")
+plt.tight_layout()
+plt.show()
+        </code></pre>
+        <div class="result-note">Typical result: right-skewed distribution with most values at the lower end (often below ~2500), tailing off to higher prices.</div>
+      </div>
+    </section>
+
+    <section id="boxplots" class="card">
+      <h2>Boxplots — outlier detection and group comparison</h2>
+
+      <div class="subcard" aria-labelledby="marks-box">
+        <h3 id="marks-box">Marks — Outlier Detection</h3>
+        <img class="plot" src="marks_boxplot.png" alt="Boxplot of Marks for outlier detection" />
+        <pre><code>
+# Example code to reproduce this plot
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("marks.csv")  # expects Marks column
+plt.figure(figsize=(7,5))
+sns.boxplot(y=df["Marks"], color="#8BD3E6")
+plt.title("Boxplot of Marks — Outlier Detection")
+plt.ylabel("Marks")
+plt.tight_layout()
+plt.show()
+        </code></pre>
+      </div>
+
+      <div class="subcard" aria-labelledby="carat-clarity">
+        <h3 id="carat-clarity">Carat vs Clarity — Grouped Boxplot</h3>
+        <img class="plot" src="carat_clarity_boxplot.png" alt="Boxplot of carat weight by clarity level" />
+        <pre><code>
+# Example code to reproduce this plot
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("diamonds.csv")  # expects columns: carat, clarity
+plt.figure(figsize=(10,6))
+sns.boxplot(x="clarity", y="carat", data=df, palette="Pastel1")
+plt.title("Distribution of Carat Weight by Clarity Level")
+plt.xlabel("Clarity")
+plt.ylabel("Carat Weight")
+plt.tight_layout()
+plt.show()
+        </code></pre>
+        <div class="result-note">Compare medians and spreads across clarity categories to see differences in carat distributions.</div>
+      </div>
+    </section>
+
+    <section id="stats" class="card">
+      <h2>Central tendency and dispersion</h2>
+      <p>Compute common summary statistics for numeric columns (example uses a 'Marks' column).</p>
+      <pre><code>
+# Central tendency
+mean = df['Marks'].mean()
+median = df['Marks'].median()
+mode = df['Marks'].mode()
+
+# Dispersion
+variance = df['Marks'].var()
+std_dev = df['Marks'].std()
+data_range = df['Marks'].max() - df['Marks'].min()
+      </code></pre>
+    </section>
+
+    <footer class="site-footer">
+      <p>© Lab 1 — Exploratory Data Analysis</p>
+    </footer>
+  </main>
+</body>
+</html>
