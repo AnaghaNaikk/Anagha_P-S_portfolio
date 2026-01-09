@@ -1,92 +1,256 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Probability & Statistics Theory</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Anagha G Naik — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Animated background layers -->
+  <div id="bg-root" aria-hidden="true">
+    <div class="bg-gradient"></div>
+    <canvas id="bg-canvas"></canvas>
+  </div>
+
   <!-- NAVBAR -->
-  <nav class="navbar">
-    <h2>📊 Probability & Statistics</h2>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#chapter1">Chapter 1</a></li>
-      <li><a href="#chapter2">Chapter 2</a></li>
-      <li><a href="#chapter3">Chapter 3</a></li>
-      <li><a href="#chapter4">Chapter 4</a></li>
-    </ul>
-  </nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="left-brand">
+        <img src="assets/logo.png" alt="College logo" class="college-logo" id="collegeLogo"
+             onerror="document.getElementById('logoFallback').style.display='inline-block'; this.style.display='none';" />
+        <span id="logoFallback" class="logo-fallback" style="display:none">KLE Technological University</span>
+        <div class="name-block">
+          <div class="full-name">Anagha G Naik</div>
+          <div class="sub-meta">Roll 450 • USN 01fe25bcs704 • 3rd Sem</div>
+        </div>
+      </div>
 
-  <!-- HOME -->
-  <section id="home" class="hero">
-    <h1>Probability & Statistics</h1>
-    <p>Theory Overview - 4 Chapters</p>
-    <a href="#chapter1">Chapter 1 →</a>
-  </section>
-
-  <!-- CHAPTER 1 -->
-  <section id="chapter1">
-    <h2>Chapter 1: Description of Data</h2>
-    <div class="theory-card">
-      <p><strong>Meaning:</strong> This chapter explains how to organize and summarize raw data into meaningful information. Raw numbers alone are confusing - we use tables, graphs, and summary measures to understand patterns, central values, spread, and shape of data distributions.</p>
-      <ul>
-        <li>Convert confusing numbers → clear insights</li>
-        <li>Understand what data tells us</li>
-        <li>Foundation for all statistical analysis</li>
-      </ul>
+      <nav class="nav-right">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-btn active">Home</a></li>
+          <li><a href="chapters.html" class="nav-btn">Chapters</a></li>
+          <li><a href="chapter1.html" class="nav-btn">Chapter 1</a></li>
+          <li><a href="chapter2.html" class="nav-btn">Chapter 2</a></li>
+          <li><a href="chapter3.html" class="nav-btn">Chapter 3</a></li>
+          <li><a href="chapter4.html" class="nav-btn">Chapter 4</a></li>
+        </ul>
+      </nav>
     </div>
-  </section>
+  </header>
 
-  <!-- CHAPTER 2 -->
-  <section id="chapter2">
-    <h2>Chapter 2: Probability Fundamentals</h2>
-    <div class="theory-card">
-      <p><strong>Meaning:</strong> Probability measures how likely events are to happen (0 = impossible, 1 = certain). This chapter studies basic rules for calculating probabilities, how events relate, and how new information updates our beliefs about likelihoods.</p>
-      <ul>
-        <li>Predict future events</li>
-        <li>Understand uncertainty</li>
-        <li>Foundation of statistics</li>
-      </ul>
+  <!-- HERO / INTRO -->
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="hero-left">
+        <h1 class="hero-title">Fundamentals of Probability & Statistics</h1>
+        <p class="hero-sub">Instructor: Dr. Gururaj Bhadri • Course Code: 25EMAB233 • Year: 2025‑26</p>
+
+        <div class="hero-cta">
+          <a href="chapters.html" class="btn primary">View Chapters</a>
+          <a href="#about" class="btn ghost">About Project</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="card-stats">
+          <div class="stat">
+            <div class="stat-value">Subject</div>
+            <div class="stat-label">Probability & Statistics</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">Course Code</div>
+            <div class="stat-label">25EMAB233</div>
+          </div>
+        </div>
+
+        <div class="mini-chart" aria-hidden="true">
+          <canvas id="miniChart" width="420" height="120"></canvas>
+        </div>
+      </div>
     </div>
-  </section>
+  </header>
 
-  <!-- CHAPTER 3 -->
-  <section id="chapter3">
-    <h2>Chapter 3: Probability Distributions</h2>
-    <div class="theory-card">
-      <p><strong>Meaning:</strong> Distributions describe patterns of how data values are spread. Different types model different situations - coin flips (binomial), rare events (Poisson), or normal bell-shaped patterns that appear everywhere in nature.</p>
-      <ul>
-        <li>Understand data patterns</li>
-        <li>Predict ranges of values</li>
-        <li>Most data follows normal distribution</li>
-      </ul>
+  <!-- MAIN -->
+  <main class="container main-tight">
+    <section id="about" class="section">
+      <h2>Introduction</h2>
+      <div class="content-box">
+        <p><strong>Course:</strong> Fundamentals of Probability and Statistics</p>
+        <p><strong>Course Code:</strong> 25EMAB233</p>
+        <p><strong>Instructor:</strong> Dr. Gururaj Bhadri</p>
+        <p><strong>University:</strong> KLE Technological University</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Probability & Statistics — Key Subsets</h2>
+      <div class="content-box">
+        <p><strong>Probability basics</strong> — sample spaces, events, conditional probability, independence, Bayes' theorem.</p>
+        <p><strong>Distributions</strong> — discrete (Bernoulli, Binomial, Poisson) and continuous (Uniform, Normal, Exponential) and when to use each.</p>
+        <p><strong>Descriptive statistics</strong> — measures of central tendency, dispersion, percentiles and visualization (histograms, boxplots).</p>
+        <p><strong>Inferential statistics</strong> — sampling, confidence intervals, hypothesis testing (t-test, chi-square), p-values and interpretation.</p>
+        <p><strong>Regression & correlation</strong> — linear regression, residuals, model fit and basic diagnostics.</p>
+        <p><strong>Bayesian ideas</strong> — prior, likelihood, posterior intuition and simple Bayesian updating.</p>
+        <p><strong>Applications</strong> — uncertainty quantification, predictive modeling, A/B testing, and statistical summaries used in engineering and research.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How this portfolio is organized</h2>
+      <div class="content-box">
+        <p>This site contains chapter writeups, worked examples, figures, and downloadable PDFs for each chapter. Use the Chapters link above to open each chapter page.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2025 Anagha G Naik</div>
+      <div class="footer-right">Email: <a href="mailto:01fe25bcs701@kletech.ac.in">01fe25bcs701@kletech.ac.in</a></div>
     </div>
-  </section>
+  </footer>
 
-  <!-- CHAPTER 4 -->
-  <section id="chapter4">
-    <h2>Chapter 4: Sampling & Estimation</h2>
-    <div class="theory-card">
-      <p><strong>Meaning:</strong> We can't study entire populations, so we take samples and make estimates about the whole. This chapter explains how to select good samples and calculate confidence intervals showing how accurate our estimates are.</p>
-      <ul>
-        <li>Study populations through samples</li>
-        <li>Calculate confidence in results</li>
-        <li>Real-world decision making</li>
-      </ul>
-    </div>
-  </section>
-
-  <footer>Probability & Statistics Theory Summary</footer>
-
+  <!-- Inline JS: animated background + mini chart (unchanged) -->
   <script>
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
-      });
-    });
+    /* Background canvas: floating nodes and subtle network lines */
+    (function () {
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+
+      function resize() {
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      let nodes = [];
+      const palette = ['rgba(11,92,255,0.95)','rgba(0,204,255,0.85)','rgba(255,120,120,0.8)'];
+
+      function init() {
+        nodes = [];
+        const count = Math.max(12, Math.floor(window.innerWidth / 100));
+        for (let i = 0; i < count; i++) {
+          nodes.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            r: 6 + Math.random() * 12,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            color: palette[Math.floor(Math.random() * palette.length)]
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        const g = ctx.createLinearGradient(0,0,window.innerWidth,window.innerHeight);
+        g.addColorStop(0,'rgba(2,8,20,0.22)');
+        g.addColorStop(1,'rgba(2,8,20,0.10)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+
+        nodes.forEach(n => {
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < -60) n.x = window.innerWidth + 60;
+          if (n.x > window.innerWidth + 60) n.x = -60;
+          if (n.y < -60) n.y = window.innerHeight + 60;
+          if (n.y > window.innerHeight + 60) n.y = -60;
+
+          const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
+          grad.addColorStop(0, n.color.replace(/rgba\(([^,]+),([^,]+),([^,]+),[^)]+\)/, 'rgba($1,$2,$3,0.95)'));
+          grad.addColorStop(1, n.color.replace(/rgba\(([^,]+),([^,]+),([^,]+),[^)]+\)/, 'rgba($1,$2,$3,0.02)'));
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+          ctx.fill();
+        });
+
+        for (let i=0;i<nodes.length;i++){
+          for (let j=i+1;j<nodes.length;j++){
+            const a = nodes[i], b = nodes[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < 140) {
+              ctx.strokeStyle = 'rgba(255,255,255,' + (0.02 + (140 - dist)/140 * 0.06) + ')';
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x,a.y);
+              ctx.lineTo(b.x,b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', () => { resize(); init(); });
+      resize(); init(); draw();
+    })();
+
+    /* Mini animated normal-curve chart */
+    (function () {
+      const c = document.getElementById('miniChart');
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      const W = c.width, H = c.height;
+      let t = 0;
+
+      function gaussian(x, mu, sigma) {
+        return Math.exp(-((x - mu) * (x - mu)) / (2 * sigma * sigma));
+      }
+
+      function drawChart() {
+        ctx.clearRect(0,0,W,H);
+        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+        ctx.lineWidth = 1;
+        for (let i=0;i<4;i++){
+          ctx.beginPath();
+          ctx.moveTo(0,(H/4)*i + 12);
+          ctx.lineTo(W,(H/4)*i + 12);
+          ctx.stroke();
+        }
+
+        ctx.beginPath();
+        const mu = W/2 + Math.sin(t*0.6)*12;
+        const sigma = 56 + Math.cos(t*0.4)*6;
+        for (let x=0;x<=W;x++){
+          const nx = x;
+          const ny = H - gaussian(x, mu, sigma) * (H * 0.68) - 12;
+          if (x===0) ctx.moveTo(nx,ny); else ctx.lineTo(nx,ny);
+        }
+        ctx.strokeStyle = 'rgba(11,92,255,0.98)';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(0,204,255,0.12)';
+        ctx.lineWidth = 10;
+        ctx.stroke();
+
+        for (let i=0;i<6;i++){
+          const px = (i/5)*W;
+          const py = H - gaussian(px, mu, sigma) * (H * 0.68) - 12;
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(255,255,255,0.95)';
+          ctx.arc(px + Math.sin(t*1.2 + i)*2, py + Math.cos(t*1.1 + i)*2, 4, 0, Math.PI*2);
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(11,92,255,0.18)';
+          ctx.arc(px, py, 10, 0, Math.PI*2);
+          ctx.fill();
+        }
+
+        t += 0.02;
+        requestAnimationFrame(drawChart);
+      }
+
+      drawChart();
+    })();
   </script>
 </body>
 </html>
