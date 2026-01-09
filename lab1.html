@@ -78,80 +78,7 @@ p,li{
   color:#dbeafe;
 }
 
-details{
-  margin-top:20px;
-  background:rgba(255,255,255,0.07);
-  border-radius:14px;
-  padding:18px 22px;
-  border:1px solid var(--border);
-}
-
-summary{
-  cursor:pointer;
-  font-weight:600;
-  color:var(--blue);
-}
-
-details img{
-  width:100%;
-  max-width:520px;
-  margin-top:16px;
-  border-radius:12px;
-  border:1px solid var(--border);
-}
-
-/* helper for graph captions/explanations */
-.graph-explain{
-  margin-top:12px;
-  color:#e6f6ff;
-  font-size:15px;
-  line-height:1.7;
-}
-
-/* SVG text style */
-svg .axis { stroke:#9fb7ff; stroke-width:1; }
-svg .label { fill:#dbeafe; font-size:12px; font-family:Poppins, Arial, sans-serif; }
-svg .grid { stroke:rgba(255,255,255,0.05); stroke-width:1; }
-svg .bar { fill:#60a5fa; opacity:0.95; }
-svg .bar2{ fill:#7c3aed; opacity:0.95; }
-svg .bar3{ fill:#34d399; opacity:0.95; }
-svg .curve{ stroke:#f472b6; stroke-width:3; fill:none; stroke-linecap:round; }
-svg .step { stroke:#a78bfa; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round; }
-svg .shade{ fill:rgba(244,114,182,0.12); }
-svg .box{ fill:rgba(56,189,248,0.15); stroke:#60a5fa; }
-svg .box2{ fill:rgba(167,139,250,0.15); stroke:#a78bfa; }
-
-/* Responsive */
-@media(max-width:820px){
-  section{padding:40px 18px;}
-  h2{font-size:36px;}
-  .card{padding:28px;}
-  svg { max-width:100%; height:auto; }
-}
-
-/* Additional layout */
-.site-header {
-  position:sticky; top:0; z-index:20;
-  background: rgba(8,12,24,0.75);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  padding: 14px 18px;
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
-}
-.brand { display:flex; flex-direction:column; }
-.brand h1 { margin:0; font-size:1.05rem; color:#fff; letter-spacing:0.2px; }
-.brand p { margin:4px 0 0; color:#bcd3ee; font-size:0.88rem; }
-
-.top-nav { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-.top-nav a {
-  color:#cfe3ff; text-decoration:none; padding:6px 10px; border-radius:8px;
-  font-size:0.9rem;
-}
-.top-nav a:hover { background: rgba(255,255,255,0.04); color:#fff; }
-
-.container { max-width: 1100px; margin: 28px auto; padding: 0 16px; }
-
-.subcard {
+.subcard{
   background: rgba(255,255,255,0.015);
   border-radius:10px;
   padding:18px;
@@ -172,42 +99,45 @@ pre {
   margin:12px 0;
 }
 
-.caption { color:#bcd3ee; font-size:0.95rem; margin-top:6px; }
+/* helper text */
+.graph-explain{
+  margin-top:12px;
+  color:#e6f6ff;
+  font-size:15px;
+  line-height:1.7;
+}
 
-.site-footer {
-  text-align:center;
-  color:#9fb0c8;
-  margin-top:18px;
-  padding-top:10px;
-  border-top:1px solid rgba(255,255,255,0.03);
-  font-size:0.95rem;
+/* Responsive */
+@media(max-width:820px){
+  section{padding:40px 18px;}
+  h2{font-size:36px;}
+  .card{padding:28px;}
+  svg { max-width:100%; height:auto; }
 }
   </style>
 </head>
-
 <body>
   <canvas id="statsBG" aria-hidden="true"></canvas>
   <div class="bg-overlay" aria-hidden="true"></div>
 
-  <header class="site-header" role="banner">
-    <div class="brand">
-      <h1>Lab 1 — Exploratory Data Analysis</h1>
-      <p>Questions and Python code (no graphs)</p>
+  <header class="site-header" style="position:sticky;top:0;z-index:20;background:rgba(8,12,24,0.75);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.04);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+    <div style="display:flex;flex-direction:column;">
+      <h1 style="margin:0;font-size:1.05rem;color:#fff;letter-spacing:0.2px;">Lab 1 — Exploratory Data Analysis</h1>
+      <p style="margin:4px 0 0;color:#bcd3ee;font-size:0.88rem;">Questions and Python code (no graphs)</p>
     </div>
-    <nav class="top-nav" aria-label="Main navigation">
-      <a href="#overview">Overview</a>
-      <a href="#questions">Questions</a>
-      <a href="#python">Python Code</a>
-      <a href="#notes">Notes</a>
+    <nav class="top-nav" aria-label="Main navigation" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+      <a href="#overview" style="color:#cfe3ff;text-decoration:none;padding:6px 10px;border-radius:8px;font-size:0.9rem;">Overview</a>
+      <a href="#questions" style="color:#cfe3ff;text-decoration:none;padding:6px 10px;border-radius:8px;font-size:0.9rem;">Questions</a>
+      <a href="#python" style="color:#cfe3ff;text-decoration:none;padding:6px 10px;border-radius:8px;font-size:0.9rem;">Python Code</a>
     </nav>
   </header>
 
-  <main class="container" role="main">
+  <main role="main">
     <section id="overview" class="card" aria-labelledby="overview-heading">
       <h2 id="overview-heading">Overview</h2>
       <p>
-        This page replaces visual plots with focused practice questions and a ready-to-run Python script that computes the summary statistics used in this chapter.
-        Solve the questions manually, then verify using the Python code included below.
+        This page contains practice questions for Chapter 3 and Chapter 4 (central tendency, dispersion, skewness, outliers)
+        and a ready-to-run Python script you can copy into a file and execute to compute the same statistics.
       </p>
     </section>
 
@@ -216,12 +146,12 @@ pre {
 
       <div class="subcard" aria-labelledby="q-list">
         <h3 id="q-list">Chapter 3 & 4 — Questions</h3>
-        <ol>
-          <li><strong>Mean</strong>: Given the dataset of marks: [56, 72, 68, 90, 45, 77, 61, 83, 59, 95], calculate the arithmetic mean. Show each step.</li>
+        <ol style="margin:12px 0 0 20px;color:#dbeafe;">
+          <li><strong>Mean</strong>: Given the dataset of marks: <code>[56, 72, 68, 90, 45, 77, 61, 83, 59, 95]</code>, calculate the arithmetic mean. Show each step.</li>
 
           <li><strong>Median</strong>: For the same dataset, compute the median. Explain how the median changes if one high outlier (e.g., 300) is added.</li>
 
-          <li><strong>Mode</strong>: For the dataset [2, 3, 3, 4, 5, 5, 5, 6], find the mode(s). Explain when a dataset is multimodal.</li>
+          <li><strong>Mode</strong>: For the dataset <code>[2, 3, 3, 4, 5, 5, 5, 6]</code>, find the mode(s). Explain when a dataset is multimodal.</li>
 
           <li><strong>Variance and Standard Deviation</strong>: Using the marks dataset above, compute the sample variance and sample standard deviation. Show formulas and intermediate values (mean, squared deviations).</li>
 
@@ -239,8 +169,6 @@ pre {
 
           <li><strong>Practical interpretation</strong>: For a marks column with mean = 68, median = 70, std = 12, skewness = −0.4: describe the distribution shape, where most students lie, and whether the mean or median is more robust here.</li>
         </ol>
-
-        <p class="graph-explain">Work through these by hand for small datasets, then verify using the Python code in the next section. Replace example numbers with your own CSV data if desired.</p>
       </div>
     </section>
 
@@ -249,10 +177,10 @@ pre {
 
       <div class="subcard" aria-labelledby="py-code">
         <h3 id="py-code">Single-file script</h3>
-        <p class="graph-explain">This script reads CSVs if present (marks.csv, diamonds.csv, used_cars.csv). If files are missing it uses small example arrays. It computes mean, median, mode, variance, standard deviation, range, IQR, skewness, kurtosis, and detects outliers using the IQR rule. Requires <code>pandas</code>, <code>numpy</code>, and <code>scipy</code>.</p>
+        <p class="graph-explain">Copy the code block below into a file named <code>lab1_stats_examples.py</code> and run it. Install dependencies with <code>pip install pandas numpy scipy</code> if needed.</p>
 
         <pre><code># lab1_stats_examples.py
-# Save this code as lab1_stats_examples.py and run:
+# Save this file and run:
 # pip install pandas numpy scipy
 # python lab1_stats_examples.py
 
@@ -408,35 +336,15 @@ manual_median_steps(marks.tolist())
 print('\\nScript finished. Replace example arrays or provide CSV files (marks.csv, diamonds.csv, used_cars.csv) to analyze your own data.')
 </code></pre>
 
-        <p class="graph-explain">Copy the code above into a file (for example <code>lab1_stats_examples.py</code>) and run it. The script prints step-by-step manual calculations for mean/median and full summary statistics for each dataset.</p>
       </div>
     </section>
-
-    <section id="notes" class="card" aria-labelledby="notes-heading">
-      <h2 id="notes-heading">Notes & Tips</h2>
-
-      <div class="subcard">
-        <h3>How to use these questions</h3>
-        <p class="graph-explain">Start by solving the first 4–6 questions by hand for the small example arrays. Then run the Python script to verify your answers. For larger datasets, rely on the script to compute accurate statistics and to detect outliers automatically.</p>
-
-        <h3>When to use each measure</h3>
-        <ul>
-          <li><strong>Mean</strong> — use when distribution is symmetric and you want the arithmetic average.</li>
-          <li><strong>Median</strong> — use when distribution is skewed or contains outliers; it is more robust.</li>
-          <li><strong>Mode</strong> — useful for categorical or discrete data to find the most frequent value.</li>
-          <li><strong>Standard deviation / variance</strong> — measure spread; use sample formulas for sample data (ddof=1).</li>
-          <li><strong>IQR</strong> — robust measure of spread; used for outlier detection with the 1.5×IQR rule.</li>
-        </ul>
-      </div>
-    </section>
-
-    <footer class="site-footer">
-      <p>© Lab 1 — Exploratory Data Analysis</p>
-    </footer>
   </main>
 
+  <footer style="text-align:center;color:#9fb0c8;margin-top:18px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.03);font-size:0.95rem;">
+    <p>© Lab 1 — Exploratory Data Analysis</p>
+  </footer>
+
   <script>
-  // Minimal, safe decorative background drawing. This script avoids errors and checks for canvas support.
   (function() {
     try {
       const canvas = document.getElementById('statsBG');
@@ -465,12 +373,10 @@ print('\\nScript finished. Replace example arrays or provide CSV files (marks.cs
         rafId = requestAnimationFrame(draw);
       }
       draw();
-      // cleanup on page unload
       window.addEventListener('beforeunload', function() {
         if (rafId) cancelAnimationFrame(rafId);
       });
     } catch (e) {
-      // fail silently — decorative only
       console.warn('Background draw skipped:', e);
     }
   })();
