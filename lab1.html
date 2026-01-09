@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Lab 1 — Exploratory Data Analysis in Python</title>
 
-  <!-- User-provided theme CSS -->
   <style>
 :root{
   --card:rgba(255,255,255,0.08);
@@ -17,21 +16,23 @@
 }
 
 *{box-sizing:border-box;}
-html,body{height:100%;margin:0;}
+html,body{height:100%;margin:0;padding:0;}
 
 body{
   font-family:'Poppins',sans-serif;
   background:#020617;
   color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.6;
 }
 
-/* ===== BACKGROUND (unchanged) ===== */
+/* Background canvas and overlay */
 canvas#statsBG{
   position:fixed;
   inset:0;
   z-index:-2;
 }
-
 .bg-overlay{
   position:fixed;
   inset:0;
@@ -41,22 +42,29 @@ canvas#statsBG{
   z-index:-1;
 }
 
-/* ===== CONTENT ===== */
-section{
-  max-width:1300px;
-  margin:auto;
-  padding:80px 30px;
+/* Layout */
+.container { max-width:1100px; margin:28px auto; padding:0 16px; }
+.site-header {
+  position:sticky; top:0; z-index:20;
+  background: rgba(8,12,24,0.75);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding: 14px 18px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
 }
+.brand { display:flex; flex-direction:column; }
+.brand h1 { margin:0; font-size:1.05rem; color:#fff; letter-spacing:0.2px; }
+.brand p { margin:4px 0 0; color:#bcd3ee; font-size:0.88rem; }
 
-h2{
-  font-size:46px;
-  text-align:center;
-  background:linear-gradient(90deg,var(--blue),var(--violet),var(--pink));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  margin-bottom:70px;
+.top-nav { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.top-nav a {
+  color:#cfe3ff; text-decoration:none; padding:6px 10px; border-radius:8px;
+  font-size:0.9rem;
 }
+.top-nav a:hover { background: rgba(255,255,255,0.04); color:#fff; }
 
+/* Cards */
+section { max-width:1300px; margin:auto; padding:80px 30px; }
 .card{
   background:var(--card);
   border:1px solid var(--border);
@@ -66,199 +74,112 @@ h2{
   backdrop-filter:blur(18px);
   box-shadow:0 18px 45px rgba(0,0,0,.45);
 }
+.card h2 { margin-top:0; color:#f1f7ff; }
+.card p { color:#dbeafc; margin:8px 0; }
 
-.card h3{
-  font-size:28px;
-  margin-bottom:16px;
-}
-
-p,li{
-  font-size:16.5px;
-  line-height:1.9;
-  color:#dbeafe;
-}
-
-details{
-  margin-top:20px;
-  background:rgba(255,255,255,0.07);
-  border-radius:14px;
-  padding:18px 22px;
-  border:1px solid var(--border);
-}
-
-summary{
-  cursor:pointer;
-  font-weight:600;
-  color:var(--blue);
-}
-
-details img{
-  width:100%;
-  max-width:520px;
-  margin-top:16px;
-  border-radius:12px;
-  border:1px solid var(--border);
-}
-
-/* helper for graph captions/explanations */
-.graph-explain{
-  margin-top:12px;
-  color:#e6f6ff;
-  font-size:15px;
-  line-height:1.7;
-}
-
-/* SVG text style */
-svg .axis { stroke:#9fb7ff; stroke-width:1; }
-svg .label { fill:#dbeafe; font-size:12px; font-family:Poppins, Arial, sans-serif; }
-svg .grid { stroke:rgba(255,255,255,0.05); stroke-width:1; }
-svg .bar { fill:#60a5fa; opacity:0.95; }
-svg .bar2{ fill:#7c3aed; opacity:0.95; }
-svg .bar3{ fill:#34d399; opacity:0.95; }
-svg .curve{ stroke:#f472b6; stroke-width:3; fill:none; stroke-linecap:round; }
-svg .step { stroke:#a78bfa; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round; }
-svg .shade{ fill:rgba(244,114,182,0.12); }
-svg .box{ fill:rgba(56,189,248,0.15); stroke:#60a5fa; }
-svg .box2{ fill:rgba(167,139,250,0.15); stroke:#a78bfa; }
-
-/* Responsive */
-@media(max-width:820px){
-  section{padding:40px 18px;}
-  h2{font-size:36px;}
-  .card{padding:28px;}
-  svg { max-width:100%; height:auto; }
-}
-
-/* Additional page layout (keeps original look) */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(8,12,24,0.7);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.brand { display:flex; flex-direction:column; }
-.brand h1 { margin: 0; font-size: 1.05rem; color: #ffffff; letter-spacing: 0.2px; }
-.brand p { margin: 4px 0 0; color: #bcd3ee; font-size: 0.88rem; }
-
-.top-nav { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-.top-nav a {
-  color:#cfe3ff; text-decoration:none; padding:6px 10px; border-radius:8px;
-  font-size:0.9rem;
-}
-.top-nav a:hover { background: rgba(255,255,255,0.04); color:#fff; }
-
-.container { max-width: 1100px; margin: 28px auto; padding: 0 16px; }
-
-.card h2 { margin-top: 0; color: #f1f7ff; }
-.card p { color: #dbeafc; margin: 8px 0; }
-
-.grid-two { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 880px) { .grid-two { grid-template-columns: 1fr; } }
+.grid-two { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width:880px) { .grid-two { grid-template-columns:1fr; } }
 
 .subcard {
   background: rgba(255,255,255,0.015);
-  border-radius: 10px;
-  padding: 12px;
-  margin-top: 12px;
-  border: 1px dashed rgba(255,255,255,0.03);
+  border-radius:10px;
+  padding:12px;
+  margin-top:12px;
+  border:1px dashed rgba(255,255,255,0.03);
 }
 
 pre {
-  background: #07102a;
-  color: #cfe0ff;
-  padding: 12px;
-  border-radius: 8px;
+  background:#07102a;
+  color:#cfe0ff;
+  padding:12px;
+  border-radius:8px;
   overflow:auto;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-  font-size: 0.92rem;
-  line-height: 1.45;
-  border: 1px solid rgba(255,255,255,0.04);
-  margin: 12px 0;
+  font-size:0.92rem;
+  line-height:1.45;
+  border:1px solid rgba(255,255,255,0.04);
+  margin:12px 0;
 }
 
 img.plot {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+  width:100%;
+  height:auto;
+  border-radius:8px;
   display:block;
-  margin: 10px 0;
-  border: 1px solid rgba(255,255,255,0.04);
-  background: #fff;
-  padding: 6px;
+  margin:10px 0;
+  border:1px solid rgba(255,255,255,0.04);
+  background:#fff;
+  padding:6px;
 }
 
 .caption { color:#bcd3ee; font-size:0.95rem; margin-top:6px; }
 
 .result-note {
-  margin-top: 10px;
-  padding: 10px 12px;
-  border-radius: 8px;
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:8px;
   background: rgba(82,113,255,0.08);
-  color: #eaf2ff;
-  font-size: 0.95rem;
+  color:#eaf2ff;
+  font-size:0.95rem;
 }
 
 .site-footer {
   text-align:center;
   color:#9fb0c8;
-  margin-top: 18px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255,255,255,0.03);
+  margin-top:18px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,0.03);
   font-size:0.95rem;
 }
 
-/* Chapter-specific backgrounds (embedded SVG patterns + gradients) */
+/* Graph helper styles (kept from your SVG rules) */
+svg .axis { stroke:#9fb7ff; stroke-width:1; }
+svg .label { fill:#dbeafe; font-size:12px; font-family:Poppins, Arial, sans-serif; }
+svg .grid { stroke:rgba(255,255,255,0.05); stroke-width:1; }
+svg .bar { fill:#60a5fa; opacity:0.95; }
+
+/* Chapter-specific backgrounds */
 #histograms {
-  position: relative;
-  overflow: hidden;
+  position:relative; overflow:hidden;
   background-image:
     radial-gradient(circle at 10% 10%, rgba(56,189,248,0.04), transparent 20%),
     linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-  border: 1px solid rgba(82,113,255,0.04);
+  border:1px solid rgba(82,113,255,0.04);
 }
 #histograms::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+  content:"";
+  position:absolute; inset:0;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%23ffffff' stroke-opacity='0.03' stroke-width='2'><path d='M-10 10 L10 -10 M10 130 L130 10'/></g></svg>");
-  opacity: 1;
-  mix-blend-mode: overlay;
-  pointer-events: none;
+  mix-blend-mode:overlay; pointer-events:none;
 }
-#histograms .subcard { position: relative; z-index: 2; }
+#histograms .subcard { position:relative; z-index:2; }
 
 #boxplots {
-  position: relative;
-  overflow: hidden;
+  position:relative; overflow:hidden;
   background-image:
     linear-gradient(180deg, rgba(8,12,24,0.6), rgba(8,12,24,0.4)),
     radial-gradient(circle at 90% 10%, rgba(139,211,230,0.03), transparent 15%);
-  border: 1px solid rgba(139,211,230,0.03);
+  border:1px solid rgba(139,211,230,0.03);
 }
 #boxplots::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+  content:"";
+  position:absolute; inset:0;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><defs><pattern id='p' width='40' height='40' patternUnits='userSpaceOnUse'><rect width='40' height='40' fill='none'/><path d='M0 20 L20 0 M20 40 L40 20' stroke='%23ffffff' stroke-opacity='0.02' stroke-width='2'/></pattern></defs><rect width='200' height='200' fill='url(%23p)'/></svg>");
-  opacity: 1;
-  mix-blend-mode: overlay;
-  pointer-events: none;
+  mix-blend-mode:overlay; pointer-events:none;
 }
-#boxplots .subcard { position: relative; z-index: 2; }
+#boxplots .subcard { position:relative; z-index:2; }
 
+/* Responsive tweaks */
+@media (max-width:600px) {
+  h2 { font-size:32px; }
+  section { padding:40px 18px; }
+  .card { padding:28px; }
+}
   </style>
 </head>
-
 <body>
-  <canvas id="statsBG"></canvas>
-  <div class="bg-overlay"></div>
+  <canvas id="statsBG" aria-hidden="true"></canvas>
+  <div class="bg-overlay" aria-hidden="true"></div>
 
   <header class="site-header">
     <div class="brand">
@@ -274,9 +195,9 @@ img.plot {
     </nav>
   </header>
 
-  <main class="container">
-    <section id="overview" class="card">
-      <h2>Overview</h2>
+  <main class="container" role="main">
+    <section id="overview" class="card" aria-labelledby="overview-heading">
+      <h2 id="overview-heading">Overview</h2>
       <p>
         This lab demonstrates data inspection, preprocessing, visualization, skewness analysis, measures of central tendency and dispersion,
         and outlier detection using histograms and boxplots in Python.
@@ -287,8 +208,8 @@ img.plot {
       </ul>
     </section>
 
-    <section id="libraries" class="card">
-      <h2>Libraries and starter checks</h2>
+    <section id="libraries" class="card" aria-labelledby="libraries-heading">
+      <h2 id="libraries-heading">Libraries and starter checks</h2>
       <div class="grid-two">
         <div>
           <h3>Core libraries</h3>
@@ -303,32 +224,28 @@ img.plot {
         </div>
         <div>
           <h3>Starter inspection</h3>
-          <pre><code>
-import pandas as pd
+          <pre><code>import pandas as pd
 
 df = pd.read_csv("marks.csv")
 print(df.head())
 print(df.info())
 print(df.isnull().sum())
-print(df.describe())
-          </code></pre>
+print(df.describe())</code></pre>
         </div>
       </div>
     </section>
 
-    <!-- Chapter 3: Histograms -->
-    <section id="histograms" class="card">
-      <h2>Histograms</h2>
+    <section id="histograms" class="card" aria-labelledby="histograms-heading">
+      <h2 id="histograms-heading">Histograms</h2>
       <p>Histograms visualize frequency distributions of continuous variables. Below are two examples: used cars selling price and diamond prices.</p>
 
       <div class="subcard" aria-labelledby="used-cars">
         <h3 id="used-cars">Used cars — Selling Price</h3>
-        <!-- Image generated by the Python script: used_cars_hist.png -->
+        <!-- Ensure used_cars_hist.png exists in the same folder as this HTML -->
         <img class="plot" src="used_cars_hist.png" alt="Histogram of selling price of used cars (bins=20, KDE enabled)" />
         <p class="caption">Histogram of Selling Price of Used Cars (bins=20, KDE enabled). Counts are annotated above bars in the image.</p>
 
-        <pre><code>
-# Reproduce:
+        <pre><code># Reproduce:
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -340,19 +257,18 @@ plt.title("Histogram of Selling Price of Used Cars")
 plt.xlabel("Selling Price (in lakhs)")
 plt.ylabel("Frequency")
 plt.tight_layout()
-plt.show()
-        </code></pre>
+plt.show()</code></pre>
+
         <div class="result-note">Typical result: highest frequency appears in the lower price range (e.g., ~0–5 lakhs) depending on your dataset.</div>
       </div>
 
       <div class="subcard" aria-labelledby="diamonds">
         <h3 id="diamonds">Diamonds — Price distribution</h3>
-        <!-- Image generated by the Python script: diamonds_hist.png -->
+        <!-- Ensure diamonds_hist.png exists in the same folder as this HTML -->
         <img class="plot" src="diamonds_hist.png" alt="Distribution of diamond prices (pink bars, black edges)" />
         <p class="caption">Distribution of Diamond Prices (pink bars, black edges, bins=30). Selected bar counts are annotated in the image.</p>
 
-        <pre><code>
-# Reproduce:
+        <pre><code># Reproduce:
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -363,24 +279,22 @@ plt.xlabel("Price")
 plt.ylabel("Frequency")
 plt.title("Distribution of Diamond Prices")
 plt.tight_layout()
-plt.show()
-        </code></pre>
+plt.show()</code></pre>
+
         <div class="result-note">Typical result: right-skewed distribution with most values at the lower end, tailing off to higher prices.</div>
       </div>
     </section>
 
-    <!-- Chapter 4: Boxplots -->
-    <section id="boxplots" class="card">
-      <h2>Boxplots — outlier detection and group comparison</h2>
+    <section id="boxplots" class="card" aria-labelledby="boxplots-heading">
+      <h2 id="boxplots-heading">Boxplots — outlier detection and group comparison</h2>
 
       <div class="subcard" aria-labelledby="marks-box">
         <h3 id="marks-box">Marks — Outlier Detection</h3>
-        <!-- Image generated by the Python script: marks_boxplot.png -->
+        <!-- Ensure marks_boxplot.png exists in the same folder as this HTML -->
         <img class="plot" src="marks_boxplot.png" alt="Boxplot of Marks for outlier detection" />
         <p class="caption">Boxplot of Marks — Outlier Detection. Outliers and summary values (mean/median) are annotated in the image.</p>
 
-        <pre><code>
-# Reproduce:
+        <pre><code># Reproduce:
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -391,18 +305,16 @@ sns.boxplot(y=df["Marks"], color="#8BD3E6")
 plt.title("Boxplot of Marks — Outlier Detection")
 plt.ylabel("Marks")
 plt.tight_layout()
-plt.show()
-        </code></pre>
+plt.show()</code></pre>
       </div>
 
       <div class="subcard" aria-labelledby="carat-clarity">
         <h3 id="carat-clarity">Carat vs Clarity — Grouped Boxplot</h3>
-        <!-- Image generated by the Python script: carat_clarity_boxplot.png -->
+        <!-- Ensure carat_clarity_boxplot.png exists in the same folder as this HTML -->
         <img class="plot" src="carat_clarity_boxplot.png" alt="Boxplot of carat weight by clarity level" />
         <p class="caption">Distribution of Carat Weight by Clarity Level (grouped boxplots). Medians are annotated in the image.</p>
 
-        <pre><code>
-# Reproduce:
+        <pre><code># Reproduce:
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -414,17 +326,16 @@ plt.title("Distribution of Carat Weight by Clarity Level")
 plt.xlabel("Clarity")
 plt.ylabel("Carat Weight")
 plt.tight_layout()
-plt.show()
-        </code></pre>
+plt.show()</code></pre>
+
         <div class="result-note">Compare medians and spreads across clarity categories to see differences in carat distributions.</div>
       </div>
     </section>
 
-    <section id="stats" class="card">
-      <h2>Central tendency and dispersion</h2>
+    <section id="stats" class="card" aria-labelledby="stats-heading">
+      <h2 id="stats-heading">Central tendency and dispersion</h2>
       <p>Compute common summary statistics for numeric columns (example uses a 'Marks' column).</p>
-      <pre><code>
-# Central tendency
+      <pre><code># Central tendency
 mean = df['Marks'].mean()
 median = df['Marks'].median()
 mode = df['Marks'].mode()
@@ -432,8 +343,7 @@ mode = df['Marks'].mode()
 # Dispersion
 variance = df['Marks'].var()
 std_dev = df['Marks'].std()
-data_range = df['Marks'].max() - df['Marks'].min()
-      </code></pre>
+data_range = df['Marks'].max() - df['Marks'].min()</code></pre>
     </section>
 
     <footer class="site-footer">
@@ -441,8 +351,8 @@ data_range = df['Marks'].max() - df['Marks'].min()
     </footer>
   </main>
 
-  <!-- Decorative canvas script (optional) -->
   <script>
+  // Decorative background drawing (non-blocking). Safe to remove if undesired.
   (function() {
     const canvas = document.getElementById('statsBG');
     if (!canvas) return;
