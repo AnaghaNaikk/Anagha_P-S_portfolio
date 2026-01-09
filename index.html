@@ -2,266 +2,206 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Anagha G Naik | Probability & Statistics</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anagha G Naik | Probability & Statistics</title>
 
 <style>
-*{box-sizing:border-box}
-body{
+*{
   margin:0;
+  padding:0;
+  box-sizing:border-box;
   font-family:"Segoe UI", Arial, sans-serif;
-  color:#e5e7eb;
-  background:#020617;
-  overflow-x:hidden;
 }
 
-/* Animated background */
-#bg-canvas{
-  position:fixed;
-  inset:0;
-  z-index:-1;
+body{
+  min-height:100vh;
+  background: linear-gradient(120deg, #0a0f2c, #0f1b3d, #09142f);
+  background-size:300% 300%;
+  animation:bgMove 10s ease infinite;
+  color:#e8ecff;
 }
 
-/* Navbar */
-.site-header{
-  position:sticky;
-  top:0;
-  background:rgba(2,6,23,0.95);
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* NAVBAR */
+header{
+  background:rgba(0,0,0,0.4);
   backdrop-filter:blur(6px);
-  box-shadow:0 4px 20px rgba(0,0,0,.8);
 }
-.header-inner{
+
+nav{
   max-width:1200px;
   margin:auto;
-  padding:14px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:14px 20px;
 }
-.full-name{
-  font-size:24px;
-  font-weight:800;
+
+.name{
+  font-size:22px;
+  font-weight:700;
   color:#c7d2fe;
 }
-.sub-meta{
+
+.meta{
   font-size:14px;
-  color:#94a3b8;
+  color:#a5b4fc;
 }
-.nav-links{
-  list-style:none;
-  display:flex;
-  gap:10px;
-  margin:0;
-  padding:0;
-}
-.nav-links a{
-  padding:8px 16px;
-  border-radius:20px;
-  background:#1e293b;
-  color:#e5e7eb;
+
+.links a{
+  margin-left:8px;
+  padding:8px 14px;
+  background:#1b2b6f;
+  color:#fff;
+  border-radius:10px;
+  text-decoration:none;
   font-weight:600;
-  transition:.3s;
-}
-.nav-links a:hover,
-.nav-links a.active{
-  background:#6366f1;
-  color:white;
+  transition:0.3s;
 }
 
-/* Hero */
-.hero{
-  padding:90px 20px 60px;
-  text-align:center;
-}
-.hero h1{
-  font-size:42px;
-  color:#e0e7ff;
-}
-.hero p{
-  color:#cbd5f5;
-  font-size:17px;
+.links a:hover{
+  background:#2f46b5;
 }
 
-/* Content */
+/* CONTENT */
 .container{
   max-width:1100px;
   margin:auto;
   padding:40px 20px;
 }
-.section h2{
+
+.hero{
   text-align:center;
-  font-size:30px;
-  margin-bottom:30px;
-  color:#a5b4fc;
+  margin-bottom:40px;
 }
 
-/* Cards */
-.card-grid{
+.hero h1{
+  font-size:2.4rem;
+  margin-bottom:10px;
+}
+
+.hero p{
+  font-size:1.05rem;
+  opacity:0.9;
+}
+
+.cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:25px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
 }
+
 .card{
-  background:#020617;
-  border:1px solid #1e293b;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(8px);
   border-radius:16px;
-  padding:24px;
-  box-shadow:0 10px 30px rgba(0,0,0,.8);
+  padding:22px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  transition:0.3s;
 }
+
+.card:hover{
+  transform:translateY(-6px);
+}
+
 .card h3{
-  color:#818cf8;
-}
-.card p{
-  font-size:15px;
-  color:#e5e7eb;
+  margin-bottom:10px;
+  color:#9fb2ff;
 }
 
-/* Subject box */
-.subject-box{
-  margin-top:40px;
-  border:1px solid #312e81;
-  border-radius:18px;
-  padding:30px;
-  background:#020617;
-}
-.subject-box h3{
-  color:#a5b4fc;
-}
-
-/* Footer */
 footer{
   text-align:center;
-  padding:25px;
-  color:#94a3b8;
-  border-top:1px solid #1e293b;
+  padding:22px;
+  font-size:0.9rem;
+  opacity:0.75;
+  background:rgba(0,0,0,0.35);
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="bg-canvas"></canvas>
-
-<!-- NAVBAR -->
-<header class="site-header">
-  <div class="header-inner">
+<!-- HEADER / NAVBAR -->
+<header>
+  <nav>
     <div>
-      <div class="full-name">Anagha G Naik</div>
-      <div class="sub-meta">
-        USN: 01FE25BCS704 | Roll No: 450 | 3rd Semester
+      <div class="name">Anagha G Naik</div>
+      <div class="meta">
+        USN: 01FE25BCS704 | Roll No: 450 | KLE Technological University
       </div>
     </div>
-    <ul class="nav-links">
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="chapter1.html">Chapter 1</a></li>
-      <li><a href="chapter2.html">Chapter 2</a></li>
-      <li><a href="chapter3.html">Chapter 3</a></li>
-      <li><a href="chapter4.html">Chapter 4</a></li>
-    </ul>
-  </div>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="chapter1.html">Chapter 1</a>
+      <a href="chapter2.html">Chapter 2</a>
+      <a href="chapter3.html">Chapter 3</a>
+      <a href="chapter4.html">Chapter 4</a>
+    </div>
+  </nav>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>Fundamentals of Probability and Statistics</h1>
-  <p>Subject Code: <b>25EMAB233</b> • KLE Technological University • 2025–26</p>
-</section>
+<div class="container">
 
-<!-- INTRODUCTION -->
-<section class="container section">
-  <h2>Introduction</h2>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Fundamentals of Probability & Statistics</h1>
+    <p><strong>Subject Code:</strong> 25EMAB233</p>
+    <p><strong>KLE Technological University</strong></p>
+    <p><strong>Under the Academic Guidance of:</strong> Dr. Gururaj Bhadri</p>
+  </section>
 
-  <div class="card-grid">
+  <!-- CARDS -->
+  <section class="cards">
 
-    <!-- STUDENT -->
     <div class="card">
-      <h3>Student</h3>
+      <h3>Student Information</h3>
+      <p><strong>Name:</strong> Anagha G Naik</p>
+      <p><strong>USN:</strong> 01FE25BCS704</p>
+      <p><strong>Roll No:</strong> 450</p>
+      <p><strong>Semester:</strong> 3rd</p>
+      <p><strong>University:</strong> KLE Technological University</p>
+    </div>
+
+    <div class="card">
+      <h3>Subject Overview</h3>
       <p>
-        I am <b>Anagha G Naik</b> (USN: <b>01FE25BCS704</b>, Roll No:
-        <b>450</b>), a 3rd semester undergraduate student at
-        KLE Technological University. This project is developed as part
-        of the academic coursework for the subject
-        <b>Fundamentals of Probability and Statistics (25EMAB233)</b>.
+        Probability and Statistics focuses on understanding uncertainty,
+        analyzing data, and applying mathematical methods to solve
+        real-world engineering problems.
       </p>
     </div>
 
-    <!-- GUIDANCE -->
     <div class="card">
-      <h3>Under the Academic Guidance of</h3>
+      <h3>Meaning of the Subject</h3>
       <p>
-        <b>Dr. Gururaj Bhadri</b><br>
-        KLE Technological University
+        <strong>Probability</strong> measures the likelihood of events.<br><br>
+        <strong>Statistics</strong> involves collecting, organizing,
+        analyzing, and interpreting data to support decision-making.
       </p>
     </div>
 
-    <!-- SUBJECT -->
     <div class="card">
-      <h3>Subject Details</h3>
-      <p><b>Subject Name:</b> Fundamentals of Probability and Statistics</p>
-      <p><b>Subject Code:</b> 25EMAB233</p>
+      <h3>Applications</h3>
       <p>
-        <b>Probability</b> deals with measuring uncertainty and predicting
-        the likelihood of events.
-      </p>
-      <p>
-        <b>Statistics</b> deals with collecting, organizing, analyzing,
-        and interpreting data to make decisions.
+        Widely used in engineering analysis, data science, artificial
+        intelligence, quality control, finance, and scientific research.
       </p>
     </div>
 
-  </div>
+  </section>
 
-  <div class="subject-box">
-    <h3>What does Probability & Statistics mean?</h3>
-    <p>
-      Probability predicts what may happen in uncertain situations,
-      while statistics explains what the collected data reveals.
-      Together, they form the foundation for data analysis,
-      engineering decisions, and scientific reasoning.
-    </p>
-  </div>
+</div>
 
-</section>
-
+<!-- FOOTER -->
 <footer>
-  © 2025–2026 | Anagha G Naik | Fundamentals of Probability and Statistics (25EMAB233) | KLE Technological University
+  © 2025–2026 | Anagha G Naik | Fundamentals of Probability & Statistics |
+  KLE Technological University
 </footer>
-
-<!-- Background animation -->
-<script>
-const canvas=document.getElementById("bg-canvas");
-const ctx=canvas.getContext("2d");
-
-function resize(){
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener("resize",resize);
-
-const dots=[...Array(60)].map(() => ({
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  r:1+Math.random()*2,
-  vx:(Math.random()-.5)*0.5,
-  vy:(Math.random()-.5)*0.5
-}));
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  dots.forEach(d=>{
-    d.x+=d.vx; d.y+=d.vy;
-    if(d.x<0||d.x>canvas.width) d.vx*=-1;
-    if(d.y<0||d.y>canvas.height) d.vy*=-1;
-    ctx.beginPath();
-    ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
-    ctx.fillStyle="rgba(99,102,241,0.8)";
-    ctx.fill();
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-</script>
 
 </body>
 </html>
