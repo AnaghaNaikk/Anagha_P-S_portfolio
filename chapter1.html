@@ -1,10 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Chapter 1 – Description of Data</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -15,72 +15,59 @@
   --violet:#a78bfa;
   --pink:#f472b6;
   --text:#e5e7eb;
+  --accent:#60a5fa;
 }
-
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%}
-
 body{
   font-family:'Poppins',sans-serif;
   background:#020617;
   color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-/* ===== NAVBAR ===== */
-nav{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(2,6,23,0.9);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
-}
-nav ul{
-  list-style:none;
-  margin:0;
-  padding:14px 28px;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:20px;
-}
-nav a{
-  color:#e5e7eb;
-  text-decoration:none;
-  font-weight:500;
-}
-nav a:hover{color:var(--blue)}
-
-/* ===== BACKGROUND ===== */
-canvas#statsBG{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-}
+/* Background canvas + overlay */
+canvas#statsBG{position:fixed;inset:0;z-index:-2}
 .bg-overlay{
-  position:fixed;
-  inset:0;
+  position:fixed;inset:0;
   background:
     radial-gradient(circle at 15% 20%, rgba(56,189,248,.10), transparent 55%),
     radial-gradient(circle at 85% 75%, rgba(167,139,250,.10), transparent 55%);
   z-index:-1;
 }
 
-/* ===== CONTENT ===== */
-section{
-  max-width:1300px;
-  margin:auto;
-  padding:40px 28px;
-}
-
+/* Page layout */
+.container { max-width:1300px; margin:0 auto; padding:40px 28px 80px; }
+.header-row { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px; }
+.title-wrap { flex:1 1 auto; text-align:center; }
 h1{
-  text-align:center;
+  margin:0;
   font-size:36px;
   background:linear-gradient(90deg,var(--blue),var(--violet),var(--pink));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
+/* Large Home button */
+.home-button {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background: linear-gradient(90deg,var(--blue),var(--violet));
+  color:#021025;
+  font-weight:700;
+  padding:14px 22px;
+  border-radius:14px;
+  text-decoration:none;
+  box-shadow: 0 10px 30px rgba(56,189,248,0.08);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform .12s ease, box-shadow .12s ease;
+  white-space:nowrap;
+}
+.home-button:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(56,189,248,0.12); }
+
+/* Cards */
 .card{
   background:var(--card);
   border:1px solid var(--border);
@@ -88,10 +75,8 @@ h1{
   padding:24px;
   margin-bottom:26px;
 }
-
 .card h3{margin:0 0 8px;color:#eaf6ff}
 p,li{font-size:15.5px;line-height:1.7;color:#dbeafe}
-
 details{
   margin-top:12px;
   padding:12px;
@@ -99,57 +84,68 @@ details{
   border:1px solid var(--border);
   background:rgba(255,255,255,0.03);
 }
-
-summary{
-  cursor:pointer;
-  font-weight:600;
-  color:var(--blue);
-}
-
+summary{cursor:pointer;font-weight:600;color:var(--blue)}
 .graph{margin-top:12px}
 .formula{white-space:pre-wrap}
+
+/* Footer small link */
+.footer-row { text-align:center; margin-top:18px; color:#9fb0c8; font-size:0.95rem; }
+
+/* Responsive */
+@media (max-width:880px) {
+  .header-row { flex-direction:column; gap:12px; }
+  .home-button { width:100%; justify-content:center; padding:12px 16px; }
+  h1 { font-size:28px; }
+  .container { padding:28px 18px 60px; }
+}
 </style>
 </head>
 
 <body>
-
-<!-- NAVBAR -->
-<nav>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="chapter1.html">Chapter 1</a></li>
-    <li><a href="chapter2.html">Chapter 2</a></li>
-    <li><a href="chapter3.html">Chapter 3</a></li>
-    <li><a href="chapter4.html">Chapter 4</a></li>
-    <li><a href="lab1.html">Lab 1</a></li>
-    <li><a href="lab2.html">Lab 2</a></li>
-  </ul>
-</nav>
-
 <canvas id="statsBG"></canvas>
 <div class="bg-overlay"></div>
 
-<section>
-<h1>Chapter 1 · Description of Data</h1>
+<div class="container">
+  <div class="header-row" role="banner">
+    <div style="flex:0 0 auto;">
+      <!-- Large Home button linking to index.html -->
+      <a class="home-button" href="index.html" aria-label="Back to Home">
+        <!-- simple home icon (SVG) -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 10.5L12 4l9 6.5" stroke="#021025" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 21V11.5l7-4.5 7 4.5V21" stroke="#021025" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Home
+      </a>
+    </div>
 
-<div class="card">
-<h3>Introduction</h3>
-<p>
-Descriptive statistics focuses on organizing, summarizing and presenting data in a meaningful form.
-It uses numerical measures and graphical methods to understand data clearly.
-</p>
-</div>
+    <div class="title-wrap">
+      <h1>Chapter 1 · Description of Data</h1>
+    </div>
 
-<div class="card">
-<h3>Types of Data</h3>
-<p>
-Data are classified based on their nature into qualitative and quantitative data.
-This classification helps decide suitable statistical methods.
-</p>
+    <div style="flex:0 0 120px; text-align:right;">
+      <!-- optional small placeholder to balance layout on wide screens -->
+    </div>
+  </div>
 
-<details>
-<summary>Click to expand</summary>
-<div class="formula">
+  <div class="card">
+    <h3>Introduction</h3>
+    <p>
+      Descriptive statistics focuses on organizing, summarizing and presenting data in a meaningful form.
+      It uses numerical measures and graphical methods to understand data clearly.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Types of Data</h3>
+    <p>
+      Data are classified based on their nature into qualitative and quantitative data.
+      This classification helps decide suitable statistical methods.
+    </p>
+
+    <details>
+      <summary>Click to expand</summary>
+      <div class="formula">
 Qualitative (Categorical)
 • Nominal – no order
 • Ordinal – ordered categories
@@ -163,116 +159,142 @@ Nominal: Blood group
 Ordinal: Rank
 Discrete: Number of students
 Continuous: Height
-</div>
-</details>
-</div>
+      </div>
+    </details>
+  </div>
 
-<div class="card">
-<h3>Measures of Central Tendency</h3>
-<p>
-These measures describe the central or typical value of a dataset.
-Mean, median and mode are the most commonly used measures.
-</p>
+  <div class="card">
+    <h3>Measures of Central Tendency</h3>
+    <p>
+      These measures describe the central or typical value of a dataset.
+      Mean, median and mode are the most commonly used measures.
+    </p>
 
-<details>
-<summary>Click to expand</summary>
-<div class="formula">
-Mean: x̄ = Σx / n
+    <details>
+      <summary>Click to expand</summary>
+      <div class="formula">
+Mean (ungrouped): x̄ = Σx / n
 Median (grouped): l + [(N/2 − cf)/f] × h
 Mode (grouped): l + [(f₁ − f₀)/(2f₁ − f₀ − f₂)] × h
-</div>
-</details>
-</div>
 
-<div class="card">
-<h3>Measures of Dispersion</h3>
-<p>
-Dispersion shows how far data values spread around the central value.
-It indicates consistency or variability in data.
-</p>
+Example:
+10, 20, 30, 40, 50 → Mean = 30
+      </div>
+    </details>
+  </div>
 
-<details>
-<summary>Click to expand</summary>
-<div class="formula">
+  <div class="card">
+    <h3>Measures of Dispersion</h3>
+    <p>
+      Dispersion shows how far data values spread around the central value.
+      It indicates consistency or variability in data.
+    </p>
+
+    <details>
+      <summary>Click to expand</summary>
+      <div class="formula">
 Range = Max − Min
 Variance: s² = Σ(x − x̄)² / (n − 1)
 Standard Deviation: s = √s²
-</div>
-</details>
-</div>
 
-<div class="card">
-<h3>Histogram</h3>
-<div class="graph">
-<svg viewBox="0 0 700 300">
-<line x1="60" y1="250" x2="660" y2="250" stroke="#cfe8ff"/>
-<line x1="60" y1="40" x2="60" y2="250" stroke="#cfe8ff"/>
-<rect x="100" y="200" width="80" height="50" fill="#38bdf8"/>
-<rect x="200" y="170" width="80" height="80" fill="#a78bfa"/>
-<rect x="300" y="130" width="80" height="120" fill="#f472b6"/>
-<rect x="400" y="160" width="80" height="90" fill="#60a5fa"/>
-</svg>
-</div>
-</div>
+Example:
+Data: 5, 7, 9 → SD = 2
+      </div>
+    </details>
+  </div>
 
-<div class="card">
-<h3>What I Learned in This Chapter</h3>
-<p>
-I learned how data are classified, summarized using mean, median and mode,
-measured for variability, and represented graphically.
-</p>
-</div>
+  <div class="card">
+    <h3>Histogram</h3>
+    <p>
+      A histogram represents frequency distribution of continuous data using adjacent bars.
+      The height of each bar shows frequency.
+    </p>
 
-</section>
+    <div class="graph">
+      <svg viewBox="0 0 700 300" width="100%" height="auto" role="img" aria-label="Example histogram">
+        <line x1="60" y1="250" x2="660" y2="250" stroke="#cfe8ff"/>
+        <line x1="60" y1="40" x2="60" y2="250" stroke="#cfe8ff"/>
+        <rect x="100" y="200" width="80" height="50" fill="#38bdf8"/>
+        <rect x="200" y="170" width="80" height="80" fill="#a78bfa"/>
+        <rect x="300" y="130" width="80" height="120" fill="#f472b6"/>
+        <rect x="400" y="160" width="80" height="90" fill="#60a5fa"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Ogive</h3>
+    <p>
+      An ogive is a cumulative frequency curve.
+      It is used to find median, quartiles and percentiles.
+    </p>
+
+    <div class="graph">
+      <svg viewBox="0 0 700 300" width="100%" height="auto" role="img" aria-label="Example ogive">
+        <line x1="60" y1="250" x2="660" y2="250" stroke="#cfe8ff"/>
+        <line x1="60" y1="40" x2="60" y2="250" stroke="#cfe8ff"/>
+        <polyline points="120,240 220,240 220,210 320,210 320,160 420,160 420,110"
+          fill="none" stroke="#f472b6" stroke-width="4"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Box Plot</h3>
+    <p>
+      A box plot represents data using five-number summary.
+      It helps detect spread and outliers.
+    </p>
+
+    <div class="graph">
+      <svg viewBox="0 0 700 200" width="100%" height="auto" role="img" aria-label="Example box plot">
+        <line x1="100" y1="100" x2="600" y2="100" stroke="#cfe8ff"/>
+        <rect x="220" y="70" width="260" height="60" fill="#a78bfa"/>
+        <line x1="350" y1="70" x2="350" y2="130" stroke="#020617" stroke-width="3"/>
+        <line x1="140" y1="100" x2="220" y2="100" stroke="#cfe8ff"/>
+        <line x1="480" y1="100" x2="560" y2="100" stroke="#cfe8ff"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>What I Learned in This Chapter</h3>
+    <p>
+      I learned how data are classified, summarized using mean, median and mode,
+      measured for variability, and represented graphically using histogram, ogive and box plot.
+    </p>
+  </div>
+
+  <div class="footer-row">
+    © Chapter 1 — Description of Data
+  </div>
+</div>
 
 <script>
-const canvas = document.getElementById("statsBG");
-const ctx = canvas.getContext("2d");
-
-function resize(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
-
-const dots = Array.from({length:80}, () => ({
-  x: Math.random()*canvas.width,
-  y: Math.random()*canvas.height,
-  vx:(Math.random()-0.5)*0.4,
-  vy:(Math.random()-0.5)*0.4
-}));
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  for(let i=0;i<dots.length;i++){
-    for(let j=i+1;j<dots.length;j++){
-      const dist = Math.hypot(dots[i].x-dots[j].x,dots[i].y-dots[j].y);
-      if(dist < 120){
-        ctx.strokeStyle="rgba(160,180,255,0.08)";
-        ctx.beginPath();
-        ctx.moveTo(dots[i].x,dots[i].y);
-        ctx.lineTo(dots[j].x,dots[j].y);
-        ctx.stroke();
+const c=document.getElementById("statsBG"),x=c.getContext("2d");
+function r(){c.width=innerWidth;c.height=innerHeight}
+r();addEventListener("resize",r);
+const d=[...Array(90)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3}));
+(function a(){
+  x.clearRect(0,0,c.width,c.height);
+  for(let i=0;i<d.length;i++){
+    for(let j=i+1;j<d.length;j++){
+      let l=Math.hypot(d[i].x-d[j].x,d[i].y-d[j].y);
+      if(l<120){
+        x.strokeStyle="rgba(160,180,255,.08)";
+        x.beginPath();x.moveTo(d[i].x,d[i].y);x.lineTo(d[j].x,d[j].y);x.stroke();
       }
     }
-
-    dots[i].x += dots[i].vx;
-    dots[i].y += dots[i].vy;
-
-    if(dots[i].x<0||dots[i].x>canvas.width) dots[i].vx*=-1;
-    if(dots[i].y<0||dots[i].y>canvas.height) dots[i].vy*=-1;
-
-    ctx.fillStyle="rgba(220,230,255,0.8)";
-    ctx.beginPath();
-    ctx.arc(dots[i].x,dots[i].y,2,0,Math.PI*2);
-    ctx.fill();
+    d[i].x+=d[i].vx;d[i].y+=d[i].vy;
+    if(d[i].x<0||d[i].x>c.width)d[i].vx*=-1;
+    if(d[i].y<0||d[i].y>c.height)d[i].vy*=-1;
+    x.fillStyle="rgba(220,230,255,.8)";
+    x.beginPath();x.arc(d[i].x,d[i].y,2,0,Math.PI*2);x.fill();
   }
-  requestAnimationFrame(animate);
-}
-animate();
+  requestAnimationFrame(a);
+})();
 </script>
 
 </body>
 </html>
+```
