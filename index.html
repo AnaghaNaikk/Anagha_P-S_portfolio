@@ -2,220 +2,275 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anagha G Naik | Probability & Statistics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Segoe UI", Arial, sans-serif;
-}
-
+*{box-sizing:border-box}
 body{
-  min-height:100vh;
-  background: linear-gradient(120deg, #0a0f2c, #0f1b3d, #09142f);
-  background-size:300% 300%;
-  animation:bgMove 10s ease infinite;
-  color:#e8ecff;
+  margin:0;
+  font-family:"Segoe UI", Arial, sans-serif;
+  color:#e5e7eb;
+  background:#020617;
+  overflow-x:hidden;
 }
 
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+/* Animated background */
+#bg-canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
 }
 
-/* NAVBAR */
-header{
-  background:rgba(0,0,0,0.4);
+/* Navbar */
+.site-header{
+  position:sticky;
+  top:0;
+  background:rgba(2,6,23,0.95);
   backdrop-filter:blur(6px);
+  box-shadow:0 4px 20px rgba(0,0,0,.8);
 }
-
-nav{
+.header-inner{
   max-width:1200px;
   margin:auto;
+  padding:14px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:14px 20px;
 }
-
-.name{
-  font-size:22px;
+.full-name{
+  font-size:24px; /* slightly bigger as you wanted */
   font-weight:700;
   color:#c7d2fe;
 }
-
-.meta{
+.sub-meta{
   font-size:14px;
-  color:#a5b4fc;
+  color:#94a3b8;
 }
-
-.links a{
-  margin-left:8px;
-  padding:8px 14px;
-  background:#1b2b6f;
-  color:#fff;
-  border-radius:10px;
-  text-decoration:none;
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:10px;
+  margin:0;
+  padding:0;
+}
+.nav-links a{
+  padding:8px 16px;
+  border-radius:20px;
+  background:#1e293b;
+  color:#e5e7eb;
   font-weight:600;
-  transition:0.3s;
+  transition:.3s;
+  text-decoration:none;
+}
+.nav-links a:hover,
+.nav-links a.active{
+  background:#6366f1;
+  color:white;
 }
 
-.links a:hover{
-  background:#2f46b5;
+/* Hero */
+.hero{
+  padding:90px 20px 60px;
+  text-align:center;
+}
+.hero h1{
+  font-size:42px;
+  color:#e0e7ff;
+}
+.hero p{
+  color:#cbd5f5;
+  font-size:17px;
 }
 
-/* CONTENT */
+/* Content */
 .container{
   max-width:1100px;
   margin:auto;
   padding:40px 20px;
 }
-
-.hero{
+.section h2{
   text-align:center;
-  margin-bottom:40px;
+  font-size:30px;
+  margin-bottom:30px;
+  color:#a5b4fc;
 }
 
-.hero h1{
-  font-size:2.4rem;
-  margin-bottom:10px;
-}
-
-.hero p{
-  font-size:1.05rem;
-  opacity:0.9;
-}
-
-.cards{
+/* Cards */
+.card-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
 }
-
 .card{
-  background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(8px);
+  background:#020617;
+  border:1px solid #1e293b;
   border-radius:16px;
-  padding:22px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
-  transition:0.3s;
+  padding:24px;
+  box-shadow:0 10px 30px rgba(0,0,0,.8);
 }
-
-.card:hover{
-  transform:translateY(-6px);
-}
-
 .card h3{
-  margin-bottom:10px;
-  color:#9fb2ff;
+  color:#818cf8;
+}
+.card p{
+  font-size:15px;
+  color:#e5e7eb;
 }
 
+/* Subject box */
+.subject-box{
+  margin-top:40px;
+  border:1px solid #312e81;
+  border-radius:18px;
+  padding:30px;
+  background:#020617;
+}
+.subject-box h3{
+  color:#a5b4fc;
+}
+
+/* Footer */
 footer{
   text-align:center;
-  padding:22px;
-  font-size:0.9rem;
-  opacity:0.75;
-  background:rgba(0,0,0,0.35);
+  padding:25px;
+  color:#94a3b8;
+  border-top:1px solid #1e293b;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER / NAVBAR -->
-<header>
-  <nav>
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAVBAR -->
+<header class="site-header">
+  <div class="header-inner">
     <div>
-      <div class="name">Anagha G Naik</div>
-      <div class="meta">
+      <div class="full-name">Anagha G Naik</div>
+      <div class="sub-meta">
         USN: 01FE25BCS704 | Roll No: 450 | KLE Technological University
       </div>
     </div>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="chapter1.html">Chapter 1</a>
-      <a href="chapter2.html">Chapter 2</a>
-      <a href="chapter3.html">Chapter 3</a>
-      <a href="chapter4.html">Chapter 4</a>
-    </div>
-  </nav>
+    <ul class="nav-links">
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="chapter1.html">Chapter 1</a></li>
+      <li><a href="chapter2.html">Chapter 2</a></li>
+      <li><a href="chapter3.html">Chapter 3</a></li>
+      <li><a href="chapter4.html">Chapter 4</a></li>
+    </ul>
+  </div>
 </header>
 
-<div class="container">
+<!-- HERO -->
+<section class="hero">
+  <h1>Fundamentals of Probability & Statistics</h1>
+  <p><strong>Subject Code:</strong> 25EMAB233</p>
+  <p>KLE Technological University • 2025–26</p>
+  <p><strong>Under the Academic Guidance of:</strong> Dr. Gururaj Bhadri</p>
+</section>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Fundamentals of Probability & Statistics</h1>
-    <p><strong>Subject Code:</strong> 25EMAB233</p>
-    <p><strong>KLE Technological University</strong></p>
-    <p><strong>Under the Academic Guidance of:</strong> Dr. Gururaj Bhadri</p>
-  </section>
+<!-- INTRODUCTION -->
+<section class="container section">
+  <h2>Introduction</h2>
 
-  <!-- CARDS -->
-  <section class="cards">
-
-    <div class="card">
-      <h3>Student Information</h3>
-      <p><strong>Name:</strong> Anagha G Naik</p>
-      <p><strong>USN:</strong> 01FE25BCS704</p>
-      <p><strong>Roll No:</strong> 450</p>
-      <p><strong>Semester:</strong> 3rd</p>
-      <p><strong>University:</strong> KLE Technological University</p>
-    </div>
+  <div class="card-grid">
 
     <div class="card">
-      <h3>Subject Overview</h3>
+      <h3>Student</h3>
       <p>
-        Probability and Statistics focuses on understanding uncertainty,
-        analyzing data, and applying mathematical methods to solve
-        real-world engineering problems.
+        I am <b>Anagha G Naik</b>, a 3rd semester undergraduate student at
+        <b>KLE Technological University</b>. This project is developed as part
+        of the academic coursework for the subject
+        <b>Fundamentals of Probability and Statistics</b>.
       </p>
     </div>
 
     <div class="card">
-      <h3>Meaning of the Subject</h3>
+      <h3>Under the Guidance of</h3>
       <p>
-        <strong>Probability</strong> measures the likelihood of events.<br><br>
-        <strong>Statistics</strong> involves collecting, organizing,
-        analyzing, and interpreting data to support decision-making.
+        <b>Dr. Gururaj Bhadri</b><br>
+        KLE Technological University
       </p>
     </div>
 
     <div class="card">
-      <h3>Applications</h3>
+      <h3>Subject</h3>
       <p>
-        Widely used in engineering analysis, data science, artificial
-        intelligence, quality control, finance, and scientific research.
+        <b>Probability</b> deals with measuring uncertainty and predicting
+        the likelihood of events.
+      </p>
+      <p>
+        <b>Statistics</b> deals with collecting, organizing, analyzing,
+        and interpreting data to make decisions.
       </p>
     </div>
 
-    <!-- ✅ ONLY NEW ADDITION -->
+    <!-- ✅ ONLY ADDITION -->
     <div class="card">
-      <h3>Real-World Applications</h3>
+      <h3>Real-World Applicability</h3>
       <p>
-        Probability and Statistics are used in everyday life and industry
-        to make informed decisions. Engineers use statistical methods for
-        quality control and reliability analysis. In data science and
-        machine learning, probability models help predict outcomes.
-        In finance and economics, statistical analysis supports risk
-        assessment and forecasting. Medical research relies on statistics
-        to analyze clinical trials and treatment effectiveness.
+        Probability and Statistics are applied in engineering design,
+        quality control, data science, machine learning, finance,
+        medical research, and scientific experiments to make accurate
+        predictions and informed decisions.
       </p>
     </div>
 
-  </section>
+  </div>
 
-</div>
+  <div class="subject-box">
+    <h3>What does Probability & Statistics mean?</h3>
+    <p>
+      Probability predicts outcomes in uncertain situations, while
+      statistics explains patterns found in data. Together, they form
+      the foundation of analytical thinking and evidence-based decision making.
+    </p>
+  </div>
 
-<!-- FOOTER -->
+</section>
+
 <footer>
-  © 2025–2026 | Anagha G Naik | Fundamentals of Probability & Statistics |
+  © 2025–2026 | Anagha G Naik | Probability & Statistics |
   KLE Technological University
 </footer>
+
+<!-- Background animation (RESTORED) -->
+<script>
+const canvas=document.getElementById("bg-canvas");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+const dots=[...Array(70)].map(()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:1+Math.random()*2,
+  vx:(Math.random()-.5)*0.4,
+  vy:(Math.random()-.5)*0.4
+}));
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  dots.forEach(d=>{
+    d.x+=d.vx;
+    d.y+=d.vy;
+    if(d.x<0||d.x>canvas.width) d.vx*=-1;
+    if(d.y<0||d.y>canvas.height) d.vy*=-1;
+    ctx.beginPath();
+    ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+    ctx.fillStyle="rgba(99,102,241,0.8)";
+    ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
 
 </body>
 </html>
