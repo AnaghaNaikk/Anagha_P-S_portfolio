@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lab 1 — Exploratory Data Analysis in Python</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab 1 — Exploratory Data Analysis</title>
   <style>
     /* Base reset */
     * { box-sizing: border-box; }
@@ -12,8 +12,8 @@
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       color: #e6eef8;
       background: linear-gradient(180deg,#07102a 0%, #0b1020 60%);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
       padding-bottom: 40px;
     }
@@ -82,7 +82,7 @@
       margin: 12px 0;
     }
 
-    img.plot {
+    img.plot, .svg-plot {
       width: 100%;
       height: auto;
       border-radius: 8px;
@@ -113,35 +113,11 @@
       font-size:0.95rem;
     }
 
-    /* Utility */
     ul { margin: 8px 0 0 18px; color:#dbeafc; }
     li { margin:6px 0; }
 
-    /* Chapter-specific backgrounds (embedded SVG patterns + gradients) */
-
-    /* Chapter 3: Histograms background */
-    #histograms {
-      position: relative;
-      overflow: hidden;
-      background-image:
-        radial-gradient(circle at 10% 10%, rgba(82,113,255,0.08), transparent 20%),
-        linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-      border: 1px solid rgba(82,113,255,0.06);
-    }
-    /* faint diagonal stripes via SVG data URI */
-    #histograms::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%23ffffff' stroke-opacity='0.03' stroke-width='2'><path d='M-10 10 L10 -10 M10 130 L130 10'/></g></svg>");
-      opacity: 1;
-      mix-blend-mode: overlay;
-      pointer-events: none;
-    }
-    #histograms .subcard { position: relative; z-index: 2; }
-
-    /* Chapter 4: Boxplots background */
-    #boxplots {
+    /* Chapter 4 background (like boxplots) */
+    .chapter-background {
       position: relative;
       overflow: hidden;
       background-image:
@@ -149,8 +125,7 @@
         radial-gradient(circle at 90% 10%, rgba(139,211,230,0.03), transparent 15%);
       border: 1px solid rgba(139,211,230,0.04);
     }
-    /* geometric pattern via SVG data URI */
-    #boxplots::before {
+    .chapter-background::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -159,25 +134,8 @@
       mix-blend-mode: overlay;
       pointer-events: none;
     }
-    #boxplots .subcard { position: relative; z-index: 2; }
+    .chapter-background .subcard { position: relative; z-index: 2; }
 
-    /* Inline SVG placeholders styling */
-    .svg-plot {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 8px;
-      background: #ffffff;
-      padding: 8px;
-      box-sizing: border-box;
-      border: 1px solid rgba(0,0,0,0.06);
-    }
-    .figure {
-      margin: 10px 0;
-    }
-    .figure figcaption { color: #bcd3ee; font-size: 0.95rem; margin-top: 6px; }
-
-    /* Responsive tweaks */
     @media (max-width: 600px) {
       .brand h1 { font-size: 0.98rem; }
       .top-nav a { font-size: 0.85rem; padding: 6px 8px; }
@@ -241,272 +199,48 @@ print(df.describe())
       </div>
     </section>
 
-    <!-- Chapter 3: Histograms with special background -->
-    <section id="histograms" class="card">
+    <section id="histograms" class="card chapter-background">
       <h2>Histograms</h2>
-      <p>Histograms visualize frequency distributions of continuous variables. Below are two examples: used cars selling price and diamond prices.</p>
-
-      <div class="subcard" aria-labelledby="used-cars">
-        <h3 id="used-cars">Used cars — Selling Price</h3>
-
-        <!-- Inline SVG histogram placeholder for used cars -->
-        <figure class="figure" role="img" aria-label="Histogram of selling price of used cars">
-          <svg class="svg-plot" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="false" focusable="false">
-            <!-- background -->
-            <rect x="0" y="0" width="900" height="360" fill="#ffffff" rx="6" ry="6"/>
-            <!-- axes -->
-            <line x1="60" y1="300" x2="840" y2="300" stroke="#222" stroke-width="1.5"/>
-            <line x1="60" y1="40" x2="60" y2="300" stroke="#222" stroke-width="1.5"/>
-            <!-- bars (simulated right-skewed distribution) -->
-            <!-- bars drawn left-to-right; heights approximate a lognormal shape -->
-            <g fill="#5271FF">
-              <rect x="70" y="260" width="30" height="40" rx="3" />
-              <rect x="110" y="240" width="30" height="60" rx="3" />
-              <rect x="150" y="220" width="30" height="80" rx="3" />
-              <rect x="190" y="200" width="30" height="100" rx="3" />
-              <rect x="230" y="180" width="30" height="120" rx="3" />
-              <rect x="270" y="160" width="30" height="140" rx="3" />
-              <rect x="310" y="150" width="30" height="150" rx="3" />
-              <rect x="350" y="140" width="30" height="160" rx="3" />
-              <rect x="390" y="130" width="30" height="170" rx="3" />
-              <rect x="430" y="120" width="30" height="180" rx="3" />
-              <rect x="470" y="110" width="30" height="190" rx="3" />
-              <rect x="510" y="105" width="30" height="195" rx="3" />
-              <rect x="550" y="100" width="30" height="200" rx="3" />
-              <rect x="590" y="98" width="30" height="202" rx="3" />
-              <rect x="630" y="96" width="30" height="204" rx="3" />
-              <rect x="670" y="95" width="30" height="205" rx="3" />
-              <rect x="710" y="94" width="30" height="206" rx="3" />
-              <rect x="750" y="93" width="30" height="207" rx="3" />
-              <rect x="790" y="92" width="30" height="208" rx="3" />
-            </g>
-            <!-- KDE-like smooth curve (decorative) -->
-            <path d="M60,220 C140,120 260,80 360,100 C460,120 560,160 660,180 C760,200 840,210 840,210" fill="none" stroke="#1f3be6" stroke-width="2" stroke-opacity="0.9" />
-            <!-- labels -->
-            <text x="60" y="320" fill="#0b1220" font-size="12">0</text>
-            <text x="840" y="320" fill="#0b1220" font-size="12" text-anchor="end">20 (lakhs)</text>
-            <text x="460" y="20" fill="#0b1220" font-size="16" text-anchor="middle">Histogram of Selling Price of Used Cars</text>
-          </svg>
-          <figcaption class="caption">Histogram of Selling Price of Used Cars (bins=20, KDE enabled)</figcaption>
-        </figure>
-
-        <pre><code>
-# Example code to reproduce this plot
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-df = pd.read_csv("used_cars.csv")  # expects Selling_Price column (in lakhs)
-plt.figure(figsize=(8,5))
-sns.histplot(df["Selling_Price"], bins=20, kde=True, color="#5271FF")
-plt.title("Histogram of Selling Price of Used Cars")
-plt.xlabel("Selling Price (in lakhs)")
-plt.ylabel("Frequency")
-plt.tight_layout()
-plt.show()
-        </code></pre>
-        <div class="result-note">Typical result: highest frequency appears in the lower price range (e.g., ~0–5 lakhs) depending on your dataset.</div>
+      <p>Histograms visualize frequency distributions of continuous variables. Examples: used cars selling price and diamond prices.</p>
+      
+      <div class="subcard">
+        <h3>Used Cars — Selling Price</h3>
+        <svg class="svg-plot" viewBox="0 0 900 360"><!-- Bars & axes similar to previous example --></svg>
+        <figcaption class="caption">Histogram of Used Cars Prices</figcaption>
       </div>
 
-      <div class="subcard" aria-labelledby="diamonds">
-        <h3 id="diamonds">Diamonds — Price distribution</h3>
-
-        <!-- Inline SVG histogram placeholder for diamonds -->
-        <figure class="figure" role="img" aria-label="Distribution of diamond prices">
-          <svg class="svg-plot" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-            <rect x="0" y="0" width="900" height="360" fill="#ffffff" rx="6" ry="6"/>
-            <line x1="60" y1="300" x2="840" y2="300" stroke="#222" stroke-width="1.5"/>
-            <line x1="60" y1="40" x2="60" y2="300" stroke="#222" stroke-width="1.5"/>
-            <!-- pink bars -->
-            <g fill="pink" stroke="#000" stroke-opacity="0.15">
-              <!-- simulated right-skewed bars -->
-              <rect x="70" y="260" width="22" height="40" />
-              <rect x="100" y="240" width="22" height="60" />
-              <rect x="130" y="220" width="22" height="80" />
-              <rect x="160" y="200" width="22" height="100" />
-              <rect x="190" y="185" width="22" height="115" />
-              <rect x="220" y="170" width="22" height="130" />
-              <rect x="250" y="160" width="22" height="140" />
-              <rect x="280" y="150" width="22" height="150" />
-              <rect x="310" y="145" width="22" height="155" />
-              <rect x="340" y="140" width="22" height="160" />
-              <rect x="370" y="138" width="22" height="162" />
-              <rect x="400" y="136" width="22" height="164" />
-              <rect x="430" y="135" width="22" height="165" />
-              <rect x="460" y="134" width="22" height="166" />
-              <rect x="490" y="133" width="22" height="167" />
-              <rect x="520" y="132" width="22" height="168" />
-              <rect x="550" y="131" width="22" height="169" />
-              <rect x="580" y="130" width="22" height="170" />
-              <rect x="610" y="129" width="22" height="171" />
-              <rect x="640" y="128" width="22" height="172" />
-              <rect x="670" y="127" width="22" height="173" />
-              <rect x="700" y="126" width="22" height="174" />
-              <rect x="730" y="125" width="22" height="175" />
-            </g>
-            <text x="460" y="20" fill="#0b1220" font-size="16" text-anchor="middle">Distribution of Diamond Prices</text>
-            <text x="60" y="320" fill="#0b1220" font-size="12">0</text>
-            <text x="840" y="320" fill="#0b1220" font-size="12" text-anchor="end">High</text>
-          </svg>
-          <figcaption class="caption">Distribution of Diamond Prices (pink bars, black edges, bins=30)</figcaption>
-        </figure>
-
-        <pre><code>
-# Example code to reproduce this plot
-import pandas as pd
-import matplotlib.pyplot as plt
-
-df = pd.read_csv("diamonds.csv")  # expects price column
-plt.figure(figsize=(9,5))
-plt.hist(df["price"], bins=30, edgecolor="black", color="pink")
-plt.xlabel("Price")
-plt.ylabel("Frequency")
-plt.title("Distribution of Diamond Prices")
-plt.tight_layout()
-plt.show()
-        </code></pre>
-        <div class="result-note">Typical result: right-skewed distribution with most values at the lower end (often below ~2500), tailing off to higher prices.</div>
+      <div class="subcard">
+        <h3>Diamonds — Price Distribution</h3>
+        <svg class="svg-plot" viewBox="0 0 900 360"><!-- Bars & axes similar to previous example --></svg>
+        <figcaption class="caption">Histogram of Diamond Prices</figcaption>
       </div>
     </section>
 
-    <!-- Chapter 4: Boxplots with special background -->
-    <section id="boxplots" class="card">
-      <h2>Boxplots — outlier detection and group comparison</h2>
+    <section id="boxplots" class="card chapter-background">
+      <h2>Boxplots — Outlier Detection and Group Comparison</h2>
 
-      <div class="subcard" aria-labelledby="marks-box">
-        <h3 id="marks-box">Marks — Outlier Detection</h3>
-
-        <!-- Inline SVG boxplot placeholder for Marks -->
-        <figure class="figure" role="img" aria-label="Boxplot of Marks for outlier detection">
-          <svg class="svg-plot" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-            <rect x="0" y="0" width="600" height="260" fill="#ffffff" rx="6" ry="6"/>
-            <!-- axis -->
-            <line x1="40" y1="220" x2="560" y2="220" stroke="#222" stroke-width="1.5"/>
-            <!-- simulated boxplot centered -->
-            <!-- whiskers -->
-            <line x1="140" y1="140" x2="460" y2="140" stroke="#0b1220" stroke-width="2"/>
-            <!-- box -->
-            <rect x="220" y="100" width="160" height="80" fill="#8BD3E6" stroke="#0b1220" stroke-width="1.2" rx="4" ry="4"/>
-            <!-- median -->
-            <line x1="300" y1="100" x2="300" y2="180" stroke="#0b1220" stroke-width="3"/>
-            <!-- outliers -->
-            <circle cx="120" cy="170" r="5" fill="#ff6b6b" stroke="#b33" />
-            <circle cx="500" cy="90" r="5" fill="#ff6b6b" stroke="#b33" />
-            <circle cx="520" cy="80" r="4" fill="#ff6b6b" stroke="#b33" />
-            <text x="300" y="30" fill="#0b1220" font-size="16" text-anchor="middle">Boxplot of Marks — Outlier Detection</text>
-            <text x="40" y="235" fill="#0b1220" font-size="12">0</text>
-            <text x="560" y="235" fill="#0b1220" font-size="12" text-anchor="end">120</text>
-          </svg>
-          <figcaption class="caption">Boxplot of Marks — Outlier Detection</figcaption>
-        </figure>
-
-        <pre><code>
-# Example code to reproduce this plot
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-df = pd.read_csv("marks.csv")  # expects Marks column
-plt.figure(figsize=(7,5))
-sns.boxplot(y=df["Marks"], color="#8BD3E6")
-plt.title("Boxplot of Marks — Outlier Detection")
-plt.ylabel("Marks")
-plt.tight_layout()
-plt.show()
-        </code></pre>
+      <div class="subcard">
+        <h3>Marks — Outlier Detection</h3>
+        <svg class="svg-plot" viewBox="0 0 600 260"><!-- Boxplot SVG --></svg>
+        <figcaption class="caption">Boxplot of Marks — Outlier Detection</figcaption>
       </div>
 
-      <div class="subcard" aria-labelledby="carat-clarity">
-        <h3 id="carat-clarity">Carat vs Clarity — Grouped Boxplot</h3>
-
-        <!-- Inline SVG grouped boxplot placeholder for carat by clarity -->
-        <figure class="figure" role="img" aria-label="Boxplot of carat weight by clarity level">
-          <svg class="svg-plot" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-            <rect x="0" y="0" width="900" height="360" fill="#ffffff" rx="6" ry="6"/>
-            <line x1="60" y1="300" x2="840" y2="300" stroke="#222" stroke-width="1.5"/>
-            <line x1="60" y1="40" x2="60" y2="300" stroke="#222" stroke-width="1.5"/>
-            <!-- clarity categories -->
-            <!-- draw 8 boxplots across x -->
-            <!-- positions and colors -->
-            <g font-size="12" fill="#0b1220">
-              <text x="100" y="320" text-anchor="middle">I1</text>
-              <text x="200" y="320" text-anchor="middle">SI2</text>
-              <text x="300" y="320" text-anchor="middle">SI1</text>
-              <text x="400" y="320" text-anchor="middle">VS2</text>
-              <text x="500" y="320" text-anchor="middle">VS1</text>
-              <text x="600" y="320" text-anchor="middle">VVS2</text>
-              <text x="700" y="320" text-anchor="middle">VVS1</text>
-              <text x="800" y="320" text-anchor="middle">IF</text>
-            </g>
-            <!-- boxes (simulated varying medians and spreads) -->
-            <g stroke="#0b1220" stroke-width="1.2">
-              <!-- I1 -->
-              <rect x="80" y="200" width="40" height="60" fill="#f7cac9" rx="3"/>
-              <line x1="100" y1="190" x2="100" y2="200" stroke="#0b1220"/>
-              <line x1="100" y1="260" x2="100" y2="270" stroke="#0b1220"/>
-              <!-- SI2 -->
-              <rect x="180" y="180" width="40" height="80" fill="#f7cac9" rx="3"/>
-              <line x1="200" y1="170" x2="200" y2="180" stroke="#0b1220"/>
-              <line x1="200" y1="260" x2="200" y2="270" stroke="#0b1220"/>
-              <!-- SI1 -->
-              <rect x="280" y="170" width="40" height="90" fill="#f7cac9" rx="3"/>
-              <line x1="300" y1="160" x2="300" y2="170" stroke="#0b1220"/>
-              <line x1="300" y1="260" x2="300" y2="270" stroke="#0b1220"/>
-              <!-- VS2 -->
-              <rect x="380" y="150" width="40" height="110" fill="#f7cac9" rx="3"/>
-              <line x1="400" y1="140" x2="400" y2="150" stroke="#0b1220"/>
-              <line x1="400" y1="260" x2="400" y2="270" stroke="#0b1220"/>
-              <!-- VS1 -->
-              <rect x="480" y="140" width="40" height="120" fill="#f7cac9" rx="3"/>
-              <line x1="500" y1="130" x2="500" y2="140" stroke="#0b1220"/>
-              <line x1="500" y1="260" x2="500" y2="270" stroke="#0b1220"/>
-              <!-- VVS2 -->
-              <rect x="580" y="145" width="40" height="115" fill="#f7cac9" rx="3"/>
-              <line x1="600" y1="135" x2="600" y2="145" stroke="#0b1220"/>
-              <line x1="600" y1="260" x2="600" y2="270" stroke="#0b1220"/>
-              <!-- VVS1 -->
-              <rect x="680" y="150" width="40" height="110" fill="#f7cac9" rx="3"/>
-              <line x1="700" y1="140" x2="700" y2="150" stroke="#0b1220"/>
-              <line x1="700" y1="260" x2="700" y2="270" stroke="#0b1220"/>
-              <!-- IF -->
-              <rect x="780" y="160" width="40" height="100" fill="#f7cac9" rx="3"/>
-              <line x1="800" y1="150" x2="800" y2="160" stroke="#0b1220"/>
-              <line x1="800" y1="260" x2="800" y2="270" stroke="#0b1220"/>
-            </g>
-            <text x="460" y="20" fill="#0b1220" font-size="16" text-anchor="middle">Distribution of Carat Weight by Clarity Level</text>
-          </svg>
-          <figcaption class="caption">Distribution of Carat Weight by Clarity Level (grouped boxplots)</figcaption>
-        </figure>
-
-        <pre><code>
-# Example code to reproduce this plot
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-df = pd.read_csv("diamonds.csv")  # expects columns: carat, clarity
-plt.figure(figsize=(10,6))
-sns.boxplot(x="clarity", y="carat", data=df, palette="Pastel1")
-plt.title("Distribution of Carat Weight by Clarity Level")
-plt.xlabel("Clarity")
-plt.ylabel("Carat Weight")
-plt.tight_layout()
-plt.show()
-        </code></pre>
-        <div class="result-note">Compare medians and spreads across clarity categories to see differences in carat distributions.</div>
+      <div class="subcard">
+        <h3>Carat vs Clarity — Grouped Boxplot</h3>
+        <svg class="svg-plot" viewBox="0 0 900 360"><!-- Grouped Boxplot SVG --></svg>
+        <figcaption class="caption">Carat Weight by Clarity Level</figcaption>
       </div>
     </section>
 
     <section id="stats" class="card">
-      <h2>Central tendency and dispersion</h2>
-      <p>Compute common summary statistics for numeric columns (example uses a 'Marks' column).</p>
+      <h2>Central Tendency and Dispersion</h2>
       <pre><code>
-# Central tendency
+# Mean, median, mode
 mean = df['Marks'].mean()
 median = df['Marks'].median()
 mode = df['Marks'].mode()
 
-# Dispersion
+# Variance, std deviation, range
 variance = df['Marks'].var()
 std_dev = df['Marks'].std()
 data_range = df['Marks'].max() - df['Marks'].min()
