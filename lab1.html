@@ -1,241 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lab 1 — Exploratory Data Analysis</title>
-  <style>
-    /* Base reset */
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; height: 100%; }
-    body {
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      color: #e6eef8;
-      background: linear-gradient(180deg,#07102a 0%, #0b1020 60%);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      line-height: 1.6;
-      padding-bottom: 40px;
-    }
-
-    /* Header */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(8,12,24,0.7);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .brand { display:flex; flex-direction:column; }
-    .brand h1 { margin: 0; font-size: 1.05rem; color: #ffffff; letter-spacing: 0.2px; }
-    .brand p { margin: 4px 0 0; color: #bcd3ee; font-size: 0.88rem; }
-
-    .top-nav { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-    .top-nav a {
-      color:#cfe3ff; text-decoration:none; padding:6px 10px; border-radius:8px;
-      font-size:0.9rem;
-    }
-    .top-nav a:hover { background: rgba(255,255,255,0.04); color:#fff; }
-
-    /* Container */
-    .container { max-width: 1100px; margin: 28px auto; padding: 0 16px; }
-
-    /* Card */
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 18px;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-    }
-    .card h2 { margin-top: 0; color: #f1f7ff; }
-    .card p { color: #dbeafc; margin: 8px 0; }
-
-    .grid-two { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media (max-width: 880px) { .grid-two { grid-template-columns: 1fr; } }
-
-    .subcard {
-      background: rgba(255,255,255,0.015);
-      border-radius: 10px;
-      padding: 12px;
-      margin-top: 12px;
-      border: 1px dashed rgba(255,255,255,0.03);
-    }
-
-    pre {
-      background: #07102a;
-      color: #cfe0ff;
-      padding: 12px;
-      border-radius: 8px;
-      overflow:auto;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-      font-size: 0.92rem;
-      line-height: 1.45;
-      border: 1px solid rgba(255,255,255,0.04);
-      margin: 12px 0;
-    }
-
-    img.plot, .svg-plot {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      display:block;
-      margin: 10px 0;
-      border: 1px solid rgba(255,255,255,0.04);
-      background: #fff;
-      padding: 6px;
-    }
-
-    .caption { color:#bcd3ee; font-size:0.95rem; margin-top:6px; }
-
-    .result-note {
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      background: rgba(82,113,255,0.08);
-      color: #eaf2ff;
-      font-size: 0.95rem;
-    }
-
-    .site-footer {
-      text-align:center;
-      color:#9fb0c8;
-      margin-top: 18px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.03);
-      font-size:0.95rem;
-    }
-
-    ul { margin: 8px 0 0 18px; color:#dbeafc; }
-    li { margin:6px 0; }
-
-    /* Chapter 4 background (like boxplots) */
-    .chapter-background {
-      position: relative;
-      overflow: hidden;
-      background-image:
-        linear-gradient(180deg, rgba(8,12,24,0.6), rgba(8,12,24,0.4)),
-        radial-gradient(circle at 90% 10%, rgba(139,211,230,0.03), transparent 15%);
-      border: 1px solid rgba(139,211,230,0.04);
-    }
-    .chapter-background::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><defs><pattern id='p' width='40' height='40' patternUnits='userSpaceOnUse'><rect width='40' height='40' fill='none'/><path d='M0 20 L20 0 M20 40 L40 20' stroke='%23ffffff' stroke-opacity='0.02' stroke-width='2'/></pattern></defs><rect width='200' height='200' fill='url(%23p)'/></svg>");
-      opacity: 1;
-      mix-blend-mode: overlay;
-      pointer-events: none;
-    }
-    .chapter-background .subcard { position: relative; z-index: 2; }
-
-    @media (max-width: 600px) {
-      .brand h1 { font-size: 0.98rem; }
-      .top-nav a { font-size: 0.85rem; padding: 6px 8px; }
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lab 1 — Exploratory Data Analysis</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; height:100%; background:#07102a; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:#e6eef8; line-height:1.6; }
+  .site-header { position:sticky; top:0; background:rgba(8,12,24,0.7); backdrop-filter:blur(6px); border-bottom:1px solid rgba(255,255,255,0.04); padding:14px 18px; display:flex; justify-content:space-between; align-items:center; z-index:20; }
+  .brand h1 { margin:0; font-size:1.1rem; color:#fff; }
+  .brand p { margin:2px 0 0; font-size:0.9rem; color:#bcd3ee; }
+  .top-nav { display:flex; gap:8px; flex-wrap:wrap; }
+  .top-nav a { color:#cfe3ff; text-decoration:none; padding:6px 10px; border-radius:8px; font-size:0.9rem; }
+  .top-nav a:hover { background: rgba(255,255,255,0.04); color:#fff; }
+  .container { max-width:1100px; margin:28px auto; padding:0 16px; }
+  .card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; padding:18px; margin-bottom:18px; box-shadow: 0 10px 30px rgba(2,6,23,0.6); }
+  .card h2 { margin-top:0; color:#f1f7ff; }
+  .card p, ul { color:#dbeafc; }
+  ul { margin-left:20px; }
+  li { margin:6px 0; }
+  pre { background:#07102a; color:#cfe0ff; padding:12px; border-radius:8px; overflow:auto; font-family: monospace; font-size:0.92rem; border:1px solid rgba(255,255,255,0.04); margin:12px 0; }
+  .subcard { background: rgba(255,255,255,0.015); border-radius:10px; padding:12px; margin-top:12px; border:1px dashed rgba(255,255,255,0.03); }
+  .svg-plot { width:100%; height:auto; border-radius:8px; display:block; margin:10px 0; border:1px solid rgba(255,255,255,0.04); background:#fff; padding:6px; }
+  .caption { color:#bcd3ee; font-size:0.95rem; margin-top:6px; }
+  .result-note { margin-top:10px; padding:10px 12px; border-radius:8px; background: rgba(82,113,255,0.08); color:#eaf2ff; font-size:0.95rem; }
+  .chapter-background { position:relative; overflow:hidden; background-image: linear-gradient(180deg, rgba(8,12,24,0.6), rgba(8,12,24,0.4)), radial-gradient(circle at 90% 10%, rgba(139,211,230,0.03), transparent 15%); border:1px solid rgba(139,211,230,0.04); }
+  .chapter-background::before { content:""; position:absolute; inset:0; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><defs><pattern id='p' width='40' height='40' patternUnits='userSpaceOnUse'><rect width='40' height='40' fill='none'/><path d='M0 20 L20 0 M20 40 L40 20' stroke='%23ffffff' stroke-opacity='0.02' stroke-width='2'/></pattern></defs><rect width='200' height='200' fill='url(%23p)'/></svg>"); opacity:1; mix-blend-mode: overlay; pointer-events:none; }
+  .chapter-background .subcard { position:relative; z-index:2; }
+  @media (max-width:600px){ .brand h1{font-size:0.98rem;} .top-nav a{font-size:0.85rem;padding:6px 8px;} }
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <h1>Lab 1 — Exploratory Data Analysis</h1>
-      <p>Exploring data with Python</p>
-    </div>
-    <nav class="top-nav" aria-label="Main navigation">
-      <a href="#overview">Overview</a>
-      <a href="#libraries">Libraries</a>
-      <a href="#histograms">Histograms</a>
-      <a href="#boxplots">Boxplots</a>
-      <a href="#stats">Statistics</a>
-    </nav>
-  </header>
 
-  <main class="container">
-    <section id="overview" class="card">
-      <h2>Overview</h2>
-      <p>
-        This lab demonstrates data inspection, preprocessing, visualization, skewness analysis, measures of central tendency and dispersion,
-        and outlier detection using histograms and boxplots in Python.
-      </p>
-      <ul>
-        <li>Goal: Identify distribution patterns, detect outliers, measure variability, and summarize data.</li>
-        <li>Techniques: pandas, numpy, matplotlib, seaborn, scipy.</li>
-      </ul>
-    </section>
+<header class="site-header">
+  <div class="brand">
+    <h1>Lab 1 — Exploratory Data Analysis</h1>
+    <p>Exploring data with Python</p>
+  </div>
+  <nav class="top-nav">
+    <a href="#overview">Overview</a>
+    <a href="#libraries">Libraries</a>
+    <a href="#histograms">Histograms</a>
+    <a href="#boxplots">Boxplots</a>
+    <a href="#stats">Statistics</a>
+  </nav>
+</header>
 
-    <section id="libraries" class="card">
-      <h2>Libraries and starter checks</h2>
-      <div class="grid-two">
-        <div>
-          <h3>Core libraries</h3>
-          <ul>
-            <li><strong>Python 3.x</strong></li>
-            <li><strong>pandas</strong> — data loading, cleaning, manipulation</li>
-            <li><strong>numpy</strong> — numerical operations and arrays</li>
-            <li><strong>matplotlib</strong> — plotting</li>
-            <li><strong>seaborn</strong> — statistical plots</li>
-            <li><strong>scipy</strong> — skewness and stats</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Starter inspection</h3>
-          <pre><code>
-import pandas as pd
+<main class="container">
 
+<section id="overview" class="card">
+<h2>Overview</h2>
+<p>This lab demonstrates data inspection, preprocessing, visualization, skewness analysis, measures of central tendency and dispersion, and outlier detection using histograms and boxplots in Python.</p>
+<ul>
+<li>Goal: Identify distribution patterns, detect outliers, measure variability, and summarize data.</li>
+<li>Techniques: pandas, numpy, matplotlib, seaborn, scipy.</li>
+</ul>
+</section>
+
+<section id="libraries" class="card">
+<h2>Libraries and Starter Checks</h2>
+<div class="grid-two">
+<div>
+<h3>Core Libraries</h3>
+<ul>
+<li>Python 3.x</li>
+<li>pandas — data loading and manipulation</li>
+<li>numpy — numerical operations</li>
+<li>matplotlib — plotting</li>
+<li>seaborn — statistical plots</li>
+<li>scipy — skewness and statistics</li>
+</ul>
+</div>
+<div>
+<h3>Starter Inspection</h3>
+<pre><code>import pandas as pd
 df = pd.read_csv("marks.csv")
 print(df.head())
 print(df.info())
 print(df.isnull().sum())
-print(df.describe())
-          </code></pre>
-        </div>
-      </div>
-    </section>
+print(df.describe())</code></pre>
+</div>
+</div>
+</section>
 
-    <section id="histograms" class="card chapter-background">
-      <h2>Histograms</h2>
-      <p>Histograms visualize frequency distributions of continuous variables. Examples: used cars selling price and diamond prices.</p>
-      
-      <div class="subcard">
-        <h3>Used Cars — Selling Price</h3>
-        <svg class="svg-plot" viewBox="0 0 900 360"><!-- Bars & axes similar to previous example --></svg>
-        <figcaption class="caption">Histogram of Used Cars Prices</figcaption>
-      </div>
+<section id="histograms" class="card chapter-background">
+<h2>Histograms</h2>
+<p>Histograms visualize frequency distributions. Examples below show a right-skewed distribution.</p>
 
-      <div class="subcard">
-        <h3>Diamonds — Price Distribution</h3>
-        <svg class="svg-plot" viewBox="0 0 900 360"><!-- Bars & axes similar to previous example --></svg>
-        <figcaption class="caption">Histogram of Diamond Prices</figcaption>
-      </div>
-    </section>
+<div class="subcard">
+<h3>Used Cars — Selling Price</h3>
+<svg class="svg-plot" viewBox="0 0 900 360">
+<rect x="0" y="0" width="900" height="360" fill="#fff" rx="6" ry="6"/>
+<line x1="60" y1="300" x2="840" y2="300" stroke="#222" stroke-width="1.5"/>
+<line x1="60" y1="40" x2="60" y2="300" stroke="#222" stroke-width="1.5"/>
+<g fill="#5271FF">
+<rect x="70" y="260" width="30" height="40" rx="3"/>
+<rect x="110" y="240" width="30" height="60" rx="3"/>
+<rect x="150" y="220" width="30" height="80" rx="3"/>
+<rect x="190" y="200" width="30" height="100" rx="3"/>
+<rect x="230" y="180" width="30" height="120" rx="3"/>
+<rect x="270" y="160" width="30" height="140" rx="3"/>
+<rect x="310" y="150" width="30" height="150" rx="3"/>
+<rect x="350" y="140" width="30" height="160" rx="3"/>
+<rect x="390" y="130" width="30" height="170" rx="3"/>
+<rect x="430" y="120" width="30" height="180" rx="3"/>
+</g>
+<text x="460" y="20" fill="#0b1220" font-size="16" text-anchor="middle">Histogram of Used Cars</text>
+</svg>
+<figcaption class="caption">Right-skewed histogram of used cars selling price</figcaption>
+</div>
 
-    <section id="boxplots" class="card chapter-background">
-      <h2>Boxplots — Outlier Detection and Group Comparison</h2>
+<div class="subcard">
+<h3>Diamonds — Price Distribution</h3>
+<svg class="svg-plot" viewBox="0 0 900 360">
+<rect x="0" y="0" width="900" height="360" fill="#fff" rx="6" ry="6"/>
+<line x1="60" y1="300" x2="840" y2="300" stroke="#222" stroke-width="1.5"/>
+<line x1="60" y1="40" x2="60" y2="300" stroke="#222" stroke-width="1.5"/>
+<g fill="pink" stroke="#000" stroke-opacity="0.15">
+<rect x="70" y="260" width="22" height="40"/>
+<rect x="100" y="240" width="22" height="60"/>
+<rect x="130" y="220" width="22" height="80"/>
+<rect x="160" y="200" width="22" height="100"/>
+<rect x="190" y="185" width="22" height="115"/>
+<rect x="220" y="170" width="22" height="130"/>
+<rect x="250" y="160" width="22" height="140"/>
+<rect x="280" y="150" width="22" height="150"/>
+</g>
+<text x="460" y="20" fill="#0b1220" font-size="16" text-anchor="middle">Histogram of Diamond Prices</text>
+</svg>
+<figcaption class="caption">Right-skewed histogram of diamond prices</figcaption>
+</div>
+</section>
 
-      <div class="subcard">
-        <h3>Marks — Outlier Detection</h3>
-        <svg class="svg-plot" viewBox="0 0 600 260"><!-- Boxplot SVG --></svg>
-        <figcaption class="caption">Boxplot of Marks — Outlier Detection</figcaption>
-      </div>
+<section id="boxplots" class="card chapter-background">
+<h2>Boxplots — Outlier Detection and Group Comparison</h2>
 
-      <div class="subcard">
-        <h3>Carat vs Clarity — Grouped Boxplot</h3>
-        <svg class="svg-plot" viewBox="0 0 900 360"><!-- Grouped Boxplot SVG --></svg>
-        <figcaption class="caption">Carat Weight by Clarity Level</figcaption>
-      </div>
-    </section>
+<div class="subcard">
+<h3>Marks — Outlier Detection</h3>
+<svg class="svg-plot" viewBox="0 0 600 260">
+<rect x="0" y="0" width="600" height="260" fill="#fff" rx="6" ry="6"/>
+<line x1="40" y1="220" x2="560" y2="220" stroke="#222" stroke-width="1.5"/>
+<rect x="220" y="100" width="160" height="80" fill="#8BD3E6" stroke="#0b1220" stroke-width="1.2" rx="4" ry="4"/>
+<line x1="300" y1="100" x2="300" y2="180" stroke="#0b1220" stroke-width="3"/>
+<circle cx="120" cy="170" r="5" fill="#ff6b6b" stroke="#b33"/>
+<circle cx="500" cy="90" r="5" fill="#ff6b6b" stroke="#b33"/>
+<text x="300" y="30" fill="#0b1220" font-size="16" text-anchor="middle">Boxplot of Marks</text>
+</svg>
+<figcaption class="caption">Boxplot showing outliers in marks</figcaption>
+</div>
 
-    <section id="stats" class="card">
-      <h2>Central Tendency and Dispersion</h2>
-      <pre><code>
-# Mean, median, mode
+<div class="subcard">
+<h3>Carat vs Clarity — Grouped Boxplot</h3>
+<svg class="svg-plot" viewBox="0 0 900 360">
+<rect x="0" y="0" width="900" height="360" fill="#fff" rx="6" ry="6"/>
+<line x1="60" y1="300" x2="840" y2="300" stroke="#222" stroke-width="1.5"/>
+<line x1="60" y1="40" x2="60" y2="300" stroke="#222" stroke-width="1.5"/>
+<g stroke="#0b1220" stroke-width="1.2">
+<rect x="80" y="200" width="40" height="60" fill="#f7cac9" rx="3"/>
+<rect x="180" y="180" width="40" height="80" fill="#f7cac9" rx="3"/>
+<rect x="280" y="170" width="40" height="90" fill="#f7cac9" rx="3"/>
+<rect x="380" y="150" width="40" height="110" fill="#f7cac9" rx="3"/>
+</g>
+<text x="460" y="20" fill="#0b1220" font-size="16" text-anchor="middle">Carat Weight by Clarity</text>
+</svg>
+<figcaption class="caption">Grouped boxplots for carat vs clarity</figcaption>
+</div>
+</section>
+
+<section id="stats" class="card">
+<h2>Central Tendency and Dispersion</h2>
+<pre><code># Mean, median, mode
 mean = df['Marks'].mean()
 median = df['Marks'].median()
 mode = df['Marks'].mode()
@@ -243,13 +177,12 @@ mode = df['Marks'].mode()
 # Variance, std deviation, range
 variance = df['Marks'].var()
 std_dev = df['Marks'].std()
-data_range = df['Marks'].max() - df['Marks'].min()
-      </code></pre>
-    </section>
+data_range = df['Marks'].max() - df['Marks'].min()</code></pre>
+</section>
 
-    <footer class="site-footer">
-      <p>© Lab 1 — Exploratory Data Analysis</p>
-    </footer>
-  </main>
+<footer class="site-footer">
+<p>© Lab 1 — Exploratory Data Analysis</p>
+</footer>
+</main>
 </body>
 </html>
