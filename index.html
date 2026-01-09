@@ -1,261 +1,251 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Anagha G Naik — Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<title>Anagha G Naik | Probability & Statistics Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ---------- GLOBAL ---------- */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color:#e5e7eb;
+  line-height:1.7;
+}
+a{text-decoration:none}
+
+/* ---------- NAVBAR ---------- */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#020617;
+  box-shadow:0 4px 20px rgba(0,0,0,0.6);
+}
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.name-block .full-name{
+  font-size:20px;
+  font-weight:700;
+  color:#e0e7ff;
+}
+.name-block .sub-meta{
+  font-size:13px;
+  color:#94a3b8;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:12px;
+  padding:0;
+  margin:0;
+}
+.nav-links a{
+  padding:8px 16px;
+  border-radius:20px;
+  background:#1e293b;
+  color:#e5e7eb;
+  font-weight:600;
+  transition:.3s;
+}
+.nav-links a:hover,
+.nav-links a.active{
+  background:#6366f1;
+  color:#fff;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  padding:90px 20px 70px;
+  text-align:center;
+}
+.hero h1{
+  font-size:42px;
+  margin-bottom:10px;
+  color:#c7d2fe;
+}
+.hero p{
+  color:#cbd5f5;
+  font-size:17px;
+}
+
+/* ---------- SECTIONS ---------- */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+.section h2{
+  font-size:30px;
+  text-align:center;
+  margin-bottom:30px;
+  color:#a5b4fc;
+}
+
+/* ---------- CARDS ---------- */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+.card{
+  background:linear-gradient(180deg,#020617,#020617);
+  border:1px solid #1e293b;
+  border-radius:16px;
+  padding:22px;
+  box-shadow:0 10px 30px rgba(0,0,0,.6);
+}
+.card h3{
+  color:#818cf8;
+  margin-top:0;
+}
+.card p{
+  color:#e5e7eb;
+  font-size:15px;
+}
+
+/* ---------- SUBJECT BOX ---------- */
+.subject-box{
+  margin-top:40px;
+  background:#020617;
+  border:1px solid #312e81;
+  border-radius:18px;
+  padding:30px;
+}
+.subject-box h3{
+  color:#a5b4fc;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;
+  padding:25px;
+  color:#94a3b8;
+  font-size:14px;
+  border-top:1px solid #1e293b;
+}
+</style>
 </head>
+
 <body>
-  <!-- Animated background layers (keeps visual interest) -->
-  <div id="bg-root" aria-hidden="true">
-    <div class="bg-gradient"></div>
-    <canvas id="bg-canvas"></canvas>
+
+<!-- NAVBAR -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="name-block">
+      <div class="full-name">Anagha G Naik</div>
+      <div class="sub-meta">USN: 01FE25BCS704 | 3rd Semester</div>
+    </div>
+    <ul class="nav-links">
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="chapter1.html">Chapter 1</a></li>
+      <li><a href="chapter2.html">Chapter 2</a></li>
+      <li><a href="chapter3.html">Chapter 3</a></li>
+      <li><a href="chapter4.html">Chapter 4</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Fundamentals of Probability & Statistics</h1>
+  <p>Academic Portfolio • 2025–26 • KLE Technological University</p>
+</section>
+
+<!-- INTRODUCTION -->
+<section class="container section">
+  <h2>Introduction</h2>
+
+  <div class="card-grid">
+
+    <!-- STUDENT -->
+    <div class="card">
+      <h3>Student Profile</h3>
+      <p>
+        I am <b>Anagha G Naik</b>, a 3rd semester undergraduate student at
+        <b>KLE Technological University</b>. This project is created as part
+        of the academic requirement for the subject
+        <b>Fundamentals of Probability and Statistics</b>.
+      </p>
+      <p>
+        The objective of this portfolio is to present theoretical concepts
+        clearly using explanations, examples, tables, and graphical
+        representations.
+      </p>
+    </div>
+
+    <!-- INSTRUCTOR -->
+    <div class="card">
+      <h3>Instructor</h3>
+      <p>
+        <b>Dr. Gururaj Bhadri</b><br>
+        Course Instructor<br>
+        KLE Technological University
+      </p>
+      <p>
+        This subject is taught with emphasis on conceptual understanding,
+        mathematical foundations, and real-world applications of statistics
+        and probability.
+      </p>
+    </div>
+
+    <!-- SUBJECT -->
+    <div class="card">
+      <h3>Subject Overview</h3>
+      <p>
+        <b>Course:</b> Fundamentals of Probability and Statistics<br>
+        <b>Course Code:</b> 25EMAB233
+      </p>
+      <p>
+        The subject introduces methods to collect, analyze, interpret,
+        and present data systematically. It builds a strong foundation
+        for data analysis and decision-making.
+      </p>
+    </div>
+
   </div>
 
-  <!-- NAVBAR (fixed at top) -->
-  <header class="site-header" role="banner">
-    <div class="container header-inner">
-      <div class="left-brand">
-        <img src="assets/logo.png" alt="College logo" class="college-logo" id="collegeLogo"
-             onerror="document.getElementById('logoFallback').style.display='inline-block'; this.style.display='none';" />
-        <span id="logoFallback" class="logo-fallback" style="display:none">KLE TECH</span>
-        <div class="name-block">
-          <div class="full-name">Anagha G Naik</div>
-          <div class="sub-meta">Roll 450 • USN 01fe25bcs704 • 3rd Sem</div>
-        </div>
-      </div>
+  <!-- ABOUT SUBJECT -->
+  <div class="subject-box">
+    <h3>What is Probability & Statistics?</h3>
+    <p>
+      Probability and Statistics is a mathematical discipline that deals
+      with uncertainty and data analysis. Probability focuses on predicting
+      the likelihood of events, while statistics deals with collecting,
+      organizing, analyzing, and interpreting data.
+    </p>
+    <p>
+      It helps convert raw data into meaningful information, enabling
+      informed decisions in uncertain situations.
+    </p>
 
-      <nav class="nav-right" aria-label="Main navigation">
-        <ul class="nav-links">
-          <li><a href="index.html" class="nav-btn active">Home</a></li>
-          <li><a href="chapters.html" class="nav-btn">Chapters</a></li>
-          <li><a href="chapter1.html" class="nav-btn">Chapter 1</a></li>
-          <li><a href="chapter2.html" class="nav-btn">Chapter 2</a></li>
-          <li><a href="chapter3.html" class="nav-btn">Chapter 3</a></li>
-          <li><a href="chapter4.html" class="nav-btn">Chapter 4</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <h3>Real-World Applications</h3>
+    <p>
+      Probability and Statistics are widely used in engineering,
+      computer science, artificial intelligence, medical research,
+      economics, business analytics, quality control, and data science.
+    </p>
+    <p>
+      Applications include weather forecasting, machine learning models,
+      risk analysis, medical diagnosis, stock market prediction, and
+      performance evaluation.
+    </p>
+  </div>
 
-  <!-- HERO (light glass so black text is readable) -->
-  <header class="hero" role="region" aria-label="Intro">
-    <div class="container hero-inner">
-      <div class="hero-left">
-        <h1 class="hero-title">Fundamentals of Probability &amp; Statistics</h1>
-        <p class="hero-sub">Instructor: Dr. Gururaj Bhadri • Course Code: 25EMAB233 • Year: 2025‑26</p>
+</section>
 
-        <div class="hero-cta">
-          <a href="chapters.html" class="btn primary">View Chapters</a>
-          <a href="#about" class="btn ghost">About</a>
-        </div>
-      </div>
+<footer>
+  © 2025 | Anagha G Naik | Probability & Statistics Portfolio | KLE technological university
+</footer>
 
-      <div class="hero-right">
-        <div class="card-stats">
-          <div class="stat card-accent-1">
-            <div class="stat-value">Probability</div>
-            <div class="stat-label">Distributions, Bayes, Conditional</div>
-          </div>
-          <div class="stat card-accent-2">
-            <div class="stat-value">Statistics</div>
-            <div class="stat-label">Inference, Regression, Tests</div>
-          </div>
-        </div>
-
-        <div class="mini-chart" aria-hidden="true">
-          <canvas id="miniChart" width="420" height="120"></canvas>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- MAIN -->
-  <main class="container main-tight" role="main">
-    <section id="about" class="section">
-      <h2>Introduction</h2>
-      <div class="content-box">
-        <p><strong>Course:</strong> Fundamentals of Probability and Statistics</p>
-        <p><strong>Course Code:</strong> 25EMAB233</p>
-        <p><strong>Instructor:</strong> Dr. Gururaj Bhadri</p>
-        <p><strong>University:</strong> KLE Technological University</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Probability &amp; Statistics — Key Subsets</h2>
-      <div class="cards-grid">
-        <article class="info-card card-accent-1">
-          <h3>Probability Basics</h3>
-          <p>Sample spaces, events, conditional probability, independence, Bayes' theorem.</p>
-        </article>
-
-        <article class="info-card card-accent-2">
-          <h3>Distributions</h3>
-          <p>Bernoulli, Binomial, Poisson, Uniform, Normal, Exponential — when to use each.</p>
-        </article>
-
-        <article class="info-card card-accent-3">
-          <h3>Descriptive Statistics</h3>
-          <p>Mean, median, variance, percentiles, histograms and boxplots for summarizing data.</p>
-        </article>
-
-        <article class="info-card card-accent-4">
-          <h3>Inferential Statistics</h3>
-          <p>Sampling, confidence intervals, hypothesis testing (t-test, chi-square), p-values.</p>
-        </article>
-
-        <article class="info-card card-accent-5">
-          <h3>Regression & Correlation</h3>
-          <p>Linear regression, residuals, model fit and basic diagnostics.</p>
-        </article>
-
-        <article class="info-card card-accent-6">
-          <h3>Applications</h3>
-          <p>A/B testing, predictive modeling, uncertainty quantification and decision making.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Organization</h2>
-      <div class="content-box">
-        <p>Each chapter page contains objectives, worked examples, figures, and downloadable PDFs. Use the Chapters button above to open chapter pages.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer" role="contentinfo">
-    <div class="container footer-inner">
-      <div>© 2025 Anagha G Naik</div>
-      <div class="footer-right">Email: <a href="mailto:01fe25bcs701@kletech.ac.in">01fe25bcs701@kletech.ac.in</a></div>
-    </div>
-  </footer>
-
-  <!-- Inline JS: animated background + mini chart -->
-  <script>
-    /* Background canvas: floating nodes and subtle network lines */
-    (function () {
-      const canvas = document.getElementById('bg-canvas');
-      const ctx = canvas.getContext('2d');
-      const dpr = Math.max(1, window.devicePixelRatio || 1);
-
-      function resize() {
-        canvas.width = window.innerWidth * dpr;
-        canvas.height = window.innerHeight * dpr;
-        canvas.style.width = window.innerWidth + 'px';
-        canvas.style.height = window.innerHeight + 'px';
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-
-      let nodes = [];
-      const palette = ['rgba(11,92,255,0.95)','rgba(0,204,255,0.85)','rgba(255,120,120,0.8)'];
-
-      function init() {
-        nodes = [];
-        const count = Math.max(10, Math.floor(window.innerWidth / 120));
-        for (let i = 0; i < count; i++) {
-          nodes.push({
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            r: 6 + Math.random() * 12,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: (Math.random() - 0.5) * 0.4,
-            color: palette[Math.floor(Math.random() * palette.length)]
-          });
-        }
-      }
-
-      function draw() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        const g = ctx.createLinearGradient(0,0,window.innerWidth,window.innerHeight);
-        g.addColorStop(0,'rgba(255,255,255,0.02)');
-        g.addColorStop(1,'rgba(255,255,255,0.00)');
-        ctx.fillStyle = g;
-        ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
-
-        nodes.forEach(n => {
-          n.x += n.vx; n.y += n.vy;
-          if (n.x < -60) n.x = window.innerWidth + 60;
-          if (n.x > window.innerWidth + 60) n.x = -60;
-          if (n.y < -60) n.y = window.innerHeight + 60;
-          if (n.y > window.innerHeight + 60) n.y = -60;
-
-          const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
-          grad.addColorStop(0, n.color.replace(/rgba\(([^,]+),([^,]+),([^,]+),[^)]+\)/, 'rgba($1,$2,$3,0.95)'));
-          grad.addColorStop(1, n.color.replace(/rgba\(([^,]+),([^,]+),([^,]+),[^)]+\)/, 'rgba($1,$2,$3,0.02)'));
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
-          ctx.fill();
-        });
-
-        for (let i=0;i<nodes.length;i++){
-          for (let j=i+1;j<nodes.length;j++){
-            const a = nodes[i], b = nodes[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
-            const dist = Math.sqrt(dx*dx + dy*dy);
-            if (dist < 140) {
-              ctx.strokeStyle = 'rgba(0,0,0,' + (0.02 + (140 - dist)/140 * 0.06) + ')';
-              ctx.lineWidth = 0.8;
-              ctx.beginPath();
-              ctx.moveTo(a.x,a.y);
-              ctx.lineTo(b.x,b.y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        requestAnimationFrame(draw);
-      }
-
-      window.addEventListener('resize', () => { resize(); init(); });
-      resize(); init(); draw();
-    })();
-
-    /* Mini animated normal-curve chart */
-    (function () {
-      const c = document.getElementById('miniChart');
-      if (!c) return;
-      const ctx = c.getContext('2d');
-      const W = c.width, H = c.height;
-      let t = 0;
-
-      function gaussian(x, mu, sigma) {
-        return Math.exp(-((x - mu) * (x - mu)) / (2 * sigma * sigma));
-      }
-
-      function drawChart() {
-        ctx.clearRect(0,0,W,H);
-        ctx.strokeStyle = 'rgba(0,0,0,0.06)';
-        ctx.lineWidth = 1;
-        for (let i=0;i<4;i++){
-          ctx.beginPath();
-          ctx.moveTo(0,(H/4)*i + 12);
-          ctx.lineTo(W,(H/4)*i + 12);
-          ctx.stroke();
-        }
-
-        ctx.beginPath();
-        const mu = W/2 + Math.sin(t*0.6)*12;
-        const sigma = 56 + Math.cos(t*0.4)*6;
-        for (let x=0;x<=W;x++){
-          const nx = x;
-          const ny = H - gaussian(x, mu, sigma) * (H * 0.68) - 12;
-          if (x===0) ctx.moveTo(nx,ny); else ctx.lineTo(nx,ny);
-        }
-        ctx.strokeStyle = 'rgba(11,92,255,0.9)';
-        ctx.lineWidth = 3;
-        ctx.stroke();
-
-        t += 0.02;
-        requestAnimationFrame(drawChart);
-      }
-
-      drawChart();
-    })();
-  </script>
 </body>
 </html>
-
