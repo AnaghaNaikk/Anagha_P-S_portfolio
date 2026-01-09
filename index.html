@@ -116,6 +116,21 @@ body{
   color:#e5e7eb;
 }
 
+/* Guidance animation (professional) */
+.guidance-card{
+  animation:fadeUp 1.2s ease forwards;
+}
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
 /* Subject box */
 .subject-box{
   margin-top:40px;
@@ -142,12 +157,11 @@ footer{
 
 <canvas id="bg-canvas"></canvas>
 
-<!-- NAVBAR -->
 <header class="site-header">
   <div class="header-inner">
     <div>
       <div class="full-name">Anagha G Naik</div>
-      <div class="sub-meta">USN: 01FE25BCS704 | 3rd Semester</div>
+      <div class="sub-meta">USN: 01FE25BCS704 | 3rd Semester | Roll no:450 </div>
     </div>
     <ul class="nav-links">
       <li><a class="active" href="index.html">Home</a></li>
@@ -159,19 +173,16 @@ footer{
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <h1>Fundamentals of Probability & Statistics</h1>
   <p>KLE Technological University • 2025–26</p>
 </section>
 
-<!-- INTRODUCTION -->
 <section class="container section">
   <h2>Introduction</h2>
 
   <div class="card-grid">
 
-    <!-- STUDENT -->
     <div class="card">
       <h3>Student</h3>
       <p>
@@ -182,25 +193,29 @@ footer{
       </p>
     </div>
 
-    <!-- GUIDANCE -->
-    <div class="card">
-      <h3>Under the Guidance of</h3>
+    <!-- FIXED GUIDANCE CARD -->
+    <div class="card guidance-card">
+      <h3>Under the Academic Guidance of</h3>
       <p>
         <b>Dr. Gururaj Bhadri</b><br>
         KLE Technological University
       </p>
+      <p>
+        This subject is taught with emphasis on strong conceptual
+        understanding, mathematical foundations, and real-world
+        applications of probability and statistics.
+      </p>
     </div>
 
-    <!-- SUBJECT -->
     <div class="card">
       <h3>Subject</h3>
       <p>
-        <b>Probability</b> deals with measuring uncertainty and predicting
-        the likelihood of events.
+        <b>Probability</b> measures uncertainty and predicts the
+        likelihood of events.
       </p>
       <p>
-        <b>Statistics</b> deals with collecting, organizing, analyzing,
-        and interpreting data to make decisions.
+        <b>Statistics</b> analyzes collected data to draw meaningful
+        conclusions and support decisions.
       </p>
     </div>
 
@@ -209,20 +224,19 @@ footer{
   <div class="subject-box">
     <h3>What does Probability & Statistics mean?</h3>
     <p>
-      Probability predicts what may happen in uncertain situations,
-      while statistics explains what the collected data reveals.
-      Together, they form the foundation for data analysis,
-      engineering decisions, and scientific reasoning.
+      Probability helps predict future outcomes under uncertainty,
+      while statistics explains patterns hidden in data. Together,
+      they form the backbone of data analysis, engineering solutions,
+      and scientific research.
     </p>
   </div>
 
 </section>
 
 <footer>
-  © 2025 | Anagha G Naik | Probability & Statistics
+  © 2025-2026 | Anagha G Naik | Probability & Statistics | KLE Technological University
 </footer>
 
-<!-- Background animation -->
 <script>
 const canvas=document.getElementById("bg-canvas");
 const ctx=canvas.getContext("2d");
