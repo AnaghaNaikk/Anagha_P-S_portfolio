@@ -1,313 +1,248 @@
-/* style.css */
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Anagha G Naik — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Decorative animated background layers -->
+  <div id="bg-root">
+    <div class="bg-gradient"></div>
+    <div id="bg-blobs"></div>
+    <canvas id="bg-canvas"></canvas>
+  </div>
 
-/* Import Google Fonts for a clean, academic look */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
+  <!-- Hero / Intro -->
+  <header class="hero">
+    <div class="container header-row">
+      <div class="brand">
+        <!-- Logo: ensure file is uploaded to assets/logo.png (case sensitive) -->
+        <img
+          src="assets/logo.png"
+          alt="College logo"
+          class="college-logo"
+          id="collegeLogo"
+          onerror="document.getElementById('logoFallback').style.display='inline-block'; this.style.display='none';"
+        />
+        <span id="logoFallback" class="logo-fallback" style="display:none;">
+          KLE TECH
+        </span>
 
-/* CSS Reset for consistency */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+        <div class="brand-text">
+          <h1>Anagha G Naik</h1>
+          <p class="meta">Roll No: <strong>450</strong> • USN: <strong>01fe25bcs704</strong></p>
+        </div>
+      </div>
 
-body {
-  font-family: 'Roboto', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  overflow-x: hidden;
-  position: relative;
-  min-height: 100vh;
-}
+      <div class="course-info">
+        <p class="meta">Course: <strong>Fundamentals of Probability and Statistics</strong></p>
+        <p class="meta">Instructor: <strong>Dr. Gururaj Bhadri</strong></p>
+        <p class="meta">Course Code: <strong>25EMAB233</strong> • Year: <strong>2025-26</strong></p>
+        <p class="contact">Email: <a href="mailto:01fe25bcs701@kletech.ac.in">01fe25bcs701@kletech.ac.in</a></p>
 
-/* Animated Background for Probability and Statistics Theme */
-.bg-anim {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-  animation: bgFloat 20s ease-in-out infinite;
-}
+        <nav class="nav">
+          <a href="chapters.html" class="btn">View Chapters</a>
+          <a href="#about" class="btn outline">About Project</a>
+        </nav>
+      </div>
+    </div>
 
-@keyframes bgFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-10px) rotate(1deg); }
-  50% { transform: translateY(10px) rotate(-1deg); }
-  75% { transform: translateY(-5px) rotate(0.5deg); }
-}
+    <!-- Animated statistic-themed moving object: small chart preview -->
+    <div class="hero-chart" aria-hidden="true">
+      <canvas id="miniChart" width="420" height="120"></canvas>
+    </div>
+  </header>
 
-/* Floating Mathematical Symbols Animation */
-.bg-anim::before,
-.bg-anim::after {
-  content: '';
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHRleHQgeD0iMTUiIHk9IjM1IiBmb250LXNpemU9IjMwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMykiPkY8L3RleHQ+Cjwvc3ZnPg==') no-repeat center;
-  animation: floatSymbols 15s linear infinite;
-}
+  <main class="container">
+    <section id="about">
+      <h2>About this Portfolio</h2>
+      <p>
+        This portfolio contains my individual project work and chapter writeups for
+        <strong>Fundamentals of Probability and Statistics</strong>. Use the Chapters page to view each chapter as a card and open the full chapter pages.
+      </p>
+    </section>
 
-.bg-anim::before {
-  top: 20%;
-  left: 10%;
-  animation-delay: 0s;
-}
+    <section id="quicklinks">
+      <h2>Quick Links</h2>
+      <ul>
+        <li><a href="chapters.html">Chapters and reflections</a></li>
+        <li><a href="chapter1.html">Chapter 1</a></li>
+        <li><a href="chapter2.html">Chapter 2</a></li>
+        <li><a href="chapter3.html">Chapter 3</a></li>
+        <li><a href="chapter4.html">Chapter 4</a></li>
+      </ul>
+    </section>
+  </main>
 
-.bg-anim::after {
-  top: 60%;
-  right: 15%;
-  animation-delay: 7.5s;
-}
+  <footer class="footer">
+    <p>© 2025 Anagha G Naik</p>
+  </footer>
 
-@keyframes floatSymbols {
-  0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-  50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
-  100% { transform: translateY(0) rotate(360deg); opacity: 0.3; }
-}
+  <!-- Inline JS for animated background, floating particles and mini chart -->
+  <script>
+    /* Background canvas: floating data points and subtle motion */
+    (function () {
+      const canvas = document.getElementById('bg-canvas');
+      const root = document.getElementById('bg-root');
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      function resize() {
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.scale(dpr, dpr);
+      }
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const colors = ['rgba(11,92,255,0.9)', 'rgba(0,204,255,0.85)', 'rgba(255,120,120,0.8)'];
+      function initParticles() {
+        particles = [];
+        const count = Math.max(18, Math.floor(window.innerWidth / 80));
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            r: 6 + Math.random() * 18,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alpha: 0.12 + Math.random() * 0.18
+          });
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // subtle gradient overlay
+        const g = ctx.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
+        g.addColorStop(0, 'rgba(6,20,60,0.12)');
+        g.addColorStop(1, 'rgba(6,20,60,0.06)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-/* Container for layout */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+        // draw particles
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < -50) p.x = window.innerWidth + 50;
+          if (p.x > window.innerWidth + 50) p.x = -50;
+          if (p.y < -50) p.y = window.innerHeight + 50;
+          if (p.y > window.innerHeight + 50) p.y = -50;
 
-/* Header Styles */
-.hero {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 40px 0;
-  border-radius: 0 0 20px 20px;
-  position: relative;
-  overflow: hidden;
-}
+          ctx.beginPath();
+          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+          grad.addColorStop(0, p.color.replace(/[\d\.]+\)$/,'0.95)'));
+          grad.addColorStop(1, p.color.replace(/[\d\.]+\)$/,'0.02)'));
+          ctx.fillStyle = grad;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  z-index: -1;
-}
+        // draw connecting lines for nearby points (statistical network feel)
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 160) {
+              ctx.strokeStyle = 'rgba(255,255,255,' + (0.02 + (160 - dist) / 160 * 0.06) + ')';
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
 
-.header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
+        requestAnimationFrame(draw);
+      }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+      function startBg() {
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        initParticles();
+        draw();
+      }
 
-.college-logo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
-  transition: transform 0.3s ease;
-}
+      window.addEventListener('resize', () => {
+        ctx.setTransform(1,0,0,1,0,0);
+        resize();
+        initParticles();
+      });
 
-.college-logo:hover {
-  transform: scale(1.1);
-}
+      resize();
+      initParticles();
+      draw();
+    })();
 
-.brand-text h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  color: #333;
-  text-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
-}
+    /* Mini animated chart in hero: moving normal-like curve with glowing points */
+    (function () {
+      const c = document.getElementById('miniChart');
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      const W = c.width, H = c.height;
+      let t = 0;
 
-.meta {
-  font-size: 0.9rem;
-  color: #666;
-}
+      function gaussian(x, mu, sigma) {
+        return Math.exp(-((x - mu) * (x - mu)) / (2 * sigma * sigma));
+      }
 
-.course-info {
-  text-align: right;
-  flex: 1;
-  min-width: 300px;
-}
+      function drawChart() {
+        ctx.clearRect(0, 0, W, H);
 
-.contact a {
-  color: #667eea;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
+        // background grid
+        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 5; i++) {
+          ctx.beginPath();
+          ctx.moveTo(0, (H / 5) * i + 10);
+          ctx.lineTo(W, (H / 5) * i + 10);
+          ctx.stroke();
+        }
 
-.contact a:hover {
-  color: #764ba2;
-  text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
-}
+        // animated normal curve
+        ctx.beginPath();
+        const mu = W / 2 + Math.sin(t * 0.6) * 18;
+        const sigma = 60 + Math.cos(t * 0.4) * 8;
+        for (let x = 0; x <= W; x++) {
+          const nx = x;
+          const ny = H - gaussian(x, mu, sigma) * (H * 0.7) - 12;
+          if (x === 0) ctx.moveTo(nx, ny);
+          else ctx.lineTo(nx, ny);
+        }
+        ctx.strokeStyle = 'rgba(11,92,255,0.95)';
+        ctx.lineWidth = 3;
+        ctx.stroke();
 
-.nav {
-  margin-top: 20px;
-  display: flex;
-  gap: 15px;
-  justify-content: flex-end;
-}
+        // glow stroke
+        ctx.strokeStyle = 'rgba(0,204,255,0.12)';
+        ctx.lineWidth = 12;
+        ctx.stroke();
 
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  color: white;
-  text-decoration: none;
-  border-radius: 25px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-  position: relative;
-  overflow: hidden;
-}
+        // moving data points along curve
+        for (let i = 0; i < 6; i++) {
+          const px = (i / 5) * W;
+          const py = H - gaussian(px, mu, sigma) * (H * 0.7) - 12;
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(255,255,255,0.95)';
+          ctx.arc(px + Math.sin(t * 1.2 + i) * 2, py + Math.cos(t * 1.1 + i) * 2, 4, 0, Math.PI * 2);
+          ctx.fill();
 
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
+          // outer glow
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(11,92,255,0.18)';
+          ctx.arc(px, py, 10, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
-.btn:hover::before {
-  left: 100%;
-}
+        t += 0.02;
+        requestAnimationFrame(drawChart);
+      }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-}
-
-.btn.outline {
-  background: transparent;
-  border: 2px solid #667eea;
-  color: #667eea;
-}
-
-.btn.outline:hover {
-  background: #667eea;
-  color: white;
-}
-
-/* Main Content */
-main {
-  padding: 60px 0;
-}
-
-section {
-  margin-bottom: 40px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-section:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333;
-  text-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
-}
-
-p {
-  margin-bottom: 15px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul li {
-  margin-bottom: 10px;
-}
-
-ul li a {
-  color: #667eea;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  position: relative;
-}
-
-ul li a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #667eea;
-  transition: width 0.3s ease;
-}
-
-ul li a:hover::after {
-  width: 100%;
-}
-
-ul li a:hover {
-  color: #764ba2;
-  text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
-}
-
-/* Footer */
-.footer {
-  background: rgba(255, 255, 255, 0.95);
-  text-align: center;
-  padding: 20px 0;
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-  margin-top: 40px;
-}
-
-.footer p {
-  color: #666;
-  font-size: 0.9rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .header-row {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .course-info {
-    text-align: center;
-  }
-
-  .nav {
-    justify-content: center;
-  }
-
-  .brand-text h1 {
-    font-size: 2rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-}
+      drawChart();
+    })();
+  </script>
+</body>
+</html>
