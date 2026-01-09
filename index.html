@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Anagha G Naik — City Design / Probability & Statistics</title>
+  <title>Anagha G Naik — Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -43,8 +43,8 @@
   <header class="hero">
     <div class="container hero-inner">
       <div class="hero-left">
-        <h1 class="hero-title">City Design — Algorithmic Solutions for Urban Systems</h1>
-        <p class="hero-sub">Fundamentals of Probability and Statistics • Dr. Gururaj Bhadri • Course Code: 25EMAB233 • 2025‑26</p>
+        <h1 class="hero-title">Fundamentals of Probability & Statistics</h1>
+        <p class="hero-sub">Instructor: Dr. Gururaj Bhadri • Course Code: 25EMAB233 • Year: 2025‑26</p>
 
         <div class="hero-cta">
           <a href="chapters.html" class="btn primary">View Chapters</a>
@@ -55,12 +55,12 @@
       <div class="hero-right">
         <div class="card-stats">
           <div class="stat">
-            <div class="stat-value">Fundamentals</div>
+            <div class="stat-value">Subject</div>
             <div class="stat-label">Probability & Statistics</div>
           </div>
           <div class="stat">
-            <div class="stat-value">Instructor</div>
-            <div class="stat-label">Dr. Gururaj Bhadri</div>
+            <div class="stat-value">Course Code</div>
+            <div class="stat-label">25EMAB233</div>
           </div>
         </div>
 
@@ -80,7 +80,7 @@
         <p><strong>Course Code:</strong> 25EMAB233</p>
         <p><strong>Instructor:</strong> Dr. Gururaj Bhadri</p>
         <p><strong>University:</strong> KLE Technological University</p>
-        <p><strong>Project Topic:</strong> City Design (algorithmic approaches to urban problems)</p>
+        <p><strong>Project Topic:</strong> Individual project and chapter writeups</p>
       </div>
     </section>
 
@@ -104,10 +104,10 @@
     <section class="section">
       <h2>About the Course</h2>
       <div class="content-box">
-        <p>Design and Analysis of Algorithms is the foundation of computer science. It teaches how to develop efficient solutions to complex problems by exploring multiple strategies and evaluating their performance. The course focuses on transforming real-world challenges into logical models and choosing the most optimal approach among many possibilities.</p>
+        <p>Design and Analysis of Algorithms and probability/statistics form the backbone of computational problem solving. This course emphasizes modeling, analysis, and choosing efficient approaches for real-world problems.</p>
 
         <h3>Real world relevance & applications</h3>
-        <p>Shortest path algorithms optimize transportation; greedy and MST algorithms help energy distribution; priority queues and heaps support emergency dispatch. Algorithmic thinking transforms everyday systems into fast, reliable, and intelligent services.</p>
+        <p>Shortest path algorithms optimize routing; greedy and MST algorithms support resource allocation; priority queues and heaps enable efficient dispatch and scheduling. Statistical thinking supports data-driven decisions and uncertainty modeling.</p>
       </div>
     </section>
   </main>
@@ -140,14 +140,14 @@
 
       function init() {
         nodes = [];
-        const count = Math.max(14, Math.floor(window.innerWidth / 90));
+        const count = Math.max(12, Math.floor(window.innerWidth / 100));
         for (let i = 0; i < count; i++) {
           nodes.push({
             x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
-            r: 6 + Math.random() * 14,
-            vx: (Math.random() - 0.5) * 0.6,
-            vy: (Math.random() - 0.5) * 0.6,
+            r: 6 + Math.random() * 12,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
             color: palette[Math.floor(Math.random() * palette.length)]
           });
         }
@@ -157,8 +157,8 @@
         ctx.clearRect(0,0,canvas.width,canvas.height);
         // subtle base
         const g = ctx.createLinearGradient(0,0,window.innerWidth,window.innerHeight);
-        g.addColorStop(0,'rgba(2,8,20,0.25)');
-        g.addColorStop(1,'rgba(2,8,20,0.12)');
+        g.addColorStop(0,'rgba(2,8,20,0.22)');
+        g.addColorStop(1,'rgba(2,8,20,0.10)');
         ctx.fillStyle = g;
         ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
 
