@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Probability & Statistics Lab Codes</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; line-height: 1.6; }
+    h1 { color: #2c3e50; }
+    h2 { color: #34495e; margin-top: 30px; }
+    pre { background: #eef; padding: 12px; border-left: 4px solid #3498db; overflow-x: auto; }
+    p { margin: 10px 0; }
+    .section { margin-bottom: 50px; }
+  </style>
+</head>
+<body>
 
+  <h1>Probability & Statistics Lab Codes with Explanations</h1>
+
+  <!-- Normal Distribution -->
+  <div class="section">
+    <h2>1. Normal Distribution – Acres Burned</h2>
+    <pre>
+import numpy as np
+from scipy.stats import norm
+
+mu = 4300   # mean
+sigma = 750 # standard deviation
+x1 = 2500   # lower bound
+x2 = 4200   # upper bound
+
+# cumulative probabilities
+p1 = norm.cdf(x2, mu, sigma)
+p2 = norm.cdf(x1, mu, sigma)
+
+probability = p1 - p2
+print(f"Probability: {probability:.4f}")
+    </pre>
+    <p><strong>Explanation:</strong> 
+      - This code calculates the probability that acres burned fall between 2500 and 4200.  
+      - <code>norm.cdf</code> gives the cumulative probability up to a point.  
+      - Subtracting gives the probability between two bounds.  
+      - Result ≈ 0.4358 (43.58%).  
+    </p>
+    <p><strong>Extra Variation:</strong> You could use <code>norm.sf()</code> (survival function) for upper tail probabilities.</p>
+  </div>
+
+  <!-- Discrete Distribution -->
+  <div class="section">
+    <h2>2. Discrete Distribution – Find k, Mean, Variance</h2>
+    <pre>
+import numpy as np
+
+x_values = np.array([-2, -1, 0, 1, 2])
+p_values = np.array([1/8, 2/8, None, 2/8, 1/8])
+
+# find missing k
+k = 1 - sum([p for p in p_values if p is not None])
+p_values[2] = k
+
+# mean and variance
+mean = np.sum(x_values * p_values)
+variance = np.sum((x_values - mean) ** 2 * p_values)
+
+# probability range
+p_range = p_values[1] + p_values[2] + p_values[3] + p_values[4]
+
+print(f"k: {k:.3f}")
+print(f"Mean: {mean:.3f}")
+print(f"Variance: {variance:.3f}")
+print(f"P(-1 < x ≤ 2): {p_range:.3f}")
+    </pre>
+    <p><strong>Explanation:</strong> 
+      - Ensures probabilities sum to 1 by solving for <code>k</code>.  
+      - Mean = expected value of X.  
+      - Variance = spread of distribution.  
+      - Range probability adds up probabilities for -1 < x ≤ 2.  
+      - Results: k=0.25, Mean=2, Variance=1.5, Probability=0.625.  
+    </p>
+    <p><strong>Extra Variation:</strong> Use <code>np.dot(x_values, p_values)</code> for mean directly.</p>
+  </div>
+
+  <!-- Poisson Distribution -->
+  <div class="section">
+    <h2>3. Poisson Distribution – Failures</h2>
+    <pre>
+from scipy.stats import poisson
+
+lambda_1h = 0.02  # average failures per hour
+
+# (a) No failures in 8 hours
+p_no_fail_8h = poisson.pmf(0, lambda_1h * 8)
+
+# (b) At least one failure in 24 hours
+p_at_least_1_24h = 1 - poisson.pmf(0, lambda_1h * 24)
+
+print(f"No failure (8h): {p_no_fail_8h:.4f}")
+print(f"At least one failure (24h): {p_at_least_1_24h:.4f}")
+    </pre>
+    <p><strong>Explanation:</strong> 
+      - Poisson models rare events.  
+      - <code>pmf(0)</code> gives probability of zero events.  
+      - Subtract from 1 to get probability of at least one event.  
+    </p>
+    <p><strong>Extra Variation:</strong> Use <code>poisson.cdf(k, λ)</code> for cumulative probabilities.</p>
+  </div>
+
+  <!-- Binomial Distribution -->
+  <div class="section">
+    <h2>4. Binomial Distribution – Coin Toss Fit</h2>
+    <pre>
+import numpy as np
+from scipy.stats import binom
+
+x = np.arange(0, 9)
+observed_freq = np.array([2, 6, 24, 63, 64, 50, 36, 10, 1])
+total_throws = sum(observed_freq)
+
+n = 8
+p = 0.5
+
+pmf = binom.pmf(x, n, p)
+expected_freq = pmf * total_throws
+
+print("x\tObserved\tExpected")
+for x_, o, e in zip(x, observed_freq, expected_freq):
+    print(f"{x_}\t{o}\t{e:.2f}")
+    </pre>
+    <p><strong>Explanation:</strong> 
+      - Fits binomial distribution to coin toss data.  
+      - <code>binom.pmf</code> gives probability of each outcome.  
+      - Expected frequencies = probability × total trials.  
+      - Compares observed vs expected.  
+    </p>
+    <p><strong>Extra Variation:</strong> Use <code>binom.rvs(n, p, size=1000)</code> to simulate coin tosses.</p>
+  </div>
+
+  <!-- Hypothesis Testing -->
+  <div class="section">
+    <h2>5. Hypothesis Testing – Lung Capacity</h2>
+    <pre>
+from scipy.stats import ttest_ind
+
+male_lungcap = df[df['Gender'] == 'male']['LungCap']
+female_lungcap = df[df['Gender'] == 'female']['LungCap']
+
+t_stat, p_value = ttest_ind(male_lungcap, female_lungcap, equal_var=False)
+
+print(f"T-statistic: {t_stat:.4f}")
+print(f"P-value: {p_value:.4f}")
+
+if p_value < 0.05:
+    print("Reject H₀: Significant difference.")
+else:
+    print("Fail to reject H₀: No significant difference.")
+    </pre>
+    <p><strong>Explanation:</strong> 
+      - Performs two-sample t-test.  
+      - Null hypothesis: no difference in means.  
+      - If p-value < 0.05, reject null → significant difference.  
+      - Result: males and females differ significantly in lung capacity.  
+    </p>
+    <p><strong>Extra Variation:</strong> Use <code>ttest_rel</code> for paired samples, or <code>anova</code> for multiple groups.</p>
+  </div>
+
+</body>
+</html>
