@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probability & Statistics Theory</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <h2>📊 Probability & Statistics</h2>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#chapter1">Chapter 1</a></li>
+      <li><a href="#chapter2">Chapter 2</a></li>
+      <li><a href="#chapter3">Chapter 3</a></li>
+      <li><a href="#chapter4">Chapter 4</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home" class="hero">
+    <h1>Probability & Statistics</h1>
+    <p>Theory Overview - 4 Chapters</p>
+    <a href="#chapter1">Chapter 1 →</a>
+  </section>
+
+  <!-- CHAPTER 1 -->
+  <section id="chapter1">
+    <h2>Chapter 1: Description of Data</h2>
+    <div class="theory-card">
+      <p><strong>Meaning:</strong> This chapter explains how to organize and summarize raw data into meaningful information. Raw numbers alone are confusing - we use tables, graphs, and summary measures to understand patterns, central values, spread, and shape of data distributions.</p>
+      <ul>
+        <li>Convert confusing numbers → clear insights</li>
+        <li>Understand what data tells us</li>
+        <li>Foundation for all statistical analysis</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHAPTER 2 -->
+  <section id="chapter2">
+    <h2>Chapter 2: Probability Fundamentals</h2>
+    <div class="theory-card">
+      <p><strong>Meaning:</strong> Probability measures how likely events are to happen (0 = impossible, 1 = certain). This chapter studies basic rules for calculating probabilities, how events relate, and how new information updates our beliefs about likelihoods.</p>
+      <ul>
+        <li>Predict future events</li>
+        <li>Understand uncertainty</li>
+        <li>Foundation of statistics</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHAPTER 3 -->
+  <section id="chapter3">
+    <h2>Chapter 3: Probability Distributions</h2>
+    <div class="theory-card">
+      <p><strong>Meaning:</strong> Distributions describe patterns of how data values are spread. Different types model different situations - coin flips (binomial), rare events (Poisson), or normal bell-shaped patterns that appear everywhere in nature.</p>
+      <ul>
+        <li>Understand data patterns</li>
+        <li>Predict ranges of values</li>
+        <li>Most data follows normal distribution</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHAPTER 4 -->
+  <section id="chapter4">
+    <h2>Chapter 4: Sampling & Estimation</h2>
+    <div class="theory-card">
+      <p><strong>Meaning:</strong> We can't study entire populations, so we take samples and make estimates about the whole. This chapter explains how to select good samples and calculate confidence intervals showing how accurate our estimates are.</p>
+      <ul>
+        <li>Study populations through samples</li>
+        <li>Calculate confidence in results</li>
+        <li>Real-world decision making</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Probability & Statistics Theory Summary</footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
+      });
+    });
+  </script>
+</body>
+</html>

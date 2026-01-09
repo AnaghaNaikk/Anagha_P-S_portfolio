@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chapter 1 – Description of Data</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --card:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.18);
+  --blue:#38bdf8;
+  --violet:#a78bfa;
+  --pink:#f472b6;
+  --text:#e5e7eb;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:'Poppins',sans-serif;
+  background:#020617;
+  color:var(--text);
+}
+canvas#statsBG{position:fixed;inset:0;z-index:-2}
+.bg-overlay{
+  position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(56,189,248,.10), transparent 55%),
+    radial-gradient(circle at 85% 75%, rgba(167,139,250,.10), transparent 55%);
+  z-index:-1;
+}
+section{max-width:1300px;margin:auto;padding:40px 28px}
+h1{
+  text-align:center;font-size:36px;
+  background:linear-gradient(90deg,var(--blue),var(--violet),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+  margin-bottom:26px;
+}
+.card h3{margin:0 0 8px;color:#eaf6ff}
+p,li{font-size:15.5px;line-height:1.7;color:#dbeafe}
+details{
+  margin-top:12px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.03);
+}
+summary{cursor:pointer;font-weight:600;color:var(--blue)}
+.graph{margin-top:12px}
+.formula{white-space:pre-wrap}
+</style>
+</head>
+
+<body>
+<canvas id="statsBG"></canvas>
+<div class="bg-overlay"></div>
+
+<section>
+<h1>Chapter 1 · Description of Data</h1>
+
+<div class="card">
+<h3>Introduction</h3>
+<p>
+Descriptive statistics focuses on organizing, summarizing and presenting data in a meaningful form.
+It uses numerical measures and graphical methods to understand data clearly.
+</p>
+</div>
+
+<div class="card">
+<h3>Types of Data</h3>
+<p>
+Data are classified based on their nature into qualitative and quantitative data.
+This classification helps decide suitable statistical methods.
+</p>
+
+<details>
+<summary>Click to expand</summary>
+<div class="formula">
+Qualitative (Categorical)
+• Nominal – no order
+• Ordinal – ordered categories
+
+Quantitative
+• Discrete – countable
+• Continuous – measurable
+
+Examples:
+Nominal: Blood group
+Ordinal: Rank
+Discrete: Number of students
+Continuous: Height
+</div>
+</details>
+</div>
+
+<div class="card">
+<h3>Measures of Central Tendency</h3>
+<p>
+These measures describe the central or typical value of a dataset.
+Mean, median and mode are the most commonly used measures.
+</p>
+
+<details>
+<summary>Click to expand</summary>
+<div class="formula">
+Mean (ungrouped): x̄ = Σx / n
+Median (grouped): l + [(N/2 − cf)/f] × h
+Mode (grouped): l + [(f₁ − f₀)/(2f₁ − f₀ − f₂)] × h
+
+Example:
+10, 20, 30, 40, 50 → Mean = 30
+</div>
+</details>
+</div>
+
+<div class="card">
+<h3>Measures of Dispersion</h3>
+<p>
+Dispersion shows how far data values spread around the central value.
+It indicates consistency or variability in data.
+</p>
+
+<details>
+<summary>Click to expand</summary>
+<div class="formula">
+Range = Max − Min
+Variance: s² = Σ(x − x̄)² / (n − 1)
+Standard Deviation: s = √s²
+
+Example:
+Data: 5, 7, 9 → SD = 2
+</div>
+</details>
+</div>
+
+<div class="card">
+<h3>Histogram</h3>
+<p>
+A histogram represents frequency distribution of continuous data using adjacent bars.
+The height of each bar shows frequency.
+</p>
+
+<div class="graph">
+<svg viewBox="0 0 700 300">
+<line x1="60" y1="250" x2="660" y2="250" stroke="#cfe8ff"/>
+<line x1="60" y1="40" x2="60" y2="250" stroke="#cfe8ff"/>
+<rect x="100" y="200" width="80" height="50" fill="#38bdf8"/>
+<rect x="200" y="170" width="80" height="80" fill="#a78bfa"/>
+<rect x="300" y="130" width="80" height="120" fill="#f472b6"/>
+<rect x="400" y="160" width="80" height="90" fill="#60a5fa"/>
+</svg>
+</div>
+</div>
+
+<div class="card">
+<h3>Ogive</h3>
+<p>
+An ogive is a cumulative frequency curve.
+It is used to find median, quartiles and percentiles.
+</p>
+
+<div class="graph">
+<svg viewBox="0 0 700 300">
+<line x1="60" y1="250" x2="660" y2="250" stroke="#cfe8ff"/>
+<line x1="60" y1="40" x2="60" y2="250" stroke="#cfe8ff"/>
+<polyline points="120,240 220,240 220,210 320,210 320,160 420,160 420,110"
+fill="none" stroke="#f472b6" stroke-width="4"/>
+</svg>
+</div>
+</div>
+
+<div class="card">
+<h3>Box Plot</h3>
+<p>
+A box plot represents data using five-number summary.
+It helps detect spread and outliers.
+</p>
+
+<div class="graph">
+<svg viewBox="0 0 700 200">
+<line x1="100" y1="100" x2="600" y2="100" stroke="#cfe8ff"/>
+<rect x="220" y="70" width="260" height="60" fill="#a78bfa"/>
+<line x1="350" y1="70" x2="350" y2="130" stroke="#020617" stroke-width="3"/>
+<line x1="140" y1="100" x2="220" y2="100" stroke="#cfe8ff"/>
+<line x1="480" y1="100" x2="560" y2="100" stroke="#cfe8ff"/>
+</svg>
+</div>
+</div>
+
+<div class="card">
+<h3>What I Learned in This Chapter</h3>
+<p>
+I learned how data are classified, summarized using mean, median and mode,
+measured for variability, and represented graphically using histogram, ogive and box plot.
+</p>
+</div>
+
+</section>
+
+<script>
+const c=document.getElementById("statsBG"),x=c.getContext("2d");
+function r(){c.width=innerWidth;c.height=innerHeight}
+r();addEventListener("resize",r);
+const d=[...Array(90)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3}));
+(function a(){
+x.clearRect(0,0,c.width,c.height);
+for(let i=0;i<d.length;i++){
+for(let j=i+1;j<d.length;j++){
+let l=Math.hypot(d[i].x-d[j].x,d[i].y-d[j].y);
+if(l<120){
+x.strokeStyle="rgba(160,180,255,.08)";
+x.beginPath();x.moveTo(d[i].x,d[i].y);x.lineTo(d[j].x,d[j].y);x.stroke();
+}}
+d[i].x+=d[i].vx;d[i].y+=d[i].vy;
+if(d[i].x<0||d[i].x>c.width)d[i].vx*=-1;
+if(d[i].y<0||d[i].y>c.height)d[i].vy*=-1;
+x.fillStyle="rgba(220,230,255,.8)";
+x.beginPath();x.arc(d[i].x,d[i].y,2,0,Math.PI*2);x.fill();
+}
+requestAnimationFrame(a);
+})();
+</script>
+
+</body>
+</html>

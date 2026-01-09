@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapter 4 – Statistical Inference</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --card:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.18);
+  --blue:#38bdf8;
+  --violet:#a78bfa;
+  --pink:#f472b6;
+  --text:#e5e7eb;
+}
+
+*{box-sizing:border-box;}
+html,body{height:100%;margin:0;}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:#020617;
+  color:var(--text);
+}
+
+/* ===== BACKGROUND (unchanged) ===== */
+canvas#statsBG{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+
+.bg-overlay{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(56,189,248,.12), transparent 55%),
+    radial-gradient(circle at 80% 75%, rgba(167,139,250,.10), transparent 55%);
+  z-index:-1;
+}
+
+/* ===== CONTENT ===== */
+section{
+  max-width:1300px;
+  margin:auto;
+  padding:80px 30px;
+}
+
+h2{
+  font-size:46px;
+  text-align:center;
+  background:linear-gradient(90deg,var(--blue),var(--violet),var(--pink));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:70px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:46px;
+  margin-bottom:55px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 18px 45px rgba(0,0,0,.45);
+}
+
+.card h3{
+  font-size:28px;
+  margin-bottom:16px;
+}
+
+p,li{
+  font-size:16.5px;
+  line-height:1.9;
+  color:#dbeafe;
+}
+
+details{
+  margin-top:20px;
+  background:rgba(255,255,255,0.07);
+  border-radius:14px;
+  padding:18px 22px;
+  border:1px solid var(--border);
+}
+
+summary{
+  cursor:pointer;
+  font-weight:600;
+  color:var(--blue);
+}
+
+details img{
+  width:100%;
+  max-width:520px;
+  margin-top:16px;
+  border-radius:12px;
+  border:1px solid var(--border);
+}
+
+/* helper for graph captions/explanations */
+.graph-explain{
+  margin-top:12px;
+  color:#e6f6ff;
+  font-size:15px;
+  line-height:1.7;
+}
+
+/* SVG text style */
+svg .axis { stroke:#9fb7ff; stroke-width:1; }
+svg .label { fill:#dbeafe; font-size:12px; font-family:Poppins, Arial, sans-serif; }
+svg .grid { stroke:rgba(255,255,255,0.05); stroke-width:1; }
+svg .bar { fill:#60a5fa; opacity:0.95; }
+svg .bar2{ fill:#7c3aed; opacity:0.95; }
+svg .bar3{ fill:#34d399; opacity:0.95; }
+svg .curve{ stroke:#f472b6; stroke-width:3; fill:none; stroke-linecap:round; }
+svg .step { stroke:#a78bfa; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round; }
+svg .shade{ fill:rgba(244,114,182,0.12); }
+svg .box{ fill:rgba(56,189,248,0.15); stroke:#60a5fa; }
+svg .box2{ fill:rgba(167,139,250,0.15); stroke:#a78bfa; }
+
+/* Responsive */
+@media(max-width:820px){
+  section{padding:40px 18px;}
+  h2{font-size:36px;}
+  .card{padding:28px;}
+  svg { max-width:100%; height:auto; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="statsBG"></canvas>
+<div class="bg-overlay"></div>
+
+<section>
+<h2>Chapter 4 – Statistical Inference</h2>
+
+<!-- ===== SAMPLING ===== -->
+<div class="card">
+<h3>Introduction to Sampling</h3>
+<p>
+Statistical inference starts with data collected from a sample rather than the entire population. Sampling allows us to estimate population parameters efficiently.
+</p>
+<details>
+<summary>Click to view key points & examples</summary>
+<p>
+<b>Key Advantages of Sampling:</b><br>
+1. Less time-consuming and costly.<br>
+2. Easier data handling.<br>
+3. Enables faster decision making.<br><br>
+
+<b>Example:</b> Estimating average income of city residents by surveying 200 people instead of all 10,000 residents.
+</p>
+
+<!-- Graph: Population vs Sample size comparison -->
+<svg width="520" height="220" viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Population vs Sample size">
+  <rect x="0" y="0" width="520" height="220" fill="transparent"/>
+  <line class="axis" x1="60" y1="30" x2="60" y2="190"/>
+  <line class="axis" x1="60" y1="190" x2="480" y2="190"/>
+  <text class="label" x="30" y="194">0</text>
+  <text class="label" x="30" y="154">2,000</text>
+  <text class="label" x="30" y="114">4,000</text>
+  <text class="label" x="30" y="74">6,000</text>
+  <text class="label" x="30" y="34">10,000</text>
+
+  <!-- bars: population 10,000 vs sample 200 -->
+  <rect class="bar" x="120" y="30" width="80" height="160" rx="6"/>
+  <text class="label" x="160" y="206" text-anchor="middle">Population</text>
+  <text class="label" x="160" y="24" text-anchor="middle">10,000</text>
+
+  <!-- sample 200 scaled: y = 190 - (200/10000)*160 ≈ 190 - 3.2 ≈ 186.8, height ≈ 3.2 -->
+  <rect class="bar2" x="280" y="187" width="80" height="3" rx="3"/>
+  <text class="label" x="320" y="206" text-anchor="middle">Sample</text>
+  <text class="label" x="320" y="181" text-anchor="middle">200</text>
+
+  <text class="label" x="280" y="16" text-anchor="start">Sampling: estimate parameters from a small subset</text>
+</svg>
+
+<p class="graph-explain">
+<strong>Graph explanation:</strong> The left bar represents the population size (10,000). The right bar represents the sample size (200). Sampling uses a small subset to infer about the larger population, saving time and cost.
+</p>
+</details>
+</div>
+
+<!-- ===== SRSWR & SRSWOR (INCLUDED EXACT BLOCK + CORRECTED SVG) ===== -->
+  <div class="card">
+    <h3>Simple Random Sampling: With & Without Replacement</h3>
+    <p>
+      Simple Random Sampling is a basic sampling method where every individual has an equal chance of being selected.
+    </p>
+    <details>
+      <summary>Click to view formulas & examples</summary>
+      <p>
+        <b>SRS with Replacement (SRSWR):</b> Each selected unit is returned to the population before next draw.<br>
+        <b>SRS without Replacement (SRSWOR):</b> Each selected unit is removed from population after selection.<br><br>
+
+        <b>Example:</b> Population {5, 4, 7}, sample size 2:<br>
+        With Replacement: Possible ordered samples = {5,5}, {5,4}, {5,7}, etc.<br>
+        Without Replacement: Possible ordered samples = {5,4}, {5,7}, {4,5}, etc.
+      </p>
+
+      <!-- Provided SVG (copied and embedded exactly) -->
+      <svg width="600" height="340" viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SRSWR and SRSWOR tree diagram">
+        <!-- Background & Styles -->
+        <rect width="600" height="340" fill="#f8fafc" rx="10"/>
+        <style>
+          .title { font: bold 14px sans-serif; fill: #1e293b; }
+          .node-text { font: 12px sans-serif; fill: #1e293b; font-weight: bold; }
+          .example-text { font: italic 11px sans-serif; fill: #64748b; }
+          .branch { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+          .node-wr { fill: #a78bfa; stroke: #7c3aed; stroke-width: 1; }
+          .node-wor { fill: #93c5fd; stroke: #2563eb; stroke-width: 1; }
+        </style>
+
+        <!-- LEFT SIDE: WITH REPLACEMENT (SRSWR) -->
+        <text x="150" y="30" text-anchor="middle" class="title">With Replacement (SRSWR)</text>
+
+        <!-- Root to Tier 1 -->
+        <line class="branch" x1="40" x2="100" y1="140" y2="70"/>
+        <line class="branch" x1="40" x2="100" y1="140" y2="140"/>
+        <line class="branch" x1="40" x2="100" y1="140" y2="210"/>
+        <circle cx="40" cy="140" r="4" fill="#64748b"/>
+
+        <!-- Tier 1 Nodes -->
+        <circle class="node-wr" cx="100" cy="70" r="12"/> <text x="100" y="74" text-anchor="middle" class="node-text">4</text>
+        <circle class="node-wr" cx="100" cy="140" r="12"/> <text x="100" y="144" text-anchor="middle" class="node-text">5</text>
+        <circle class="node-wr" cx="100" cy="210" r="12"/> <text x="100" y="214" text-anchor="middle" class="node-text">7</text>
+
+        <!-- Tier 1 to Tier 2 (All paths lead to 4,5,7) -->
+        <g stroke="#cbd5e1" stroke-width="1">
+          <!-- From 4 -->
+          <path d="M112 70 L160 50 M112 70 L160 70 M112 70 L160 90" fill="none"/>
+          <!-- From 5 -->
+          <path d="M112 140 L160 120 M112 140 L160 140 M112 140 L160 160" fill="none"/>
+          <!-- From 7 -->
+          <path d="M112 210 L160 190 M112 210 L160 210 M112 210 L160 230" fill="none"/>
+        </g>
+
+        <!-- Tier 2 Nodes (Small) -->
+        <g class="node-wr" opacity="0.8">
+          <circle cx="160" cy="50" r="5"/> <circle cx="160" cy="70" r="5"/> <circle cx="160" cy="90" r="5"/>
+          <circle cx="160" cy="120" r="5"/> <circle cx="160" cy="140" r="5"/> <circle cx="160" cy="160" r="5"/>
+          <circle cx="160" cy="190" r="5"/> <circle cx="160" cy="210" r="5"/> <circle cx="160" cy="230" r="5"/>
+        </g>
+
+        <text x="150" y="270" text-anchor="middle" class="example-text">Possible: {4,4}, {4,5}, {4,7}, {5,4}...</text>
+        <text x="150" y="285" text-anchor="middle" class="example-text">(Total 3² = 9 samples)</text>
+
+
+        <!-- RIGHT SIDE: WITHOUT REPLACEMENT (SRSWOR) -->
+        <text x="450" y="30" text-anchor="middle" class="title">Without Replacement (SRSWOR)</text>
+
+        <!-- Root to Tier 1 -->
+        <line class="branch" x1="340" x2="400" y1="140" y2="70"/>
+        <line class="branch" x1="340" x2="400" y1="140" y2="140"/>
+        <line class="branch" x1="340" x2="400" y1="140" y2="210"/>
+        <circle cx="340" cy="140" r="4" fill="#64748b"/>
+
+        <!-- Tier 1 Nodes -->
+        <circle class="node-wor" cx="400" cy="70" r="12"/> <text x="400" y="74" text-anchor="middle" class="node-text">4</text>
+        <circle class="node-wor" cx="400" cy="140" r="12"/> <text x="400" y="144" text-anchor="middle" class="node-text">5</text>
+        <circle class="node-wor" cx="400" cy="210" r="12"/> <text x="400" y="214" text-anchor="middle" class="node-text">7</text>
+
+        <!-- Tier 1 to Tier 2 (Restricted paths) -->
+        <g stroke="#cbd5e1" stroke-width="1">
+          <!-- From 4 -> 5,7 -->
+          <path d="M412 70 L460 60 M412 70 L460 80" fill="none"/>
+          <!-- From 5 -> 4,7 -->
+          <path d="M412 140 L460 130 M412 140 L460 150" fill="none"/>
+          <!-- From 7 -> 4,5 -->
+          <path d="M412 210 L460 200 M412 210 L460 220" fill="none"/>
+        </g>
+
+        <!-- Tier 2 Nodes (Small) -->
+        <g class="node-wor" opacity="0.8">
+          <circle cx="460" cy="60" r="5"/> <circle cx="460" cy="80" r="5"/>
+          <circle cx="460" cy="130" r="5"/> <circle cx="460" cy="150" r="5"/>
+          <circle cx="460" cy="200" r="5"/> <circle cx="460" cy="220" r="5"/>
+        </g>
+
+        <text x="450" y="270" text-anchor="middle" class="example-text">Possible: {4,5}, {4,7}, {5,4}, {5,7}...</text>
+        <text x="450" y="285" text-anchor="middle" class="example-text">(Total 3×2 = 6 samples)</text>
+
+        <!-- Bottom Legend -->
+        <rect x="150" y="310" width="300" height="20" fill="#f1f5f9" rx="5"/>
+        <text x="300" y="324" text-anchor="middle" font-size="10" fill="#475569">Note: In SRSWOR, the same number cannot be picked twice.</text>
+      </svg>
+
+      <p class="graph-explain">
+        <strong>Graph explanation:</strong> With replacement, after any first pick the second draw still has all three options (so ordered pairs like {5,5} are possible). Without replacement, the second draw excludes the first-picked value, leaving only the remaining two options.
+      </p>
+    </details>
+  </div>
+
+
+<!-- ===== CLUSTER & STRATIFIED ===== -->
+<div class="card">
+<h3>Cluster vs Stratified Sampling</h3>
+<p>
+Cluster and stratified sampling are techniques to organize the population before sampling for better accuracy.
+</p>
+<details>
+<summary>Click to view explanation & examples</summary>
+<p>
+<b>Cluster Sampling:</b> Population divided into clusters; some clusters are randomly selected.<br>
+<b>Stratified Sampling:</b> Population divided into strata based on characteristics; samples taken proportionally from each stratum.<br><br>
+
+<b>Example:</b><br>
+Cluster: Randomly select 3 schools and survey all students in them.<br>
+Stratified: Divide students by grade and take proportional samples from each grade.
+</p>
+
+<!-- Diagram: cluster boxes vs strata bars -->
+<svg width="520" height="240" viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cluster vs Stratified sampling illustration">
+  <rect x="0" y="0" width="520" height="240" fill="transparent"/>
+  <text class="label" x="130" y="24" text-anchor="middle">Cluster sampling</text>
+  <text class="label" x="390" y="24" text-anchor="middle">Stratified sampling</text>
+
+  <!-- clusters: grouped boxes -->
+  <rect class="box" x="40" y="50" width="160" height="60"/>
+  <rect class="box" x="40" y="120" width="160" height="60"/>
+  <rect class="box2" x="40" y="50" width="160" height="60" opacity="0.35"/>
+  <rect class="box2" x="40" y="120" width="160" height="60" opacity="0.35"/>
+  <text class="label" x="120" y="120" text-anchor="middle">Select clusters</text>
+
+  <!-- strata: horizontal bands -->
+  <rect class="box" x="300" y="50" width="180" height="30"/><text class="label" x="492" y="68">Stratum A</text>
+  <rect class="box" x="300" y="90" width="180" height="30"/><text class="label" x="492" y="108">Stratum B</text>
+  <rect class="box" x="300" y="130" width="180" height="30"/><text class="label" x="492" y="148">Stratum C</text>
+  <rect class="box" x="300" y="170" width="180" height="30"/><text class="label" x="492" y="188">Stratum D</text>
+  <text class="label" x="390" y="210" text-anchor="middle">Sample proportionally in each stratum</text>
+</svg>
+
+<p class="graph-explain">
+<strong>Graph explanation:</strong> In cluster sampling, you select whole clusters (e.g., schools) and survey within them. In stratified sampling, you split the population into strata (e.g., grades) and sample proportionally from each stratum to improve precision.
+</p>
+</details>
+</div>
+
+<!-- ===== HYPOTHESIS TESTING ===== -->
+<div class="card">
+<h3>Testing of Hypothesis</h3>
+<p>
+Hypothesis testing allows us to make decisions about population parameters based on sample data.
+</p>
+<details>
+<summary>Click to view formulas & key concepts</summary>
+<p>
+<b>Key Terms:</b><br>
+- Null hypothesis (H₀): Initial claim to be tested.<br>
+- Alternative hypothesis (H₁): What we want to establish.<br>
+- Type I error: Rejecting H₀ when true.<br>
+- Type II error: Failing to reject H₀ when false.<br>
+- Level of significance (α): Probability of Type I error.<br><br>
+
+<b>Example:</b> Testing if mean exam score = 75.  
+- H₀: μ = 75, H₁: μ ≠ 75
+</p>
+
+<!-- Two-sided critical regions (standard normal) -->
+<svg width="520" height="220" viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two-sided critical regions alpha 0.05">
+  <rect x="0" y="0" width="520" height="220" fill="transparent"/>
+  <line class="axis" x1="40" y1="200" x2="480" y2="200"/>
+  <path class="curve" d="M40 200 C100 120, 180 60, 260 50 C340 60, 420 120, 480 200"/>
+  <path class="shade" d="M40 200 C100 120, 140 90, 160 80 L160 200 Z"/>
+  <path class="shade" d="M360 80 C380 90, 420 120, 480 200 L360 200 Z"/>
+  <text class="label" x="260" y="18" text-anchor="middle">Critical regions for α = 0.05 (two-sided)</text>
+  <text class="label" x="160" y="76" text-anchor="middle">Reject H₀</text>
+  <text class="label" x="360" y="76" text-anchor="middle">Reject H₀</text>
+</svg>
+
+<p class="graph-explain">
+<strong>Graph explanation:</strong> The shaded tails are the rejection regions for a two-sided test at α = 0.05. A test statistic falling into either shaded area leads to rejecting H₀.
+</p>
+</details>
+</div>
+
+<!-- ===== CONFIDENCE INTERVAL ===== -->
+<div class="card">
+<h3>Confidence Intervals & Sample Size</h3>
+<p>
+Confidence intervals provide a range of plausible values for a population parameter. Sample size affects the width of the interval.
+</p>
+<details>
+<summary>Click to view formulas & examples</summary>
+<p>
+<b>Formula:</b><br>
+CI = x̄ ± Z * (σ/√n)   for mean with known σ<br>
+Sample size n = (Z*σ/E)²<br><br>
+
+<b>Example:</b> Estimate mean income ± 5000 with 95% confidence:<br>
+σ = 30,000, Z = 1.96 → n = (1.96*30,000/5,000)² ≈ 138
+</p>
+
+<!-- Graph: CI whisker plot -->
+<svg width="520" height="200" viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Confidence interval whisker">
+  <rect x="0" y="0" width="520" height="200" fill="transparent"/>
+  <line class="axis" x1="60" y1="120" x2="480" y2="120"/>
+  <!-- CI: center at 50, whiskers at 40 and 60 (scaled) -->
+  <line class="axis" x1="160" y1="120" x2="380" y2="120" />
+  <line class="axis" x1="160" y1="110" x2="160" y2="130"/>
+  <line class="axis" x1="380" y1="110" x2="380" y2="130"/>
+
+  <!-- point estimate marker -->
+  <circle cx="270" cy="120" r="5" fill="#7c3aed"/>
+  <text class="label" x="270" y="106" text-anchor="middle">x̄</text>
+
+  <!-- labels -->
+  <text class="label" x="160" y="148" text-anchor="middle">Lower bound</text>
+  <text class="label" x="380" y="148" text-anchor="middle">Upper bound</text>
+  <text class="label" x="270" y="168" text-anchor="middle">95% CI = x̄ ± 1.96·σ/√n</text>
+</svg>
+
+<p class="graph-explain">
+<strong>Graph explanation:</strong> The central dot is the sample mean x̄. The whiskers mark the lower and upper bounds of the 95% confidence interval. Increasing sample size (n) narrows the interval because the margin Z·σ/√n decreases.
+</p>
+</details>
+</div>
+
+<!-- ===== TESTING MEAN & PROPORTION ===== -->
+<div class="card">
+<h3>Testing Hypotheses for Means & Proportions</h3>
+<p>
+Depending on data type, we test population mean or proportion using Z-test or t-test.
+</p>
+<details>
+<summary>Click to view formulas & examples</summary>
+<p>
+<b>One-sample Z-test for mean:</b><br>
+Z = (x̄ − μ) / (σ/√n)<br><br>
+
+<b>One-sample Z-test for proportion:</b><br>
+Z = (p̂ − p) / √(p(1−p)/n)<br><br>
+
+<b>Example:</b><br>
+Sample of 100 apples, 60 bad → p̂ = 0.6, p₀ = 0.5<br>
+Z = (0.6 − 0.5)/√(0.5*0.5/100) ≈ 2 → significant at 5% level
+</p>
+
+<!-- Graph: Z distribution with one-sided and two-sided critical regions -->
+<svg width="520" height="220" viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Z-test critical regions">
+  <rect x="0" y="0" width="520" height="220" fill="transparent"/>
+  <line class="axis" x1="40" y1="200" x2="480" y2="200"/>
+  <path class="curve" d="M40 200 C100 120, 180 60, 260 50 C340 60, 420 120, 480 200"/>
+  <!-- two-sided alpha 0.05 ~ 1.96 -->
+  <rect class="shade" x="360" y="60" width="120" height="140"/>
+  <rect class="shade" x="40" y="60" width="120" height="140"/>
+  <text class="label" x="260" y="18" text-anchor="middle">Two-sided α=0.05: |Z| ≥ 1.96</text>
+  <text class="label" x="100" y="76" text-anchor="middle">Reject H₀</text>
+  <text class="label" x="420" y="76" text-anchor="middle">Reject H₀</text>
+</svg>
+
+<p class="graph-explain">
+<strong>Graph explanation:</strong> In a two-sided Z-test at α=0.05, rejection regions lie beyond ±1.96. The curve is the standard normal; shaded tails indicate where large |Z| values lead to rejecting H₀.
+</p>
+</details>
+</div>
+
+<!-- ===== DIFFERENCE OF MEANS/PROPORTIONS ===== -->
+<div class="card">
+<h3>Testing Differences Between Two Means or Proportions</h3>
+<p>
+We compare two independent samples to infer if their population means or proportions differ.
+</p>
+<details>
+<summary>Click to view formulas & examples</summary>
+<p>
+<b>Two-sample Z-test for means:</b><br>
+Z = (x̄₁ − x̄₂) / √(σ₁²/n₁ + σ₂²/n₂)<br><br>
+
+<b>Two-sample Z-test for proportions:</b><br>
+Z = (p̂₁ − p̂₂) / √(p(1−p)(1/n₁ + 1/n₂))<br>
+p = (x₁ + x₂)/(n₁ + n₂)<br><br>
+
+<b>Example:</b><br>
+Chatbot X: n₁=30, mean=3.6, σ₁=0.5<br>
+Chatbot Y: n₂=28, mean=2.9, σ₂=0.4<br>
+95% CI for difference: 3.6−2.9 ± Z*√(0.5²/30 + 0.4²/28)
+</p>
+
+<!-- Graph: Difference of means with CI bar -->
+<svg width="520" height="220" viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Difference of means confidence interval">
+  <rect x="0" y="0" width="520" height="220" fill="transparent"/>
+  <!-- axis -->
+  <line class="axis" x1="60" y1="120" x2="480" y2="120"/>
+  <!-- suppose diff = 0.7, SE ≈ 0.15, 95% CI ~ 0.7 ± 1.96*0.15 ≈ 0.7 ± 0.294 -> [0.406, 0.994] -->
+  <!-- map x: 0 -> 60, 1.2 -> 480 (scale for display) -->
+  <line class="axis" x1="200" y1="120" x2="420" y2="120"/>
+  <line class="axis" x1="200" y1="110" x2="200" y2="130"/>
+  <line class="axis" x1="420" y1="110" x2="420" y2="130"/>
+  <circle cx="310" cy="120" r="5" fill="#34d399"/>
+  <text class="label" x="310" y="104" text-anchor="middle">x̄₁ − x̄₂</text>
+
+  <!-- labels -->
+  <text class="label" x="60" y="140">0</text>
+  <text class="label" x="480" y="140">1.2</text>
+  <text class="label" x="200" y="148" text-anchor="middle">Lower CI</text>
+  <text class="label" x="420" y="148" text-anchor="middle">Upper CI</text>
+  <text class="label" x="310" y="168" text-anchor="middle">95% CI does not include 0 ⇒ difference is significant</text>
+</svg>
+
+<p class="graph-explain">
+<strong>Graph explanation:</strong> The point marks the observed difference in means (x̄₁−x̄₂). The whiskers show the 95% CI. If the CI excludes 0, it indicates a statistically significant difference at the 5% level.
+</p>
+</details>
+</div>
+
+<!-- ===== ADDITIONAL TOPICS: p-value, power, critical regions ===== -->
+<div class="card">
+<h3>p-value, Power of a Test, and Critical Regions</h3>
+<p>
+These concepts are essential for interpreting hypothesis tests and designing experiments.
+</p>
+<details>
+<summary>Click to view definitions, formulas & examples</summary>
+<p>
+<b>p-value:</b> The probability, under H₀, of observing a test statistic as extreme or more extreme than the one obtained. A small p-value (≤ α) leads to rejecting H₀.<br><br>
+
+<b>Power of a test (1 − β):</b> Probability of correctly rejecting H₀ when a specific alternative is true. Power increases with larger sample size, larger effect size, and higher α.<br><br>
+
+<b>Critical region:</b> The set of values of the test statistic for which H₀ is rejected. For a two-sided Z-test at α=0.05, critical values are ±1.96.<br><br>
+
+<b>Example (p-value):</b> For Z = 2.0 in a two-sided test, p-value ≈ 0.0455. Since p < 0.05, reject H₀ at 5% level.<br><br>
+
+<b>Example (power):</b> For a one-sample Z-test with n=100, σ=10, α=0.05, to detect a difference of δ=2 units, power increases as n increases (smaller SE makes true differences easier to detect).
+</p>
+
+<!-- Visualization: two-sided critical region (already conceptually placed, kept for clarity) -->
+<svg width="520" height="220" viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two-sided critical region">
+  <rect x="0" y="0" width="520" height="220" fill="transparent"/>
+  <line class="axis" x1="40" y1="200" x2="480" y2="200"/>
+  <path class="curve" d="M40 200 C100 120, 180 60, 260 50 C340 60, 420 120, 480 200"/>
+  <path class="shade" d="M40 200 C100 120, 140 90, 160 80 L160 200 Z"/>
+  <path class="shade" d="M360 80 C380 90, 420 120, 480 200 L360 200 Z"/>
+  <text class="label" x="260" y="18" text-anchor="middle">Two-sided α = 0.05</text>
+</svg>
+
+<p class="graph-explain">
+<strong>Graph explanation:</strong> The shaded tails indicate the critical (rejection) regions. The p-value is the tail probability beyond the observed test statistic. Higher power means a greater chance of detecting true effects.
+</p>
+</details>
+</div>
+
+<!-- ===== WHAT I LEARNT ===== -->
+<div class="card">
+<h3>What I Learnt in This Chapter</h3>
+<ul>
+<li>Importance of sampling and methods (SRSWR, SRSWOR, stratified, cluster)</li>
+<li>Constructing confidence intervals and determining sample size</li>
+<li>Testing hypotheses for population mean and proportion</li>
+<li>Comparing two population means or proportions</li>
+<li>Understanding errors, significance levels, and critical regions</li>
+<li>Applying statistical inference to real-world problems</li>
+</ul>
+</div>
+
+</section>
+
+<script>
+const canvas=document.getElementById("statsBG");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+}
+resize();
+addEventListener("resize",resize);
+
+const pts=[];
+for(let i=0;i<80;i++){
+  pts.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    vx:(Math.random()-0.5)*0.25,
+    vy:(Math.random()-0.5)*0.25
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x;
+      const dy=pts[i].y-pts[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<120){
+        ctx.strokeStyle="rgba(160,180,255,0.12)";
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x,pts[i].y);
+        ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  pts.forEach(p=>{
+    p.x+=p.vx;
+    p.y+=p.vy;
+    if(p.x<0||p.x>canvas.width) p.vx*=-1;
+    if(p.y<0||p.y>canvas.height) p.vy*=-1;
+    ctx.fillStyle="rgba(210,220,255,0.6)";
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,2.2,0,Math.PI*2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
