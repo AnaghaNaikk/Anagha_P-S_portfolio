@@ -15,11 +15,13 @@ body{
   overflow-x:hidden;
 }
 
-/* Animated background */
+/* Animated background — FIXED */
 #bg-canvas{
   position:fixed;
   inset:0;
   z-index:-1;
+  pointer-events:none;        /* IMPORTANT FIX */
+  transform:translateZ(0);    /* GPU repaint fix */
 }
 
 /* Navbar */
@@ -39,7 +41,7 @@ body{
   align-items:center;
 }
 .full-name{
-  font-size:24px; /* slightly bigger as you wanted */
+  font-size:24px;
   font-weight:700;
   color:#c7d2fe;
 }
@@ -206,14 +208,12 @@ footer{
       </p>
     </div>
 
-    <!-- ✅ ONLY ADDITION -->
     <div class="card">
       <h3>Real-World Applicability</h3>
       <p>
         Probability and Statistics are applied in engineering design,
         quality control, data science, machine learning, finance,
-        medical research, and scientific experiments to make accurate
-        predictions and informed decisions.
+        medical research, and scientific experiments.
       </p>
     </div>
 
@@ -235,24 +235,24 @@ footer{
   KLE Technological University
 </footer>
 
-<!-- Background animation (RESTORED) -->
+<!-- BACKGROUND ANIMATION — WORKING & SAFE -->
 <script>
-const canvas=document.getElementById("bg-canvas");
-const ctx=canvas.getContext("2d");
+const canvas = document.getElementById("bg-canvas");
+const ctx = canvas.getContext("2d");
 
 function resize(){
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
 resize();
-window.addEventListener("resize",resize);
+window.addEventListener("resize", resize);
 
-const dots=[...Array(70)].map(()=>({
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  r:1+Math.random()*2,
-  vx:(Math.random()-.5)*0.4,
-  vy:(Math.random()-.5)*0.4
+const dots = Array.from({length:80}, () => ({
+  x: Math.random()*canvas.width,
+  y: Math.random()*canvas.height,
+  r: Math.random()*2 + 1,
+  vx: (Math.random()-0.5)*0.5,
+  vy: (Math.random()-0.5)*0.5
 }));
 
 function animate(){
@@ -264,7 +264,7 @@ function animate(){
     if(d.y<0||d.y>canvas.height) d.vy*=-1;
     ctx.beginPath();
     ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
-    ctx.fillStyle="rgba(99,102,241,0.8)";
+    ctx.fillStyle="rgba(99,102,241,0.85)";
     ctx.fill();
   });
   requestAnimationFrame(animate);
