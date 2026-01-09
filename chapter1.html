@@ -22,6 +22,35 @@ body{
   background:#020617;
   color:var(--text);
 }
+
+/* ===== NAVBAR ===== */
+nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(2,6,23,0.85);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+nav ul{
+  list-style:none;
+  margin:0;
+  padding:14px 28px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  justify-content:center;
+}
+nav a{
+  text-decoration:none;
+  color:#e5e7eb;
+  font-weight:500;
+}
+nav a:hover{
+  color:var(--blue);
+}
+
+/* ===== CONTENT ===== */
 canvas#statsBG{position:fixed;inset:0;z-index:-2}
 .bg-overlay{
   position:fixed;inset:0;
@@ -59,6 +88,20 @@ summary{cursor:pointer;font-weight:600;color:var(--blue)}
 </head>
 
 <body>
+
+<!-- NAVBAR -->
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="chapter1.html">Chapter 1</a></li>
+    <li><a href="chapter2.html">Chapter 2</a></li>
+    <li><a href="chapter3.html">Chapter 3</a></li>
+    <li><a href="chapter4.html">Chapter 4</a></li>
+    <li><a href="lab1.html">Lab 1</a></li>
+    <li><a href="lab2.html">Lab 2</a></li>
+  </ul>
+</nav>
+
 <canvas id="statsBG"></canvas>
 <div class="bg-overlay"></div>
 
